@@ -1,6 +1,6 @@
 python-mystrom
 ==============
-Python API for controlling `myStrom <https://mystrom.ch>`_ switches.
+Python API for controlling `myStrom <https://mystrom.ch>`_ switches/plugs.
 
 Requirements
 ------------
@@ -23,7 +23,7 @@ You will still be able to use your device with the smartphone application,
 
 .. code:: bash
 
-    $ http http://10.100.0.137/report
+    $ http http://IP_ADDRESS_PLUG/report
     HTTP/1.1 200 OK
     Content-Length: 39
     Content-Type: application/json
@@ -44,7 +44,7 @@ The sample below shows how to use this Python module.
 
 .. code:: python
 
-    plug = pymystrom.MyStromPlug('10.100.0.137')
+    plug = pymystrom.MyStromPlug('IP_ADDRESS_PLUG')
 
     # Preserve state
     STATE_ON = plug.get_relay_state()
