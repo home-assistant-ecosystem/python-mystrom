@@ -4,7 +4,7 @@ Python API for controlling `myStrom <https://mystrom.ch>`_ switches.
 
 Requirements
 ------------
-You need to have `Python <https://www.python.org>`_ installed. 
+You need to have `Python <https://www.python.org>`_ installed.
 
 - `myStrom <https://mystrom.ch>`_ switch
 - `requests <http://docs.python-requests.org/en/master/>`_
