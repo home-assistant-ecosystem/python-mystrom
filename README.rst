@@ -1,4 +1,4 @@
-python-mystrom | License | | PyPI |
+python-mystrom |License| |PyPI|
 ===================================
 
 Python API for controlling `myStrom <https://mystrom.ch>`_ switches/plugs.
@@ -70,9 +70,9 @@ License
 -------
 ``python-mystrom`` licensed under MIT, for more details check LICENSE.
 
-.. | License | image:: https://img.shields.io/pypi/l/python-mystrom.svg
+.. |License| image:: https://img.shields.io/pypi/l/python-mystrom.svg
    :target: https://github.com/fabaff/python-mystrom/blob/master/LICENSE
    :alt: License
-.. | PyPI | image:: https://img.shields.io/pypi/v/python-mystrom.svg
+.. |PyPI| image:: https://img.shields.io/pypi/v/python-mystrom.svg
    :target: https://pypi.python.org/pypi/python-mystrom
    :alt: PyPI release
