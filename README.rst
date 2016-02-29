@@ -1,5 +1,5 @@
- +[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/fabaff/python-mystrom/blob/master/LICENSE)
-[![PyPI](https://img.shields.io/pypi/v/python-mystrom.svg)](https://pypi.python.org/pypi/python-mystrom)
+.. image:: https://img.shields.io/pypi/l/python-mystrom.svg   :target: https://github.com/fabaff/python-mystrom/blob/master/LICENSE
+.. image:: https://img.shields.io/pypi/v/python-mystrom.svg   :target: https://pypi.python.org/pypi/python-mystrom
 
 python-mystrom
 ==============
