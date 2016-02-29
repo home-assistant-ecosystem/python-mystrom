@@ -1,3 +1,6 @@
+[![PyPI](https://img.shields.io/pypi/l/Django.svg)](https://pypi.python.org/pypi/python-mystrom)
+[![PyPI](https://img.shields.io/pypi/v/nine.svg)](https://pypi.python.org/pypi/python-mystrom)
+
 python-mystrom
 ==============
 Python API for controlling `myStrom <https://mystrom.ch>`_ switches/plugs.
