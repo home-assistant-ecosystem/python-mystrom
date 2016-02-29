@@ -1,5 +1,5 @@
-[![PyPI](https://img.shields.io/pypi/l/Django.svg)](https://pypi.python.org/pypi/python-mystrom)
-[![PyPI](https://img.shields.io/pypi/v/nine.svg)](https://pypi.python.org/pypi/python-mystrom)
+ +[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/fabaff/python-mystrom/blob/master/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/python-mystrom.svg)](https://pypi.python.org/pypi/python-mystrom)
 
 python-mystrom
 ==============
