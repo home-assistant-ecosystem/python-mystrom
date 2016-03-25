@@ -11,6 +11,14 @@ You need to have `Python <https://www.python.org>`_ installed.
 - `requests <http://docs.python-requests.org/en/master/>`_
 - Network connection
 
+Installation
+------------
+The package is available in the `Python Package Index <https://pypi.python.org/>`_ .
+
+.. code:: bash
+
+    $ pip install python-mystrom
+
 Details
 -------
 At the moment the following endpoints are covered:
