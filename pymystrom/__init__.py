@@ -7,9 +7,10 @@ import requests
 
 
 class MyStromPlug(object):
-    """ A class for a myStrom switch. """
+    """A class for a myStrom switch."""
 
     def __init__(self, host):
+        """Initialize the switch."""
         self.resource = 'http://{}'.format(host)
         self.timeout = 10
         self.data = None
@@ -18,7 +19,7 @@ class MyStromPlug(object):
         self.update()
 
     def set_relay_on(self):
-        """ Turn the relay on. """
+        """Turn the relay on."""
         if not self.get_relay_state():
             try:
                 request = requests.get('{}/relay'.format(self.resource),
@@ -27,10 +28,10 @@ class MyStromPlug(object):
                 if request.status_code == 200:
                     self.update()
             except requests.exceptions.ConnectionError:
-                print("Can't turn on %s.", self.resource)
+                raise ConnectionError()
 
     def set_relay_off(self):
-        """ Turn the relay off. """
+        """Turn the relay off."""
         if self.get_relay_state():
             try:
                 request = requests.get('{}/relay'.format(self.resource),
@@ -39,21 +40,21 @@ class MyStromPlug(object):
                 if request.status_code == 200:
                     self.update()
             except requests.exceptions.ConnectionError:
-                print("Can't turn on %s.", self.resource)
+                raise ConnectionError()
 
     def get_status(self):
-        """ Gets the details from the switch. """
+        """Gets the details from the switch."""
         try:
             request = requests.get('{}/report'.format(self.resource),
                                    timeout=10)
             self.data = request.json()
         except requests.exceptions.ConnectionError:
-            print("No route to device: ", self.resource)
+            raise ConnectionError()
         except ValueError:
-            print("No route to device: ", self.resource)
+            raise ConnectionError()
 
     def get_relay_state(self):
-        """ Get the relay state. """
+        """Get the relay state."""
         self.update()
         try:
             self.state = self.data['relay']
@@ -63,7 +64,7 @@ class MyStromPlug(object):
         return self.state
 
     def get_consumption(self):
-        """ Get current power consumption in mWh. """
+        """Get current power consumption in mWh."""
         self.update()
         try:
             self.consumption = self.data['power']
@@ -73,5 +74,5 @@ class MyStromPlug(object):
         return self.consumption
 
     def update(self):
-        """ Get current details from switch. """
+        """Get current details from switch."""
         return self.get_status()
