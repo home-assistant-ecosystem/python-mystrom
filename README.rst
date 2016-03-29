@@ -76,7 +76,7 @@ The sample below shows how to use this Python module.
 
 License
 -------
-``python-mystrom`` licensed under MIT, for more details check LICENSE.
+``python-mystrom`` is licensed under MIT, for more details check LICENSE.
 
 .. |License| image:: https://img.shields.io/pypi/l/python-mystrom.svg
    :target: https://github.com/fabaff/python-mystrom/blob/master/LICENSE
