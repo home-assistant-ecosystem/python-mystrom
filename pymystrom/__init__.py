@@ -12,7 +12,7 @@ class MyStromPlug(object):
     def __init__(self, host):
         """Initialize the switch."""
         self.resource = 'http://{}'.format(host)
-        self.timeout = 10
+        self.timeout = 5
         self.data = None
         self.state = None
         self.consumption = None
@@ -43,10 +43,10 @@ class MyStromPlug(object):
                 raise ConnectionError()
 
     def get_status(self):
-        """Gets the details from the switch."""
+        """Get the details from the switch."""
         try:
             request = requests.get('{}/report'.format(self.resource),
-                                   timeout=10)
+                                   timeout=self.timeout)
             self.data = request.json()
         except requests.exceptions.ConnectionError:
             raise ConnectionError()
