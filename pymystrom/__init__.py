@@ -15,8 +15,7 @@ class MyStromPlug(object):
         self.timeout = 5
         self.data = None
         self.state = None
-        self.consumption = None
-        self.update()
+        self.consumption = 0
 
     def set_relay_on(self):
         """Turn the relay on."""
@@ -26,7 +25,7 @@ class MyStromPlug(object):
                                        params={'state': '1'},
                                        timeout=self.timeout)
                 if request.status_code == 200:
-                    self.update()
+                    self.data['relay'] = True
             except requests.exceptions.ConnectionError:
                 raise ConnectionError()
 
@@ -38,7 +37,7 @@ class MyStromPlug(object):
                                        params={'state': '0'},
                                        timeout=self.timeout)
                 if request.status_code == 200:
-                    self.update()
+                    self.data['relay'] = False
             except requests.exceptions.ConnectionError:
                 raise ConnectionError()
 
@@ -55,7 +54,7 @@ class MyStromPlug(object):
 
     def get_relay_state(self):
         """Get the relay state."""
-        self.update()
+        self.get_status()
         try:
             self.state = self.data['relay']
         except TypeError:
@@ -65,14 +64,10 @@ class MyStromPlug(object):
 
     def get_consumption(self):
         """Get current power consumption in mWh."""
-        self.update()
+        self.get_status()
         try:
             self.consumption = self.data['power']
         except TypeError:
-            self.consumption = 'N/A'
+            self.consumption = 0
 
         return self.consumption
-
-    def update(self):
-        """Get current details from switch."""
-        return self.get_status()
