@@ -47,6 +47,7 @@ class MyStromPlug(object):
             request = requests.get('{}/report'.format(self.resource),
                                    timeout=self.timeout)
             self.data = request.json()
+            return self.data
         except requests.exceptions.ConnectionError:
             raise ConnectionError()
         except ValueError:
