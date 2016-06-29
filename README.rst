@@ -53,6 +53,8 @@ The sample below shows how to use this Python module.
 
 .. code:: python
 
+    import pymystrom
+
     plug = pymystrom.MyStromPlug('IP_ADDRESS_PLUG')
 
     # Preserve state
