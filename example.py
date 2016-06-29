@@ -17,7 +17,7 @@ if not STATE_ON:
     plug.set_relay_on()
     # Wait a few seconds to get a reading of the power consumption
     print('Waiting for a couple of seconds...')
-    time.sleep(10)
+    time.sleep(5)
 
 # Get the new state of the switch
 print('Relay state: ', plug.get_relay_state())
