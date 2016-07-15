@@ -6,7 +6,7 @@ Licensed under MIT. All rights reserved.
 from setuptools import setup
 
 setup(name='python-mystrom',
-      version='0.3.4',
+      version='0.3.5',
       description='Python API for controlling myStrom switches',
       url='https://github.com/fabaff/python-mystrom',
       author='Fabian Affolter',
