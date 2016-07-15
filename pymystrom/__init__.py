@@ -48,10 +48,9 @@ class MyStromPlug(object):
                                    timeout=self.timeout)
             self.data = request.json()
             return self.data
-        except requests.exceptions.ConnectionError:
-            raise ConnectionError()
-        except ValueError:
-            raise ConnectionError()
+        except (requests.exceptions.ConnectionError, ValueError):
+            self.data = {"power": 0, "relay": "offline"}
+            return self.data
 
     def get_relay_state(self):
         """Get the relay state."""
