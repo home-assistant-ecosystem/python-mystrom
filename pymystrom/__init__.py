@@ -27,7 +27,8 @@ class MyStromPlug(object):
                 if request.status_code == 200:
                     self.data['relay'] = True
             except requests.exceptions.ConnectionError:
-                raise ConnectionError()
+                self.state = False
+                return self.state
 
     def set_relay_off(self):
         """Turn the relay off."""
@@ -39,7 +40,8 @@ class MyStromPlug(object):
                 if request.status_code == 200:
                     self.data['relay'] = False
             except requests.exceptions.ConnectionError:
-                raise ConnectionError()
+                self.state = None
+                return self.state
 
     def get_status(self):
         """Get the details from the switch."""
@@ -49,8 +51,8 @@ class MyStromPlug(object):
             self.data = request.json()
             return self.data
         except (requests.exceptions.ConnectionError, ValueError):
-            self.data = {"power": 0, "relay": "offline"}
-            return self.data
+            self.state = False
+            return self.state
 
     def get_relay_state(self):
         """Get the relay state."""
@@ -58,7 +60,7 @@ class MyStromPlug(object):
         try:
             self.state = self.data['relay']
         except TypeError:
-            self.state = None
+            self.state = False
 
         return self.state
 
