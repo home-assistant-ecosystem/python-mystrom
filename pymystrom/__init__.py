@@ -5,6 +5,7 @@ Licensed under MIT. All rights reserved.
 """
 import requests
 
+from . import exceptions
 
 class MyStromPlug(object):
     """A class for a myStrom switch."""
@@ -27,7 +28,7 @@ class MyStromPlug(object):
                 if request.status_code == 200:
                     self.data['relay'] = True
             except requests.exceptions.ConnectionError:
-                self.data['relay'] = False
+                raise exceptions.MyStromConnectionError()
 
     def set_relay_off(self):
         """Turn the relay off."""
@@ -39,7 +40,7 @@ class MyStromPlug(object):
                 if request.status_code == 200:
                     self.data['relay'] = False
             except requests.exceptions.ConnectionError:
-                self.data['relay'] = False
+                raise exceptions.MyStromConnectionError()
 
     def get_status(self):
         """Get the details from the switch."""
@@ -49,8 +50,7 @@ class MyStromPlug(object):
             self.data = request.json()
             return self.data
         except (requests.exceptions.ConnectionError, ValueError):
-            self.data = {'relay': False, 'power': 0}
-            return self.data
+            raise exceptions.MyStromConnectionError()
 
     def get_relay_state(self):
         """Get the relay state."""
