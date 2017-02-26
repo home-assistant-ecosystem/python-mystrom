@@ -83,6 +83,6 @@ License
 .. |License| image:: https://img.shields.io/pypi/l/python-mystrom.svg
    :target: https://github.com/fabaff/python-mystrom/blob/master/LICENSE
    :alt: License
-.. |PyPI| image:: https://img.shields.io/pypi/v/python-mystrom.svg
+.. |PyPI| image:: https://img.shields.io/pypi/v/nine.svg
    :target: https://pypi.python.org/pypi/python-mystrom
    :alt: PyPI release
