@@ -81,8 +81,9 @@ License
 ``python-mystrom`` is licensed under MIT, for more details check LICENSE.
 
 .. |License| image:: https://img.shields.io/pypi/l/python-mystrom.svg
-   :target: https://github.com/fabaff/python-mystrom/blob/master/LICENSE
+   :target: https://pypi.python.org/pypi/python-mystrom
    :alt: License
-.. |PyPI| image:: https://img.shields.io/pypi/v/nine.svg
+
+.. |PyPI| image:: https://img.shields.io/pypi/v/python-mystrom.svg
    :target: https://pypi.python.org/pypi/python-mystrom
    :alt: PyPI release
