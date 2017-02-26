@@ -80,7 +80,7 @@ License
 -------
 ``python-mystrom`` is licensed under MIT, for more details check LICENSE.
 
-.. |License| image:: https://img.shields.io/pypi/l/python-mystrom.svg
+.. |License| image:: https://img.shields.io/badge/License-MIT-green.svg
    :target: https://pypi.python.org/pypi/python-mystrom
    :alt: License
 
