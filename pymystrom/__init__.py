@@ -7,6 +7,7 @@ import requests
 
 from . import exceptions
 
+
 class MyStromPlug(object):
     """A class for a myStrom switch."""
 
@@ -22,9 +23,9 @@ class MyStromPlug(object):
         """Turn the relay on."""
         if not self.get_relay_state():
             try:
-                request = requests.get('{}/relay'.format(self.resource),
-                                       params={'state': '1'},
-                                       timeout=self.timeout)
+                request = requests.get(
+                    '{}/relay'.format(self.resource), params={'state': '1'},
+                    timeout=self.timeout)
                 if request.status_code == 200:
                     self.data['relay'] = True
             except requests.exceptions.ConnectionError:
@@ -34,9 +35,9 @@ class MyStromPlug(object):
         """Turn the relay off."""
         if self.get_relay_state():
             try:
-                request = requests.get('{}/relay'.format(self.resource),
-                                       params={'state': '0'},
-                                       timeout=self.timeout)
+                request = requests.get(
+                    '{}/relay'.format(self.resource), params={'state': '0'},
+                    timeout=self.timeout)
                 if request.status_code == 200:
                     self.data['relay'] = False
             except requests.exceptions.ConnectionError:
@@ -45,8 +46,8 @@ class MyStromPlug(object):
     def get_status(self):
         """Get the details from the switch."""
         try:
-            request = requests.get('{}/report'.format(self.resource),
-                                   timeout=self.timeout)
+            request = requests.get(
+                '{}/report'.format(self.resource), timeout=self.timeout)
             self.data = request.json()
             return self.data
         except (requests.exceptions.ConnectionError, ValueError):
