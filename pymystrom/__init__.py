@@ -7,6 +7,9 @@ import requests
 
 from . import exceptions
 
+# The switch uses a different schema than the bulbs and the buttons.
+URI = 'api/v1/device'
+
 
 class MyStromPlug(object):
     """A class for a myStrom switch."""
@@ -72,3 +75,26 @@ class MyStromPlug(object):
             self.consumption = 0
 
         return self.consumption
+
+class MyStromBulb(object):
+    """A class for a myStrom bulb."""
+
+    def __init__(self, host):
+        """Initialize the bulb."""
+        self.resource = 'http://{}'.format(host)
+        self.timeout = 5
+        self.data = None
+        self.state = None
+        self.consumption = 0
+
+    def get_status(self):
+        """Get the details from the bulb."""
+        try:
+            request = requests.get(
+                '{}/{}'.format(self.resource, URI), timeout=self.timeout)
+            self.data = request.json()
+            return self.data
+        except (requests.exceptions.ConnectionError, ValueError):
+            raise exceptions.MyStromConnectionError()
+
+
