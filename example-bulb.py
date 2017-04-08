@@ -33,35 +33,9 @@ print("Power consumption:", bulb.get_power())
 print("Current color:", bulb.get_color())
 print("Transition time:", bulb.get_transition_time())
 
-
-# Switch off off if it was on.
-#if STATE_ON:
-bulb.set_transition_time(100)
-print("Play with the colors...")
-bulb.set_color_hex('0000FF00')
-time.sleep(2)
-bulb.set_color_hex('00FFFF00')
-time.sleep(2)
-bulb.set_color_hex('FFFFFF00')
-
 # Test a fast flashing sequence
 print("Flash it...")
-bulb.set_transition_time(250)
-bulb.set_color_hex('00FF0000')
-time.sleep(1)
-bulb.set_color_hex('0000FF00')
-time.sleep(1)
-bulb.set_color_hex('00FF0000')
-time.sleep(1)
-bulb.set_color_hex('0000FF00')
-time.sleep(1)
-bulb.set_color_hex('00FF0000')
-time.sleep(1)
-bulb.set_color_hex('0000FF00')
-time.sleep(1)
-bulb.set_color_hex('00FF0000')
-time.sleep(1)
-bulb.set_color_hex('0000FF00')
+bulb.set_flashing(10, '00FF0000', '0000FF00')
 
 # Test a fast flashing sequence
 print("Rainbow")
