@@ -1,13 +1,14 @@
 python-mystrom |License| |PyPI|
 ===================================
 
-Python API for controlling `myStrom <https://mystrom.ch>`_ switches/plugs.
+Python API for controlling `myStrom <https://mystrom.ch>`_ devices like wifi
+plugs and wifi bulbs.
 
 Requirements
 ------------
 You need to have `Python <https://www.python.org>`_ installed.
 
-- `myStrom <https://mystrom.ch>`_ switch
+- `myStrom <https://mystrom.ch>`_ device
 - `requests <http://docs.python-requests.org/en/master/>`_
 - Network connection
 
@@ -19,8 +20,8 @@ The package is available in the `Python Package Index <https://pypi.python.org/>
 
     $ pip install python-mystrom
 
-Details
--------
+Details plug/switch
+-------------------
 At the moment the following endpoints are covered:
 
 - ``/report``: for getting the current state and the power consumption
@@ -62,15 +63,15 @@ The sample below shows how to use this Python module.
 
     # Switch relay on if the plug is currently off
     if not STATE_ON:
-        print('Relay will be switched on.')
+        print("Relay will be switched on")
         plug.set_relay_on()
         # Wait a few seconds to get a reading of the power consumption
-        print('Waiting for a couple of seconds...')
+        print("Waiting for a couple of seconds...")
         time.sleep(10)
 
     # Get the new state of the switch
-    print('Relay state: ', plug.get_relay_state())
-    print('Power consumption:', plug.get_consumption())
+    print("Relay state:", plug.get_relay_state())
+    print("Power consumption:", plug.get_consumption())
 
     # Switch relay off if it was off.
     if not STATE_ON:
