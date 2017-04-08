@@ -7,7 +7,7 @@ from setuptools import setup, find_packages
 
 setup(name='python-mystrom',
       version='0.3.7',
-      description='Python API for controlling myStrom switches',
+      description='Python API for controlling myStrom devices',
       url='https://github.com/fabaff/python-mystrom',
       author='Fabian Affolter',
       author_email='fabian@affolter-engineering.ch',
