@@ -11,6 +11,7 @@ import pymystrom
 URI = 'api/v1/device'
 TIMEOUT = 5
 
+
 @click.group()
 @click.version_option()
 def main():
@@ -24,6 +25,7 @@ def main():
 def config():
     """Handler for all action around the configuration of a myStrom device."""
 
+
 @config.command('read')
 @click.option('--ip', prompt="IP address of the myStrom device",
               help="IP address of the myStrom device.")
@@ -35,6 +37,7 @@ def read_config(ip, mac):
     request = requests.get(
         'http://{}/{}/{}/'.format(ip, URI, mac), timeout=TIMEOUT)
     print(request.json())
+
 
 @config.command('write')
 @click.option('--ip', prompt="IP address of the myStrom button",
@@ -64,6 +67,7 @@ def write_config(ip, mac, single, double, long, touch):
     if request.status_code == 200:
         click.echo("Configuration of %s set", mac)
 
+
 @config.command('reset')
 @click.option('--ip', prompt="IP address of the myStrom button",
               help="P address of the myStrom button.")
@@ -72,7 +76,7 @@ def write_config(ip, mac, single, double, long, touch):
 def reset_config(ip, mac):
     """Reset the current configuration of a myStrom button."""
     click.echo("Reset configuration of button %s" % ip)
-    data =  {
+    data = {
         'single': "",
         'double': "",
         'long': "",
@@ -84,9 +88,11 @@ def reset_config(ip, mac):
     if request.status_code == 200:
         click.echo("Configuration of %s reset" % mac)
 
+
 @main.group('bulb')
 def bulb():
     """Handler for all action around the configuration of a myStrom bulb."""
+
 
 @bulb.command('on')
 @click.option('--ip', prompt="IP address of the myStrom bulb",
@@ -113,6 +119,7 @@ def color(ip, mac, hue, saturation, value):
     """Switch the bulb on with the given color."""
     bulb = pymystrom.MyStromBulb(ip, mac)
     bulb.set_color_hsv(hue, saturation, value)
+
 
 @bulb.command('off')
 @click.option('--ip', prompt="IP address of the myStrom bulb",
