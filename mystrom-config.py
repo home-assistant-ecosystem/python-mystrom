@@ -50,7 +50,7 @@ def read_config(ip, mac):
 @click.option('--touch', prompt="URL for a touch", default="",
               help="URL for a touch.")
 def write_config(ip, mac, single, double, long, touch):
-    """Write the current configuration of a myStrom  button."""
+    """Write the current configuration of a myStrom button."""
     click.echo("Write configuration to device %s" % ip)
     data =  {
         'single': single,
@@ -97,6 +97,22 @@ def on(ip, mac):
     """Switch the bulb on."""
     bulb = pymystrom.MyStromBulb(ip, mac)
     bulb.set_color_hex('000000FF')
+
+@bulb.command('color')
+@click.option('--ip', prompt="IP address of the myStrom bulb",
+              help="IP address of the myStrom bulb.")
+@click.option('--mac', prompt="MAC address of the bulb",
+              help="MAC address of the bulb.")
+@click.option('--hue', prompt="Set the hue of the bulb",
+              help="Set the hue of the bulb.")
+@click.option('--saturation', prompt="Set the saturation of the bulb",
+              help="Set the saturation of the bulb.")
+@click.option('--value', prompt="Set the value of the bulb",
+              help="Set the value of the bulb.")
+def color(ip, mac, hue, saturation, value):
+    """Switch the bulb on with the given color."""
+    bulb = pymystrom.MyStromBulb(ip, mac)
+    bulb.set_color_hsv(hue, saturation, value)
 
 @bulb.command('off')
 @click.option('--ip', prompt="IP address of the myStrom bulb",
