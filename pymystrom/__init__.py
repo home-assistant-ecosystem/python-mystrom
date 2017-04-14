@@ -160,7 +160,6 @@ class MyStromBulb(object):
                 '{}/{}/{}/'.format(self.resource, URI, self._mac),
                 data={
                     'action': 'on',
-                    'mode': 'rgb',
                     'color': value,
                 },
                 timeout=self.timeout)
@@ -177,7 +176,7 @@ class MyStromBulb(object):
             import subprocess
             subprocess.run(
                 [
-                    'curl', '-d', 'action=on', '-d', 'mode=hsv', '-d',
+                    'curl', '-d', 'action=on', '-d',
                     'color={};{};{}'.format(hue, saturation, value),
                     '{}/{}/{}'.format(self.resource, URI, self._mac),
                  ],
@@ -186,7 +185,6 @@ class MyStromBulb(object):
             #     '{}/{}/{}'.format(self.resource, URI, self._mac),
             #     data={
             #         'action': 'on',
-            #         'mode': 'hsv',
             #         'color': '{};{};{}'.format(hue, saturation, value),
             #     },
             #     timeout=self.timeout)
@@ -201,7 +199,6 @@ class MyStromBulb(object):
 
     def set_rainbow(self, duration):
         """Turn the bulb on, create a rainbow."""
-        self.set_transition_time(100)
         for i in range(0, 359):
             self.set_color_hsv(i, 100, 100)
             time.sleep(duration/359)
@@ -214,7 +211,7 @@ class MyStromBulb(object):
                 import subprocess
                 subprocess.run(
                     [
-                        'curl', '-d', 'action=on', '-d', 'mode=mono', '-d',
+                        'curl', '-d', 'action=on', '-d',
                         'color=3;{}'.format(i),
                         '{}/{}/{}'.format(self.resource, URI, self._mac),
                      ],
