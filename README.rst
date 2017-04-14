@@ -1,14 +1,13 @@
 python-mystrom |License| |PyPI|
 ===================================
 
-Python API for controlling `myStrom <https://mystrom.ch>`_ devices like wifi
-plugs and wifi bulbs.
+Python API for interacting with `myStrom <https://mystrom.ch>`_ devices.
 
 Requirements
 ------------
 You need to have `Python <https://www.python.org>`_ installed.
 
-- `myStrom <https://mystrom.ch>`_ device
+- `myStrom <https://mystrom.ch>`_ device (bulb, plug, or button)
 - `requests <http://docs.python-requests.org/en/master/>`_
 - Network connection
 
