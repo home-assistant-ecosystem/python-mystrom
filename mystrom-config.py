@@ -21,6 +21,7 @@ def main():
     available actions single, double, long, and touch.
     """
 
+
 @main.group('config')
 def config():
     """Handler for all action around the configuration of a myStrom device."""
@@ -39,11 +40,16 @@ def read_config(ip, mac):
     print(request.json())
 
 
-@config.command('write')
+@main.group('button')
+def button():
+    """Handler for all action around the configuration of a myStrom button."""
+
+
+@button.command('generic')
 @click.option('--ip', prompt="IP address of the myStrom button",
-              help="P address of the myStrom button.")
+              help="IP address of the myStrom button.")
 @click.option('--mac', prompt="MAC address of the button",
-              help="MAC address of the button.")
+              help="MAC address of the myStrom button.")
 @click.option('--single', prompt="URL for a single tap", default="",
               help="URL for a single tap.")
 @click.option('--double', prompt="URL for a double tap", default="",
@@ -65,17 +71,49 @@ def write_config(ip, mac, single, double, long, touch):
         'http://{}/{}/{}/'.format(ip, URI, mac), data=data, timeout=TIMEOUT)
 
     if request.status_code == 200:
-        click.echo("Configuration of %s set", mac)
+        click.echo("Configuration of %s set" % mac)
 
 
-@config.command('reset')
+@button.command('home-assistant')
 @click.option('--ip', prompt="IP address of the myStrom button",
-              help="P address of the myStrom button.")
+              help="IP address of the myStrom button.")
 @click.option('--mac', prompt="MAC address of the button",
               help="MAC address of the button.")
+@click.option('--hass', prompt="IP address of the Home Assistant instance",
+              help="IP address of Home Assistant instance to use.")
+@click.option('--port', prompt="Port of Home Assistant instance",
+              default="8123",
+              help="Port where Home Assitant instance is listening.")
+@click.option('--id', prompt="ID of the myStrom button", default="",
+              help="ID of the myStrom button.")
+def write_ha_config(ip, mac, hass, port, id):
+    """Write the configuration for Home Assistant to a myStrom button."""
+    click.echo("Write configuration for Home Assistant to device %s..." % ip)
+
+    action = "get://{1}:{2}/api/mystrom?{0}={3}"
+    data = {
+        'single': action.format('single', hass, port, id),
+        'double':  action.format('double', hass, port, id),
+        'long':  action.format('long', hass, port, id),
+        'touch':  action.format('touch', hass, port, id),
+    }
+    request = requests.post(
+        'http://{}/{}/{}/'.format(ip, URI, mac), data=data, timeout=TIMEOUT)
+
+    if request.status_code == 200:
+        click.echo("Configuration for %s set" % ip)
+        click.echo("After using the push pattern the first time then"
+                   "the myStrom WiFi Button will show up as %s" % id)
+
+
+@button.command('reset')
+@click.option('--ip', prompt="IP address of the myStrom WiFi Button",
+              help="P address of the myStrom WiFi Button.")
+@click.option('--mac', prompt="MAC address of the myStrom button",
+              help="MAC address of the myStrom Wifi Button.")
 def reset_config(ip, mac):
-    """Reset the current configuration of a myStrom button."""
-    click.echo("Reset configuration of button %s" % ip)
+    """Reset the current configuration of a myStrom WiFi Button."""
+    click.echo("Reset configuration of button %s..." % ip)
     data = {
         'single': "",
         'double': "",
@@ -86,7 +124,7 @@ def reset_config(ip, mac):
         'http://{}/{}/{}/'.format(ip, URI, mac), data=data, timeout=TIMEOUT)
 
     if request.status_code == 200:
-        click.echo("Configuration of %s reset" % mac)
+        click.echo("Reset configuration of %s" % mac)
 
 
 @main.group('bulb')
@@ -103,6 +141,7 @@ def on(ip, mac):
     """Switch the bulb on."""
     bulb = pymystrom.MyStromBulb(ip, mac)
     bulb.set_color_hex('000000FF')
+
 
 @bulb.command('color')
 @click.option('--ip', prompt="IP address of the myStrom bulb",
