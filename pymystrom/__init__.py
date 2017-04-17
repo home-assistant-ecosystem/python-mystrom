@@ -221,7 +221,7 @@ class MyStromBulb(object):
             time.sleep(duration/100)
 
     def set_flashing(self, duration, color1, color2):
-        """Turn the bulb on, full white."""
+        """Turn the bulb on, flashing with two colors."""
         self.set_transition_time(100)
         for i in range(0, int(duration/2)):
             self.set_color_hex(color1)
