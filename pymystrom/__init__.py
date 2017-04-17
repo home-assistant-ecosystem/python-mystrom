@@ -147,6 +147,20 @@ class MyStromBulb(object):
 
         return {'color': self.color, 'mode': self.mode}
 
+    def set_on(self):
+        """Turn the bulb on."""
+        try:
+            request = requests.post(
+                '{}/{}/{}/'.format(self.resource, URI, self._mac),
+                data={
+                    'action': 'on',
+                },
+                timeout=self.timeout)
+            if request.status_code == 200:
+                pass
+        except requests.exceptions.ConnectionError:
+            raise exceptions.MyStromConnectionError()
+
     def set_color_hex(self, value):
         """Turn the bulb on with the given color as HEX.
 
