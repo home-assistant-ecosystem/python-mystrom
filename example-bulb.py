@@ -13,7 +13,11 @@ STATE_ON = bulb.get_bulb_state()
 
 #  Switch bulb on if the bulb is currently off
 if not STATE_ON:
-    print("Bulb will be switched on")
+    print("Bulb will be switched on with their previous setting")
+    bulb.set_on()
+    print("Waiting for a couple of seconds...")
+    time.sleep(2)
+    print("Bulb will be set to white")
     bulb.set_white()
     # Wait a few seconds to get a reading of the power consumption
     print("Waiting for a couple of seconds...")
