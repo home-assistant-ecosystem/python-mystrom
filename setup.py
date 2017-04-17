@@ -6,7 +6,7 @@ Licensed under MIT. All rights reserved.
 from setuptools import setup, find_packages
 
 setup(name='python-mystrom',
-      version='0.3.7',
+      version='0.3.8',
       description='Python API for interacting with myStrom devices',
       url='https://github.com/fabaff/python-mystrom',
       author='Fabian Affolter',
