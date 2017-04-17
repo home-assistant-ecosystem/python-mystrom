@@ -89,6 +89,7 @@ class MyStromBulb(object):
         self.data = None
         self.state = None
         self.consumption = 0
+        self.brightness = 0
         self.color = None
         self.transition_time = 0
 
@@ -125,6 +126,16 @@ class MyStromBulb(object):
 
         return self.consumption
 
+    def get_brightness(self):
+        """Get current brightness."""
+        self.get_status()
+        try:
+            self.brightness = self.data['color'].split(';')[-1]
+        except TypeError:
+            self.brightness = 0
+
+        return self.brightness
+
     def get_transition_time(self):
         """Get the transition time in ms."""
         self.get_status()
@@ -141,7 +152,6 @@ class MyStromBulb(object):
         try:
             self.color = self.data['color']
             self.mode = self.data['mode']
-            print("#### ", self.color, self.mode)
         except TypeError:
             self.color = 0
             self.mode = ''
@@ -149,7 +159,7 @@ class MyStromBulb(object):
         return {'color': self.color, 'mode': self.mode}
 
     def set_on(self):
-        """Turn the bulb on."""
+        """Turn the bulb on with the previous used settings."""
         try:
             request = requests.post(
                 '{}/{}/{}/'.format(self.resource, URI, self._mac),
