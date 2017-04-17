@@ -141,6 +141,7 @@ class MyStromBulb(object):
         try:
             self.color = self.data['color']
             self.mode = self.data['mode']
+            print("#### ", self.color, self.mode)
         except TypeError:
             self.color = 0
             self.mode = ''
@@ -212,13 +213,13 @@ class MyStromBulb(object):
         self.set_color_hex('FF000000')
 
     def set_rainbow(self, duration):
-        """Turn the bulb on, create a rainbow."""
+        """Turn the bulb on and create a rainbow."""
         for i in range(0, 359):
             self.set_color_hsv(i, 100, 100)
             time.sleep(duration/359)
 
     def set_sunrise(self, duration):
-        """Turn the bulb on, full white."""
+        """Turn the bulb on and create a sunrise."""
         self.set_transition_time(duration/100)
         for i in range(0, duration):
             try:
