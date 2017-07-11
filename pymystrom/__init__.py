@@ -91,6 +91,7 @@ class MyStromBulb(object):
         self.consumption = 0
         self.brightness = 0
         self.color = None
+        self.mode = None
         self.transition_time = 0
 
     def get_status(self):
@@ -220,7 +221,7 @@ class MyStromBulb(object):
 
     def set_white(self):
         """Turn the bulb on, full white."""
-        self.set_color_hex('FF000000')
+        self.set_color_hsv(0, 0, 100)
 
     def set_rainbow(self, duration):
         """Turn the bulb on and create a rainbow."""
