@@ -246,13 +246,14 @@ class MyStromBulb(object):
                 raise exceptions.MyStromConnectionError()
             time.sleep(duration/100)
 
-    def set_flashing(self, duration, color1, color2):
+    def set_flashing(self, duration, hue1, hue2, saturation1, saturation2,
+                     value1, value2):
         """Turn the bulb on, flashing with two colors."""
         self.set_transition_time(100)
         for i in range(0, int(duration/2)):
-            self.set_color_hex(color1)
+            set.set_color_hsv(hue1, saturation1, value1)
             time.sleep(1)
-            self.set_color_hex(color2)
+            self.set_color_hsv(hue2, saturation2, value2)
             time.sleep(1)
 
     def set_transition_time(self, value):
