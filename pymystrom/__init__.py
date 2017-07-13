@@ -250,7 +250,7 @@ class MyStromBulb(object):
                      value1, value2):
         """Turn the bulb on, flashing with two colors."""
         self.set_transition_time(100)
-        for i in range(0, int(duration/2)):
+        for step in range(0, int(duration/2)):
             set.set_color_hsv(hue1, saturation1, value1)
             time.sleep(1)
             self.set_color_hsv(hue2, saturation2, value2)
