@@ -160,7 +160,7 @@ class MyStromBulb(object):
         return {'color': self.color, 'mode': self.mode}
 
     def set_on(self):
-        """Turn the bulb on with the previous used settings."""
+        """Turn the bulb on with the previous settings."""
         try:
             request = requests.post(
                 '{}/{}/{}/'.format(self.resource, URI, self._mac),
