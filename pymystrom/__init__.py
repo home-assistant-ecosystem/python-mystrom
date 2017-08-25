@@ -91,6 +91,7 @@ class MyStromBulb(object):
         self.consumption = 0
         self.brightness = 0
         self.color = None
+        self.firmware = None
         self.mode = None
         self.transition_time = 0
 
@@ -126,6 +127,16 @@ class MyStromBulb(object):
             self.consumption = 0
 
         return self.consumption
+
+    def get_firmware(self):
+        """Get the current firmware version."""
+        self.get_status()
+        try:
+            self.firmware = self.data['fw_version']
+        except TypeError:
+            self.firmware = 'Unknown'
+
+        return self.firmware
 
     def get_brightness(self):
         """Get current brightness."""
