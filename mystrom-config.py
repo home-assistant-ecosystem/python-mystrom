@@ -61,7 +61,7 @@ def button():
 def write_config(ip, mac, single, double, long, touch):
     """Write the current configuration of a myStrom button."""
     click.echo("Write configuration to device %s" % ip)
-    data =  {
+    data = {
         'single': single,
         'double': double,
         'long': long,
