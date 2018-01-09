@@ -18,7 +18,7 @@ def main():
     """Simple command-line tool to get and set the values of a myStrom devices.
 
     This tool can set the targets of a myStrom button for the different
-    available actions single, double, long, and touch.
+    available actions single, double, long and touch.
     """
 
 
