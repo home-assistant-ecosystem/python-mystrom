@@ -1,5 +1,5 @@
 """
-Copyright (c) 2017 Fabian Affolter <fabian@affolter-engineering.ch>
+Copyright (c) 2017-2018 Fabian Affolter <fabian@affolter-engineering.ch>
 
 Licensed under MIT. All rights reserved.
 """
@@ -139,7 +139,7 @@ def bulb():
               help="MAC address of the bulb.")
 def on(ip, mac):
     """Switch the bulb on."""
-    bulb = pymystrom.MyStromBulb(ip, mac)
+    bulb = pymystrom.bulb.MyStromBulb(ip, mac)
     bulb.set_color_hex('000000FF')
 
 
@@ -156,7 +156,7 @@ def on(ip, mac):
               help="Set the value of the bulb.")
 def color(ip, mac, hue, saturation, value):
     """Switch the bulb on with the given color."""
-    bulb = pymystrom.MyStromBulb(ip, mac)
+    bulb = pymystrom.bulb.MyStromBulb(ip, mac)
     bulb.set_color_hsv(hue, saturation, value)
 
 
@@ -167,8 +167,9 @@ def color(ip, mac, hue, saturation, value):
               help="MAC address of the bulb.")
 def off(ip, mac):
     """Switch the bulb off."""
-    bulb = pymystrom.MyStromBulb(ip, mac)
+    bulb = pymystrom.bulb.MyStromBulb(ip, mac)
     bulb.set_off()
+
 
 if __name__ == '__main__':
     main()
