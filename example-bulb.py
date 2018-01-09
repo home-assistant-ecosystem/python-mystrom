@@ -1,12 +1,13 @@
 """
-Copyright (c) 2017 Fabian Affolter <fabian@affolter-engineering.ch>
+Copyright (c) 2017-2018 Fabian Affolter <fabian@affolter-engineering.ch>
 
 Licensed under MIT. All rights reserved.
 """
 import time
-import pymystrom
 
-bulb = pymystrom.MyStromBulb('192.168.0.52', '5CCF7FA0AFB0')
+from pymystrom import bulb
+
+bulb = bulb.MyStromBulb('192.168.0.51', '5CCF7FA0AFB0')
 
 # Preserve state
 STATE_ON = bulb.get_bulb_state()
@@ -31,23 +32,18 @@ if not STATE_ON:
     bulb.set_color_hsv(50, 100, 100)
     time.sleep(3)
 
-# Get the new state of the switch
-print("Bulb state:", bulb.get_bulb_state())
-print("Power consumption:", bulb.get_power())
-print("Current color:", bulb.get_color())
-print("Transition time:", bulb.get_transition_time())
-
 # Test a fast flashing sequence
 print("Flash it...")
 bulb.set_flashing(10, '00FF0000', '0000FF00')
 
 # Test a fast flashing sequence
-print("Rainbow")
+print("Rainbow...")
 bulb.set_off()
 bulb.set_rainbow(60)
-#bulb.set_sunrise(60)
+bulb.set_sunrise(60)
 
-# Reset trasition time
+# Reset transition time
 bulb.set_transition_time(1000)
+
 # Shutdown the bulb
 bulb.set_off()

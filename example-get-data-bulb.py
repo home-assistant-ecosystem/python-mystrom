@@ -3,9 +3,9 @@ Copyright (c) 2017-2018 Fabian Affolter <fabian@affolter-engineering.ch>
 
 Licensed under MIT. All rights reserved.
 """
-import pymystrom
+from pymystrom import bulb
 
-bulb = pymystrom.MyStromBulb('192.168.0.51', '5CCF7FA0AFB0')
+bulb = bulb.MyStromBulb('192.168.0.51', '5CCF7FA0AFB0')
 
 # Get the details of the bulb
 print("Bulb state:", bulb.get_bulb_state())
