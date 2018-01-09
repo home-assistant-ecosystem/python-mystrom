@@ -19,7 +19,7 @@ setup(
     author='Fabian Affolter',
     author_email='fabian@affolter-engineering.ch',
     license='MIT',
-    install_requires=['requests>=2.0', 'click'],
+    install_requires=['requests', 'click'],
     packages=find_packages(),
     zip_safe=True,
     include_package_data=True,
