@@ -5,7 +5,6 @@ Licensed under MIT. All rights reserved.
 """
 import requests
 
-from . import URI
 from . import exceptions
 
 
