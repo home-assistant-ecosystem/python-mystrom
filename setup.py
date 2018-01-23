@@ -4,15 +4,14 @@ Copyright (c) 2015-2018 Fabian Affolter <fabian@affolter-engineering.ch>
 Licensed under MIT. All rights reserved.
 """
 import os
-from os import path
 
 import sys
 
 from setuptools import setup, find_packages
 
-here = path.abspath(path.dirname(__file__))
+here = os.path.abspath(os.path.dirname(__file__))
 
-with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
+with open(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 if sys.argv[-1] == 'publish':
@@ -36,4 +35,17 @@ setup(
     [console_scripts]
     mystrom=cli:main
 """,
+    classifiers=[
+        'Development Status :: 3 - Alpha',
+        'Environment :: Console',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: MIT License',
+        'Operating System :: MacOS :: MacOS X',
+        'Operating System :: Microsoft :: Windows',
+        'Operating System :: POSIX',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Topic :: Utilities',
+    ],
 )
