@@ -218,6 +218,8 @@ The sample below shows how to use this Python module.
     if not STATE_ON:
         plug.set_relay_off()
 
+Examples for the bulb can be found in the directory ``examples``.
+
 License
 -------
 ``python-mystrom`` is licensed under MIT, for more details check LICENSE.
