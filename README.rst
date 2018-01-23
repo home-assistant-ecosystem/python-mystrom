@@ -74,18 +74,18 @@ Set State
 `````````
 You can set the state with a POST request and a payload.
 
- - **on**: ``curl -d "action=on" http://IP_ADDRESS_BULB/api/v1/device/MAC_ADDRESS_BULB``
- - **off**:  ``curl -d "action=off" http://IP_ADDRESS_BULB/api/v1/device/MAC_ADDRESS_BULB``
- - **toggle**: ``$ curl -d "action=toggle" http://IP_ADDRESS_BULB/api/v1/device/MAC_ADDRESS_BULB``
+- **on**: ``curl -d "action=on" http://IP_ADDRESS_BULB/api/v1/device/MAC_ADDRESS_BULB``
+- **off**:  ``curl -d "action=off" http://IP_ADDRESS_BULB/api/v1/device/MAC_ADDRESS_BULB``
+- **toggle**: ``$ curl -d "action=toggle" http://IP_ADDRESS_BULB/api/v1/device/MAC_ADDRESS_BULB``
 
 Set Color RGB
 `````````````
 One of the supported modes for setting the color is **RBG**.
 
- - **white**: ``$ curl -d "color=FF000000" http://IP_ADDRESS_BULB/api/v1/device/MAC_ADDRESS_BULB``
- - **red**: ``$ curl -d "color=00FF0000" http://IP_ADDRESS_BULB/api/v1/device/MAC_ADDRESS_BULB``
- - **green**: ``$ curl -d "color=0000FF00" http://IP_ADDRESS_BULB/api/v1/device/MAC_ADDRESS_BULB``
- - **blue**: ``$ curl -d "color=000000FF" http://IP_ADDRESS_BULB/api/v1/device/MAC_ADDRESS_BULB``
+- **white**: ``$ curl -d "color=FF000000" http://IP_ADDRESS_BULB/api/v1/device/MAC_ADDRESS_BULB``
+- **red**: ``$ curl -d "color=00FF0000" http://IP_ADDRESS_BULB/api/v1/device/MAC_ADDRESS_BULB``
+- **green**: ``$ curl -d "color=0000FF00" http://IP_ADDRESS_BULB/api/v1/device/MAC_ADDRESS_BULB``
+- **blue**: ``$ curl -d "color=000000FF" http://IP_ADDRESS_BULB/api/v1/device/MAC_ADDRESS_BULB``
 
 Set Color HSV (Hue, Saturation, Value)
 ``````````````````````````````````````
@@ -119,7 +119,7 @@ The unit of measurement for ramp is milliseconds (ms).
 
 Button
 ------
-
+The buttons can be set with the myStrom app or directly via HTTP requests.
 
 To set the configuration the payload must contains the relevant details for
 the actions:
