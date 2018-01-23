@@ -7,9 +7,10 @@ Requirements
 ------------
 You need to have `Python <https://www.python.org>`_ installed.
 
-- `myStrom <https://mystrom.ch>`_ device (bulb, plug, or button)
+- `myStrom <https://mystrom.ch>`_ device (bulb, plug or button)
 - `requests <http://docs.python-requests.org/en/master/>`_
 - Network connection
+- Devices connected to your network
 
 Installation
 ------------
@@ -19,15 +20,15 @@ The package is available in the `Python Package Index <https://pypi.python.org/>
 
     $ pip install python-mystrom
 
-Details plug/switch
--------------------
+Plug/switch
+-----------
 At the moment the following endpoints are covered:
 
 - ``/report``: for getting the current state and the power consumption
 - ``/relay``: for setting the relay state
 
 You will still be able to use your device with the smartphone application,
-``curl``, or other tools. The samples below shows how to use the switch with
+``curl`` or other tools. The samples below shows how to use the switch with
 ``httpie`` and ``curl`` along with ``python-mystrom``.
 
 .. code:: bash
@@ -46,6 +47,97 @@ You will still be able to use your device with the smartphone application,
 .. code:: bash
 
     $ curl -X GET http://IP_ADDRESS_PLUG/relay?state=1
+
+
+Bulb
+----
+If the bulb is on then you should be able to retrieve the current state of
+the bulb.
+
+Browse to http://IP_ADDRESS_BULB/api/v1/device/MAC_ADDRESS_BULB or use a
+command-line tool.
+
+.. code:: bash
+
+    $ curl -d "color=0;0;100" -d "action=on" http://IP_ADDRESS_BULB/api/v1/device/MAC_ADDRESS_BULB
+    {
+	"5DFF7FAHZ987": 	{
+		"on": true,
+		"color": "0;0;100",
+		"mode": "hsv",
+		"ramp": 100,
+		"notifyurl": ""
+	    }
+    }
+
+Set State
+`````````
+You can set the state with a POST request and a payload.
+
+ - **on**: ``curl -d "action=on" http://IP_ADDRESS_BULB/api/v1/device/MAC_ADDRESS_BULB``
+ - **off**:  ``curl -d "action=off" http://IP_ADDRESS_BULB/api/v1/device/MAC_ADDRESS_BULB``
+ - **toggle**: ``$ curl -d "action=toggle" http://IP_ADDRESS_BULB/api/v1/device/MAC_ADDRESS_BULB``
+
+Set Color RGB
+`````````````
+One of the supported modes for setting the color is **RBG**.
+
+ - **white**: ``$ curl -d "color=FF000000" http://IP_ADDRESS_BULB/api/v1/device/MAC_ADDRESS_BULB``
+ - **red**: ``$ curl -d "color=00FF0000" http://IP_ADDRESS_BULB/api/v1/device/MAC_ADDRESS_BULB``
+ - **green**: ``$ curl -d "color=0000FF00" http://IP_ADDRESS_BULB/api/v1/device/MAC_ADDRESS_BULB``
+ - **blue**: ``$ curl -d "color=000000FF" http://IP_ADDRESS_BULB/api/v1/device/MAC_ADDRESS_BULB``
+
+Set Color HSV (Hue, Saturation, Value)
+``````````````````````````````````````
+It's also possible to use **HSV**.
+
+.. code:: bash
+
+    $ curl -d "color=0;0;100" http://IP_ADDRESS_BULB/api/v1/device/MAC_ADDRESS_BULB
+
+While "color=" is composed with hue, saturation, and value.
+
+Set Mono (white)
+````````````````
+If you only want to set the "white" color of the bulb, use **mono**.
+
+.. code:: bash
+
+    $ curl -d "color=10;100" http://IP_ADDRESS_BULB/api/v1/device/MAC_ADDRESS_BULB
+
+"color=" contains the value for the color temperature (from 1 to 18) and the brightness (from 0 to 100).
+
+Dimming (ramp)
+``````````````
+Add **ramp** and an interval to set up the transition time while changing colors.
+
+.. code:: bash
+
+    $ curl -d "action=on&ramp=1000&color=00FF0000" http://IP_ADDRESS_BULB/api/v1/device/MAC_ADDRESS_BULB
+
+The unit of measurement for ramp is milliseconds (ms).
+
+Button
+------
+
+
+To set the configuration the payload must contains the relevant details for
+the actions:
+
+``$ curl -v -d "single=<url>&double=<url>&long=<url>&touch=<url>" http://IP_ADDRESS_BUTTON/api/v1/device/MAC_ADDRESS_BUTTON``
+
+Available actions:
+
+ - **single**: Short push (approx. 1/2 seconds)
+ - **double**: 2x sequential short pushes (within 2 seconds)
+ - **long**: Long push (approx. 2 seconds)
+ - **touch**: Touch of the button's surface (only affective for the WiFi Button +)
+
+
+The button is set up to extend the life span of the battery as much as
+possible. This means that only within the first 3 minutes or when connected
+to an USB port/USB charger and the battery is not full, the button is able
+to receive configuration information or publish its details.
 
 Example
 -------
