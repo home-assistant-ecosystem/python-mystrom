@@ -24,12 +24,12 @@ def main():
 
 @main.group('config')
 def config():
-    """Handler for all action around the configuration of a myStrom device."""
+    """Get and set the configuration of a myStrom device."""
 
 
 @config.command('read')
-@click.option('--ip', prompt="IP address of the myStrom device",
-              help="IP address of the myStrom device.")
+@click.option('--ip', prompt="IP address of the device",
+              help="IP address of the device.")
 @click.option('--mac', prompt="MAC address of the device",
               help="MAC address of the device.")
 def read_config(ip, mac):
@@ -42,14 +42,14 @@ def read_config(ip, mac):
 
 @main.group('button')
 def button():
-    """Handler for all action around the configuration of a myStrom button."""
+    """Get and set details of a myStrom button."""
 
 
 @button.command('generic')
-@click.option('--ip', prompt="IP address of the myStrom button",
-              help="IP address of the myStrom button.")
+@click.option('--ip', prompt="IP address of the button",
+              help="IP address of the button.")
 @click.option('--mac', prompt="MAC address of the button",
-              help="MAC address of the myStrom button.")
+              help="MAC address of the button.")
 @click.option('--single', prompt="URL for a single tap", default="",
               help="URL for a single tap.")
 @click.option('--double', prompt="URL for a double tap", default="",
@@ -75,16 +75,16 @@ def write_config(ip, mac, single, double, long, touch):
 
 
 @button.command('home-assistant')
-@click.option('--ip', prompt="IP address of the myStrom button",
-              help="IP address of the myStrom button.")
+@click.option('--ip', prompt="IP address of the button",
+              help="IP address of the button.")
 @click.option('--mac', prompt="MAC address of the button",
               help="MAC address of the button.")
 @click.option('--hass', prompt="IP address of the Home Assistant instance",
               help="IP address of Home Assistant instance to use.")
 @click.option('--port', prompt="Port of Home Assistant instance",
               default="8123",
-              help="Port where Home Assitant instance is listening.")
-@click.option('--id', prompt="ID of the myStrom button", default="",
+              help="Port where Home Assistant instance is listening.")
+@click.option('--id', prompt="ID of the button", default="",
               help="ID of the myStrom button.")
 def write_ha_config(ip, mac, hass, port, id):
     """Write the configuration for Home Assistant to a myStrom button."""
@@ -107,10 +107,10 @@ def write_ha_config(ip, mac, hass, port, id):
 
 
 @button.command('reset')
-@click.option('--ip', prompt="IP address of the myStrom WiFi Button",
-              help="P address of the myStrom WiFi Button.")
-@click.option('--mac', prompt="MAC address of the myStrom button",
-              help="MAC address of the myStrom Wifi Button.")
+@click.option('--ip', prompt="IP address of the WiFi Button",
+              help="P address of the WiFi Button.")
+@click.option('--mac', prompt="MAC address of the button",
+              help="MAC address of the Wifi Button.")
 def reset_config(ip, mac):
     """Reset the current configuration of a myStrom WiFi Button."""
     click.echo("Reset configuration of button %s..." % ip)
@@ -129,12 +129,12 @@ def reset_config(ip, mac):
 
 @main.group('bulb')
 def bulb():
-    """Handler for all action around the configuration of a myStrom bulb."""
+    """Get and set details of a myStrom bulb."""
 
 
 @bulb.command('on')
-@click.option('--ip', prompt="IP address of the myStrom bulb",
-              help="IP address of the myStrom bulb.")
+@click.option('--ip', prompt="IP address of the bulb",
+              help="IP address of the bulb.")
 @click.option('--mac', prompt="MAC address of the bulb",
               help="MAC address of the bulb.")
 def on(ip, mac):
@@ -144,8 +144,8 @@ def on(ip, mac):
 
 
 @bulb.command('color')
-@click.option('--ip', prompt="IP address of the myStrom bulb",
-              help="IP address of the myStrom bulb.")
+@click.option('--ip', prompt="IP address of the bulb",
+              help="IP address of the bulb.")
 @click.option('--mac', prompt="MAC address of the bulb",
               help="MAC address of the bulb.")
 @click.option('--hue', prompt="Set the hue of the bulb",
@@ -161,8 +161,8 @@ def color(ip, mac, hue, saturation, value):
 
 
 @bulb.command('off')
-@click.option('--ip', prompt="IP address of the myStrom bulb",
-              help="IP address of the myStrom bulb.")
+@click.option('--ip', prompt="IP address of the bulb",
+              help="IP address of the bulb.")
 @click.option('--mac', prompt="MAC address of the bulb",
               help="MAC address of the bulb.")
 def off(ip, mac):
