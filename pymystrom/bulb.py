@@ -108,10 +108,7 @@ class MyStromBulb(object):
         try:
             request = requests.post(
                 '{}/{}/{}/'.format(self.resource, URI, self._mac),
-                data={
-                    'action': 'on',
-                },
-                timeout=self.timeout)
+                data={'action': 'on'}, timeout=self.timeout)
             if request.status_code == 200:
                 pass
         except requests.exceptions.ConnectionError:
@@ -133,7 +130,7 @@ class MyStromBulb(object):
         try:
             request = requests.post(
                 '{}/{}/{}/'.format(self.resource, URI, self._mac),
-                data=data, timeout=self.timeout)
+                json=data, timeout=self.timeout)
             if request.status_code == 200:
                 pass
         except requests.exceptions.ConnectionError:
@@ -142,25 +139,12 @@ class MyStromBulb(object):
     def set_color_hsv(self, hue, saturation, value):
         """Turn the bulb on with the given values as HSV."""
         try:
-            # 'color': "12;100;100" -> JSON? 'color': [12, 100, 100]
-            # urlencoding issue
-            import subprocess
-            subprocess.run(
-                [
-                    'curl', '-d', 'action=on', '-d',
-                    'color={};{};{}'.format(hue, saturation, value),
-                    '{}/{}/{}'.format(self.resource, URI, self._mac),
-                 ],
-                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            # request = requests.post(
-            #     '{}/{}/{}'.format(self.resource, URI, self._mac),
-            #     data={
-            #         'action': 'on',
-            #         'color': '{};{};{}'.format(hue, saturation, value),
-            #     },
-            #     timeout=self.timeout)
-            # if request.status_code == 200:
-            #     self.data['on'] = True
+            data = "action=on&color={};{};{}".format(hue, saturation, value)
+            request = requests.post(
+                '{}/{}/{}'.format(self.resource, URI, self._mac),
+                data=data, timeout=self.timeout)
+            if request.status_code == 200:
+                self.data['on'] = True
         except requests.exceptions.ConnectionError:
             raise exceptions.MyStromConnectionError()
 
@@ -179,26 +163,23 @@ class MyStromBulb(object):
         self.set_transition_time(duration/100)
         for i in range(0, duration):
             try:
-                import subprocess
-                subprocess.run(
-                    [
-                        'curl', '-d', 'action=on', '-d',
-                        'color=3;{}'.format(i),
-                        '{}/{}/{}'.format(self.resource, URI, self._mac),
-                     ],
-                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                data = "action=on&color=3;{}".format(i)
+                request = requests.post(
+                    '{}/{}/{}'.format(self.resource, URI, self._mac),
+                    data=data, timeout=self.timeout)
+                if request.status_code == 200:
+                    self.data['on'] = True
             except requests.exceptions.ConnectionError:
                 raise exceptions.MyStromConnectionError()
             time.sleep(duration/100)
 
-    def set_flashing(self, duration, hue1, hue2, saturation1, saturation2,
-                     value1, value2):
+    def set_flashing(self, duration, hsv1, hsv2):
         """Turn the bulb on, flashing with two colors."""
         self.set_transition_time(100)
         for step in range(0, int(duration/2)):
-            set.set_color_hsv(hue1, saturation1, value1)
+            self.set_color_hsv(hsv1[0], hsv1[1], hsv1[2])
             time.sleep(1)
-            self.set_color_hsv(hue2, saturation2, value2)
+            self.set_color_hsv(hsv2[0], hsv2[1], hsv2[2])
             time.sleep(1)
 
     def set_transition_time(self, value):
@@ -206,10 +187,7 @@ class MyStromBulb(object):
         try:
             request = requests.post(
                 '{}/{}/{}/'.format(self.resource, URI, self._mac),
-                data={
-                    'ramp': value,
-                },
-                timeout=self.timeout)
+                data={'ramp': value}, timeout=self.timeout)
             if request.status_code == 200:
                 pass
         except requests.exceptions.ConnectionError:
@@ -220,10 +198,7 @@ class MyStromBulb(object):
         try:
             request = requests.post(
                 '{}/{}/{}/'.format(self.resource, URI, self._mac),
-                data={
-                    'action': 'off',
-                },
-                timeout=self.timeout)
+                data={'action': 'off'}, timeout=self.timeout)
             if request.status_code == 200:
                 pass
         except requests.exceptions.ConnectionError:
