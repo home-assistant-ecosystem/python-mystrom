@@ -1,5 +1,5 @@
 """
-Copyright (c) 2015-2017 Fabian Affolter <fabian@affolter-engineering.ch>
+Copyright (c) 2015-2018 Fabian Affolter <fabian@affolter-engineering.ch>
 
 Licensed under MIT. All rights reserved.
 """
