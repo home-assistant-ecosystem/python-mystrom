@@ -105,11 +105,13 @@ If you only want to set the "white" color of the bulb, use **mono**.
 
     $ curl -d "color=10;100" http://IP_ADDRESS_BULB/api/v1/device/MAC_ADDRESS_BULB
 
-"color=" contains the value for the color temperature (from 1 to 18) and the brightness (from 0 to 100).
+"color=" contains the value for the color temperature (from 1 to 18) and the
+brightness (from 0 to 100).
 
 Dimming (ramp)
 ``````````````
-Add **ramp** and an interval to set up the transition time while changing colors.
+Add **ramp** and an interval to set up the transition time while changing
+colors.
 
 .. code:: bash
 
@@ -128,19 +130,67 @@ the actions:
 
 Available actions:
 
- - **single**: Short push (approx. 1/2 seconds)
- - **double**: 2x sequential short pushes (within 2 seconds)
- - **long**: Long push (approx. 2 seconds)
- - **touch**: Touch of the button's surface (only affective for the WiFi Button +)
-
+- **single**: Short push (approx. 1/2 seconds)
+- **double**: 2x sequential short pushes (within 2 seconds)
+- **long**: Long push (approx. 2 seconds)
+- **touch**: Touch of the button's surface (only affective for the WiFi
+  Button +)
 
 The button is set up to extend the life span of the battery as much as
 possible. This means that only within the first 3 minutes or when connected
 to an USB port/USB charger and the battery is not full, the button is able
 to receive configuration information or publish its details.
 
-Example
--------
+``mystrom`` helper tool
+-----------------------
+The command-line tool ``mystrom`` can help to set up the buttons and get the
+details from bulbs and plugs.
+
+.. code:: bash
+
+   $ mystrom
+   Usage: mystrom [OPTIONS] COMMAND [ARGS]...
+
+     Simple command-line tool to get and set the values of a myStrom devices.
+
+     This tool can set the targets of a myStrom button for the different
+     available actions single, double, long and touch.
+
+   Options:
+     --version  Show the version and exit.
+     --help     Show this message and exit.
+
+   Commands:
+     bulb    Get and set details of a myStrom bulb.
+     button  Get and set details of a myStrom button.
+     config  Get and set the configuration of a myStrom...
+
+
+The examples shows how to get the details of a given bulb.
+
+.. code:: bash
+
+   $ mystrom config read
+   IP address of the myStrom device: IP_ADDRESS_BULB
+   MAC address of the device: MAC_ADDRESS_BULB
+   Read configuration from IP_ADDRESS_BULB
+   {
+      'MAC_ADDRESS_BULB':{
+         'type':'rgblamp',
+         'battery':False,
+         'reachable':True,
+         'meshroot':False,
+         'on':True,
+         'color':'191;90;14',
+         'mode':'hsv',
+         'ramp':100,
+         'power':0.953,
+         'fw_version':'2.25'
+      }
+   }
+
+Example usage of the module
+---------------------------
 The sample below shows how to use this Python module.
 
 .. code:: python
