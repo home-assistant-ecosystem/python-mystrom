@@ -33,14 +33,17 @@ if not STATE_ON:
     time.sleep(3)
 
 # Test a fast flashing sequence
-print("Flash it...")
-bulb.set_flashing(10, '00FF0000', '0000FF00')
+print("Flash it for 10 seconds")
+bulb.set_flashing(10, [100, 50, 30], [200, 0, 71])
+bulb.set_off()
 
 # Test a fast flashing sequence
-print("Rainbow...")
-bulb.set_off()
-bulb.set_rainbow(60)
+print("Show a sunrise")
 bulb.set_sunrise(60)
+
+# Show a rainbow for 60 seconds
+print("Show a rainbow")
+bulb.set_rainbow(60)
 
 # Reset transition time
 bulb.set_transition_time(1000)
