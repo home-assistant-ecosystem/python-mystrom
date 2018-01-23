@@ -70,6 +70,10 @@ command-line tool.
 	    }
     }
 
+The bulbs are not able to handle payload formatted as JSON. It's required to
+use ``application/x-www-form-urlencoded``. Keep that in mind if something is
+not working, especially around setting the color with HSV.
+
 Set State
 `````````
 You can set the state with a POST request and a payload.
