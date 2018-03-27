@@ -33,7 +33,7 @@ setup(
     include_package_data=True,
     entry_points="""
     [console_scripts]
-    mystrom=cli:main
+    mystrom=pymystrom.cli:main
 """,
     classifiers=[
         'Development Status :: 3 - Alpha',
