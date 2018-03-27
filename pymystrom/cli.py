@@ -6,7 +6,7 @@ Licensed under MIT. All rights reserved.
 import requests
 import click
 
-from bulb import MyStromBulb
+from pymystrom.bulb import MyStromBulb
 
 URI = 'api/v1/device'
 TIMEOUT = 5
