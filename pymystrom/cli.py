@@ -6,7 +6,7 @@ Licensed under MIT. All rights reserved.
 import requests
 import click
 
-import pymystrom
+from bulb import MyStromBulb
 
 URI = 'api/v1/device'
 TIMEOUT = 5
@@ -139,7 +139,7 @@ def bulb():
               help="MAC address of the bulb.")
 def on(ip, mac):
     """Switch the bulb on."""
-    bulb = pymystrom.bulb.MyStromBulb(ip, mac)
+    bulb = MyStromBulb(ip, mac)
     bulb.set_color_hex('000000FF')
 
 
@@ -156,7 +156,7 @@ def on(ip, mac):
               help="Set the value of the bulb.")
 def color(ip, mac, hue, saturation, value):
     """Switch the bulb on with the given color."""
-    bulb = pymystrom.bulb.MyStromBulb(ip, mac)
+    bulb = MyStromBulb(ip, mac)
     bulb.set_color_hsv(hue, saturation, value)
 
 
@@ -167,7 +167,7 @@ def color(ip, mac, hue, saturation, value):
               help="MAC address of the bulb.")
 def off(ip, mac):
     """Switch the bulb off."""
-    bulb = pymystrom.bulb.MyStromBulb(ip, mac)
+    bulb = MyStromBulb(ip, mac)
     bulb.set_off()
 
 
