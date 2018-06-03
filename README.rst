@@ -3,8 +3,12 @@ python-mystrom |License| |PyPI|
 
 Python API for interacting with `myStrom <https://mystrom.ch>`_ devices.
 
+This module is not official, developed, supported or endorsed by myStrom AG.
+myStrom AG provided hardware and advice during the creation this module.
+
 Requirements
 ------------
+
 You need to have `Python <https://www.python.org>`_ installed.
 
 - `myStrom <https://mystrom.ch>`_ device (bulb, plug or button)
@@ -14,6 +18,7 @@ You need to have `Python <https://www.python.org>`_ installed.
 
 Installation
 ------------
+
 The package is available in the `Python Package Index <https://pypi.python.org/>`_ .
 
 .. code:: bash
@@ -22,6 +27,7 @@ The package is available in the `Python Package Index <https://pypi.python.org/>
 
 Plug/switch
 -----------
+
 At the moment the following endpoints are covered:
 
 - ``/report``: for getting the current state and the power consumption
@@ -51,6 +57,7 @@ You will still be able to use your device with the smartphone application,
 
 Bulb
 ----
+
 If the bulb is on then you should be able to retrieve the current state of
 the bulb.
 
@@ -226,6 +233,7 @@ Examples for the bulb can be found in the directory ``examples``.
 
 License
 -------
+
 ``python-mystrom`` is licensed under MIT, for more details check LICENSE.
 
 .. |License| image:: https://img.shields.io/badge/License-MIT-green.svg
