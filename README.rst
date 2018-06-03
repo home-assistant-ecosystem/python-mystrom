@@ -4,7 +4,7 @@ python-mystrom |License| |PyPI|
 Python API for interacting with `myStrom <https://mystrom.ch>`_ devices.
 
 This module is not official, developed, supported or endorsed by myStrom AG.
-myStrom AG provided hardware and advice during the creation this module.
+But myStrom AG provided hardware and advice during the creation this module.
 
 Requirements
 ------------
