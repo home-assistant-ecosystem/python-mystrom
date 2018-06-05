@@ -102,7 +102,7 @@ def write_ha_config(ip, mac, hass, port, id):
 
     if request.status_code == 200:
         click.echo("Configuration for %s set" % ip)
-        click.echo("After using the push pattern the first time then"
+        click.echo("After using the push pattern the first time then "
                    "the myStrom WiFi Button will show up as %s" % id)
 
 
