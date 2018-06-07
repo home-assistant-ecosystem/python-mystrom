@@ -20,14 +20,14 @@ if sys.argv[-1] == 'publish':
 
 setup(
     name='python-mystrom',
-    version='0.4.3',
+    version='0.4.4',
     description='Python API for interacting with myStrom devices',
     long_description=long_description,
     url='https://github.com/fabaff/python-mystrom',
     author='Fabian Affolter',
     author_email='fabian@affolter-engineering.ch',
     license='MIT',
-    install_requires=['aiohttp', 'async_timeout', 'click'],
+    install_requires=['requests', 'click'],
     packages=find_packages(),
     zip_safe=True,
     include_package_data=True,
