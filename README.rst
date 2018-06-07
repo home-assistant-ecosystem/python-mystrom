@@ -4,7 +4,13 @@ python-mystrom |License| |PyPI|
 Python API for interacting with `myStrom <https://mystrom.ch>`_ devices.
 
 This module is not official, developed, supported or endorsed by myStrom AG.
-But myStrom AG provided hardware and advice during the creation this module.
+For questions and other inquiries, use the issue tracker in this repo please.
+
+Without the support of myStrom AG it would have taken much longer to create
+this module which is the base for the integration into
+`Home Assistant <https://home-assistant.io>`_. myStrom AG has provided and is
+still providing hardware, valuable feedback and advice. Their continuous
+support make further development of this module possible.
 
 Requirements
 ------------
