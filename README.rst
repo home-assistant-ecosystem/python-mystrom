@@ -87,6 +87,14 @@ The bulbs are not able to handle payload formatted as JSON. It's required to
 use ``application/x-www-form-urlencoded``. Keep that in mind if something is
 not working, especially around setting the color with HSV.
 
+If you are planning to use your bulbs with `Home Assistant <https://home-assistat.io>`_
+set the bulb to a state from `Colors` with the app or use the command below.
+
+.. code:: bash
+
+    $ curl -d "color=0;0;100" IP_ADDRESS_BULB/api/v1/device/MAC_ADDRESS_BULB
+
+
 Set State
 `````````
 You can set the state with a POST request and a payload.
