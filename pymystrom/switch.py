@@ -11,9 +11,10 @@ from . import exceptions
 class MyStromPlug(object):
     """A class for a myStrom switch."""
 
-    def __init__(self, host):
+    def __init__(self, host, token=None):
         """Initialize the switch."""
         self.resource = 'http://{}'.format(host)
+        self.token = token
         self.timeout = 5
         self.data = None
         self.state = None
@@ -25,7 +26,7 @@ class MyStromPlug(object):
             try:
                 request = requests.get(
                     '{}/relay'.format(self.resource), params={'state': '1'},
-                    timeout=self.timeout)
+                    timeout=self.timeout, headers=self.__get_request_headers())
                 if request.status_code == 200:
                     self.data['relay'] = True
             except requests.exceptions.ConnectionError:
@@ -37,7 +38,7 @@ class MyStromPlug(object):
             try:
                 request = requests.get(
                     '{}/relay'.format(self.resource), params={'state': '0'},
-                    timeout=self.timeout)
+                    timeout=self.timeout, headers=self.__get_request_headers())
                 if request.status_code == 200:
                     self.data['relay'] = False
             except requests.exceptions.ConnectionError:
@@ -47,7 +48,7 @@ class MyStromPlug(object):
         """Get the details from the switch."""
         try:
             request = requests.get(
-                '{}/report'.format(self.resource), timeout=self.timeout)
+                '{}/report'.format(self.resource), timeout=self.timeout, headers=self.__get_request_headers())
             self.data = request.json()
             return self.data
         except (requests.exceptions.ConnectionError, ValueError):
@@ -72,3 +73,9 @@ class MyStromPlug(object):
             self.consumption = 0
 
         return self.consumption
+
+    def __get_request_headers(self):
+        if self.token is None:
+            return {}
+
+        return {'Token': self.token}
