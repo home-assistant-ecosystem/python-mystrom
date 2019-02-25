@@ -1,8 +1,4 @@
-"""
-Copyright (c) 2015-2018 Fabian Affolter <fabian@affolter-engineering.ch>
-
-Licensed under MIT. All rights reserved.
-"""
+"""Set up the Python API for myStrom devices."""
 import os
 
 import sys
@@ -20,7 +16,7 @@ if sys.argv[-1] == 'publish':
 
 setup(
     name='python-mystrom',
-    version='0.4.3',
+    version='0.4.4',
     description='Python API for interacting with myStrom devices',
     long_description=long_description,
     url='https://github.com/fabaff/python-mystrom',
@@ -43,7 +39,6 @@ setup(
         'Operating System :: MacOS :: MacOS X',
         'Operating System :: Microsoft :: Windows',
         'Operating System :: POSIX',
-        'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Topic :: Utilities',

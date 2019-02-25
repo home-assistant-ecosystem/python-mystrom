@@ -3,8 +3,18 @@ python-mystrom |License| |PyPI|
 
 Python API for interacting with `myStrom <https://mystrom.ch>`_ devices.
 
+This module is not official, developed, supported or endorsed by myStrom AG.
+For questions and other inquiries, use the issue tracker in this repo please.
+
+Without the support of myStrom AG it would have taken much longer to create
+this module which is the base for the integration into
+`Home Assistant <https://home-assistant.io>`_. myStrom AG has provided and is
+still providing hardware, valuable feedback and advice. Their continuous
+support make further development of this module possible.
+
 Requirements
 ------------
+
 You need to have `Python <https://www.python.org>`_ installed.
 
 - `myStrom <https://mystrom.ch>`_ device (bulb, plug or button)
@@ -14,6 +24,7 @@ You need to have `Python <https://www.python.org>`_ installed.
 
 Installation
 ------------
+
 The package is available in the `Python Package Index <https://pypi.python.org/>`_ .
 
 .. code:: bash
@@ -22,6 +33,7 @@ The package is available in the `Python Package Index <https://pypi.python.org/>
 
 Plug/switch
 -----------
+
 At the moment the following endpoints are covered:
 
 - ``/report``: for getting the current state and the power consumption
@@ -51,6 +63,7 @@ You will still be able to use your device with the smartphone application,
 
 Bulb
 ----
+
 If the bulb is on then you should be able to retrieve the current state of
 the bulb.
 
@@ -73,6 +86,14 @@ command-line tool.
 The bulbs are not able to handle payload formatted as JSON. It's required to
 use ``application/x-www-form-urlencoded``. Keep that in mind if something is
 not working, especially around setting the color with HSV.
+
+If you are planning to use your bulbs with `Home Assistant <https://home-assistant.io>`_
+set the bulb to a state from `Colors` with the app or use the command below.
+
+.. code:: bash
+
+    $ curl -d "color=0;0;100" IP_ADDRESS_BULB/api/v1/device/MAC_ADDRESS_BULB
+
 
 Set State
 `````````
@@ -226,6 +247,7 @@ Examples for the bulb can be found in the directory ``examples``.
 
 License
 -------
+
 ``python-mystrom`` is licensed under MIT, for more details check LICENSE.
 
 .. |License| image:: https://img.shields.io/badge/License-MIT-green.svg
