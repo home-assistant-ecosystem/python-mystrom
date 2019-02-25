@@ -76,10 +76,12 @@ class MyStromPlug(object):
 
     def get_temperature(self):
         """Get current temperature in celsius."""
-        self.get_status()
         try:
-            self.temperature = self.data['temp']
-        except TypeError:
-            self.temperature = 0
-
-        return self.temperature
+            request = requests.get(
+                '{}/temp'.format(self.resource), timeout=self.timeout, allow_redirects=False)
+            self.temperature = request.json()['compensated']
+            return self.temperature
+        except requests.exceptions.ConnectionError:
+            raise exceptions.MyStromConnectionError()
+        except ValueError:
+            raise exceptions.MyStromNotVersionTwoSwitch()

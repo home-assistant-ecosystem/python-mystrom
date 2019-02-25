@@ -1,5 +1,9 @@
 Changelog
 =========
+0.4.5 (2019-02-25)
+------------------
+
+- Add support for temperature provided by Switch v2
 
 0.4.4 (2018-06-07)
 ------------------
