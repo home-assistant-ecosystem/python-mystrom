@@ -17,7 +17,7 @@ class MyStromConnectionError(MyStromError):
     pass
 
 
-class MyStromNotVersionTwoSwitch(MemoryError):
+class MyStromNotVersionTwoSwitch(MyStromError):
     """When version 2 function is not supported."""
 
     pass
