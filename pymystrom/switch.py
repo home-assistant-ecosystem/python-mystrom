@@ -18,6 +18,7 @@ class MyStromPlug(object):
         self.data = None
         self.state = None
         self.consumption = 0
+        self.temperature = 0
 
     def set_relay_on(self):
         """Turn the relay on."""
@@ -72,3 +73,15 @@ class MyStromPlug(object):
             self.consumption = 0
 
         return self.consumption
+
+    def get_temperature(self):
+        """Get current temperature in celsius."""
+        try:
+            request = requests.get(
+                '{}/temp'.format(self.resource), timeout=self.timeout, allow_redirects=False)
+            self.temperature = request.json()['compensated']
+            return self.temperature
+        except requests.exceptions.ConnectionError:
+            raise exceptions.MyStromConnectionError()
+        except ValueError:
+            raise exceptions.MyStromNotVersionTwoSwitch()

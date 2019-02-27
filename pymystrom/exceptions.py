@@ -15,3 +15,9 @@ class MyStromConnectionError(MyStromError):
     """When a connection error is encountered."""
 
     pass
+
+
+class MyStromNotVersionTwoSwitch(MyStromError):
+    """When version 2 function is not supported."""
+
+    pass
