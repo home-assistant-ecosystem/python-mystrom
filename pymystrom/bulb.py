@@ -1,8 +1,4 @@
-"""
-Copyright (c) 2015-2018 Fabian Affolter <fabian@affolter-engineering.ch>
-
-Licensed under MIT. All rights reserved.
-"""
+"""Support for communicating with myStrom bulbs."""
 import time
 
 import requests

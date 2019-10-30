@@ -1,8 +1,4 @@
-"""
-Copyright (c) 2015-2017 Fabian Affolter <fabian@affolter-engineering.ch>
-
-Licensed under MIT. All rights reserved.
-"""
+"""All exceptions for the myStrom Python bindings."""
 
 
 class MyStromError(Exception):

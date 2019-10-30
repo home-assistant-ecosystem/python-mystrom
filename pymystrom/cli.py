@@ -1,8 +1,4 @@
-"""
-Copyright (c) 2017-2018 Fabian Affolter <fabian@affolter-engineering.ch>
-
-Licensed under MIT. All rights reserved.
-"""
+"""Command-line tool for working with myStrom devices."""
 import requests
 import click
 
