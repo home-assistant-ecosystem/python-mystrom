@@ -1,8 +1,4 @@
-"""
-Copyright (c) 2017-2018 Fabian Affolter <fabian@affolter-engineering.ch>
-
-Licensed under MIT. All rights reserved.
-"""
+"""Example code for getting the data from a myStrom bulb."""
 from pymystrom import bulb
 
 bulb = bulb.MyStromBulb('192.168.0.51', '5CCF7FA0AFB0')
