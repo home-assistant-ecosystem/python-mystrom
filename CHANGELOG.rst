@@ -4,6 +4,7 @@ Changelog
 0.6.0 (tbd)
 -----------
 
+- Read configuration of a button
 - Update file header
 
 0.5.0 (2019-02-27)
