@@ -1,33 +1,34 @@
 """Example code for communicating with a myStrom plug/switch."""
-import time
+import asyncio
 
-from pymystrom import switch
-from pymystrom import exceptions
+from pymystrom.switch import MyStromSwitch
 
-plug = switch.MyStromPlug('10.100.0.137')
-
-# Preserve state
-STATE_ON = plug.get_relay_state()
-
-# Switch relay on if the plug is currently off
-if not STATE_ON:
-    print("Relay will be switched on.")
-    plug.set_relay_on()
-    # Wait a few seconds to get a reading of the power consumption
-    print("Waiting for a couple of seconds...")
-    time.sleep(5)
-
-# Get the new state of the switch
-print("Relay state:", plug.get_relay_state())
-print("Power consumption:", plug.get_consumption())
-
-# Try to get the temperature of the switch
-try:
-    print("Temperature:", plug.get_temperature())
-except exceptions.MyStromNotVersionTwoSwitch:
-    print("Switch does not support temperature")
+IP_ADDRESS = "192.168.0.40"
 
 
-# Switch relay off if it was off.
-if not STATE_ON:
-    plug.set_relay_off()
+async def main():
+    """Sample code to work with a myStrom switch."""
+    async with MyStromSwitch(IP_ADDRESS) as switch:
+
+        # Collect the data of the current state
+        await switch.get_status()
+
+        print("Power consumption:", switch.consumption)
+        print("Relay state:", switch.relay)
+        print("Temperature:", switch.temperature)
+
+        print("Turn on the switch")
+        if not switch.relay:
+            await switch.turn_on()
+
+        # print("Toggle the switch")
+        # await switch.toggle()
+
+        # Switch relay off if it was off
+        if switch.relay:
+            await switch.turn_off()
+
+
+if __name__ == "__main__":
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(main())

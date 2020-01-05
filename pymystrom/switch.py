@@ -1,83 +1,84 @@
 """Support for communicating with myStrom plugs/switches."""
-import requests
+import aiohttp
+from yarl import URL
 
-from . import exceptions
+from . import _request as request
 
 
-class MyStromPlug(object):
+class MyStromSwitch:
     """A class for a myStrom switch."""
 
-    def __init__(self, host):
+    def __init__(self, host: str, session: aiohttp.client.ClientSession = None) -> None:
         """Initialize the switch."""
-        self.resource = 'http://{}'.format(host)
-        self.timeout = 5
-        self.data = None
-        self.state = None
-        self.consumption = 0
-        self.temperature = 0
+        self._close_session = False
+        self._host = host
+        self._session = session
+        self._consumption = 0
+        self._state = None
+        self._temperature = None
+        self.uri = URL.build(scheme="http", host=self._host)
 
-    def set_relay_on(self):
+    async def turn_on(self) -> None:
         """Turn the relay on."""
-        if not self.get_relay_state():
-            try:
-                request = requests.get(
-                    '{}/relay'.format(self.resource), params={'state': '1'},
-                    timeout=self.timeout)
-                if request.status_code == 200:
-                    self.data['relay'] = True
-            except requests.exceptions.ConnectionError:
-                raise exceptions.MyStromConnectionError()
+        parameters = {"state": "1"}
+        url = URL(self.uri).join(URL("relay"))
+        await request(self, uri=url, params=parameters)
+        await self.get_status()
 
-    def set_relay_off(self):
+    async def turn_off(self) -> None:
         """Turn the relay off."""
-        if self.get_relay_state():
-            try:
-                request = requests.get(
-                    '{}/relay'.format(self.resource), params={'state': '0'},
-                    timeout=self.timeout)
-                if request.status_code == 200:
-                    self.data['relay'] = False
-            except requests.exceptions.ConnectionError:
-                raise exceptions.MyStromConnectionError()
+        parameters = {"state": "0"}
+        url = URL(self.uri).join(URL("relay"))
+        await request(self, uri=url, params=parameters)
+        await self.get_status()
 
-    def get_status(self):
+    async def toggle(self) -> None:
+        """Toggle the relay."""
+        url = URL(self.uri).join(URL("toggle"))
+        await request(self, uri=url)
+        await self.get_status()
+
+    async def get_status(self) -> None:
         """Get the details from the switch."""
+        url = URL(self.uri).join(URL("report"))
+        response = await request(self, uri=url)
+        self._consumption = response["power"]
+        self._state = response["relay"]
         try:
-            request = requests.get(
-                '{}/report'.format(self.resource), timeout=self.timeout)
-            self.data = request.json()
-            return self.data
-        except (requests.exceptions.ConnectionError, ValueError):
-            raise exceptions.MyStromConnectionError()
+            self._temperature = response["temperature"]
+        except KeyError:
+            self._temperature = 0
 
-    def get_relay_state(self):
-        """Get the relay state."""
-        self.get_status()
-        try:
-            self.state = self.data['relay']
-        except TypeError:
-            self.state = False
+    @property
+    def relay(self) -> bool:
+        """Return the relay state."""
+        return bool(self._state)
 
-        return bool(self.state)
+    @property
+    def consumption(self) -> float:
+        """Return the current power consumption in mWh."""
+        return round(self._consumption, 1)
 
-    def get_consumption(self):
-        """Get current power consumption in mWh."""
-        self.get_status()
-        try:
-            self.consumption = self.data['power']
-        except TypeError:
-            self.consumption = 0
+    @property
+    def temperature(self) -> float:
+        """Return the current temperature in celsius."""
+        return round(self._temperature, 1)
 
-        return self.consumption
-
-    def get_temperature(self):
+    async def get_temperature_full(self) -> str:
         """Get current temperature in celsius."""
-        try:
-            request = requests.get(
-                '{}/temp'.format(self.resource), timeout=self.timeout, allow_redirects=False)
-            self.temperature = request.json()['compensated']
-            return self.temperature
-        except requests.exceptions.ConnectionError:
-            raise exceptions.MyStromConnectionError()
-        except ValueError:
-            raise exceptions.MyStromNotVersionTwoSwitch()
+        url = URL(self.uri).join(URL("temp"))
+        response = await request(self, uri=url)
+        return response
+
+    async def close(self) -> None:
+        """Close an open client session."""
+        if self._session and self._close_session:
+            await self._session.close()
+
+    async def __aenter__(self) -> "MyStromSwitch":
+        """Async enter."""
+        return self
+
+    async def __aexit__(self, *exc_info) -> None:
+        """Async exit."""
+        await self.close()
