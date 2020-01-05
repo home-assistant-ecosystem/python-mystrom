@@ -187,8 +187,9 @@ def bulb():
 )
 def on(ip, mac):
     """Switch the bulb on."""
-    bulb = MyStromBulb(ip, mac)
-    bulb.set_color_hex("000000FF")
+    #bulb = MyStromBulb(ip, mac)
+    #bulb.set_color_hex("000000FF")
+    click.echo("Sorry, not supported at the moment")
 
 
 @bulb.command("color")
@@ -209,8 +210,9 @@ def on(ip, mac):
 )
 def color(ip, mac, hue, saturation, value):
     """Switch the bulb on with the given color."""
-    bulb = MyStromBulb(ip, mac)
-    bulb.set_color_hsv(hue, saturation, value)
+    #bulb = MyStromBulb(ip, mac)
+    #bulb.set_color_hsv(hue, saturation, value)
+    click.echo("Sorry, not supported at the moment")
 
 
 @bulb.command("off")
@@ -220,8 +222,9 @@ def color(ip, mac, hue, saturation, value):
 )
 def off(ip, mac):
     """Switch the bulb off."""
-    bulb = MyStromBulb(ip, mac)
-    bulb.set_off()
+    #bulb = MyStromBulb(ip, mac)
+    #bulb.set_off()
+    click.echo("Sorry, not supported at the moment")
 
 
 if __name__ == "__main__":
