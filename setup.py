@@ -16,8 +16,8 @@ if sys.argv[-1] == "publish":
 
 setup(
     name="python-mystrom",
-    version="0.5.0",
-    description="Python API for interacting with myStrom devices",
+    version="1.0.0",
+    description="Asynchronous Python API client for interacting with myStrom devices",
     long_description=long_description,
     url="https://github.com/fabaff/python-mystrom",
     author="Fabian Affolter",
