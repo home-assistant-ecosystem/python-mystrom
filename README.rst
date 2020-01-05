@@ -35,7 +35,7 @@ The package is available in the `Python Package Index <https://pypi.python.org/>
 Plug/switch
 -----------
 
-At the moment the following endpoints are covered according [https://api.mystrom.ch/](https://api.mystrom.ch/):
+At the moment the following endpoints are covered according `https://api.mystrom.ch <https://api.mystrom.ch>`_:
 
 - ``/report``: for getting the current state and the power consumption
 - ``/relay``: for setting the relay state
