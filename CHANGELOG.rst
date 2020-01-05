@@ -1,10 +1,16 @@
 Changelog
 =========
 
-0.6.0 (tbd)
------------
+(tbd)
+-----
 
-- Read configuration of a button
+- Update CLI to work with the bulb and async
+
+1.0.0 (2020-01-05)
+------------------
+
+- Full asynchronous now
+- Move to aiohttp
 - Update file header
 
 0.5.0 (2019-02-27)

@@ -1,7 +1,8 @@
 python-mystrom |License| |PyPI|
 ===================================
 
-Python API for interacting with `myStrom <https://mystrom.ch>`_ devices.
+Asynchronous Python API client for interacting with `myStrom <https://mystrom.ch>`_
+devices.
 
 This module is not official, developed, supported or endorsed by myStrom AG.
 For questions and other inquiries, use the issue tracker in this repo please.
@@ -18,7 +19,7 @@ Requirements
 You need to have `Python <https://www.python.org>`_ installed.
 
 - `myStrom <https://mystrom.ch>`_ device (bulb, plug or button)
-- `requests <http://docs.python-requests.org/en/master/>`_
+- The ``python-mystrom`` requirements
 - Network connection
 - Devices connected to your network
 
@@ -29,12 +30,12 @@ The package is available in the `Python Package Index <https://pypi.python.org/>
 
 .. code:: bash
 
-    $ pip install python-mystrom
+    $ pip3 install python-mystrom
 
 Plug/switch
 -----------
 
-At the moment the following endpoints are covered:
+At the moment the following endpoints are covered according [https://api.mystrom.ch/](https://api.mystrom.ch/):
 
 - ``/report``: for getting the current state and the power consumption
 - ``/relay``: for setting the relay state
