@@ -9,10 +9,7 @@ from .exceptions import MyStromConnectionError, MyStromError
 
 import pkg_resources
 
-try:
-    __version__ = pkg_resources.get_distribution("setuptools").version
-except Exception:
-    __version__ = "unknown"
+__version__ = pkg_resources.get_distribution("setuptools").version
 
 TIMEOUT = 10
 USER_AGENT = f"PythonMyStrom/{__version__}"
@@ -43,11 +40,11 @@ async def _request(
             )
     except asyncio.TimeoutError as exception:
         raise MyStromConnectionError(
-            "Timeout occurred while connecting to myStrom bulb."
+            "Timeout occurred while connecting to myStrom device."
         ) from exception
     except (aiohttp.ClientError, socket.gaierror) as exception:
         raise MyStromConnectionError(
-            "Error occurred while communicating with myStrom bulb."
+            "Error occurred while communicating with myStrom device."
         ) from exception
 
     content_type = response.headers.get("Content-Type", "")
