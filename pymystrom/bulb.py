@@ -76,6 +76,11 @@ class MyStromBulb:
         """Return the type of the bulb."""
         return self._bulb_type
 
+    @property
+    def state(self) -> Optional[str]:
+        """Return the current state of the bulb."""
+        return self._state
+
     async def set_on(self):
         """Turn the bulb on with the previous settings."""
         response = await request(

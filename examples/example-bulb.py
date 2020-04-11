@@ -1,5 +1,6 @@
 """Example code for communicating with a myStrom bulb."""
 import asyncio
+import sys
 
 from pymystrom.bulb import MyStromBulb
 
@@ -15,6 +16,7 @@ async def main():
 
         print("Power consumption:", bulb.consumption)
         print("Firmware:", bulb.firmware)
+        print("Current state:", bulb.state)
 
         print("Bulb will be switched on with their previous setting")
         await bulb.set_on()
