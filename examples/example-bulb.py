@@ -1,6 +1,5 @@
 """Example code for communicating with a myStrom bulb."""
 import asyncio
-import sys
 
 from pymystrom.bulb import MyStromBulb
 
