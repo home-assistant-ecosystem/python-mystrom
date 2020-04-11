@@ -52,6 +52,11 @@ class MyStromBulb:
         return self._firmware
 
     @property
+    def mac(self) -> float:
+        """Return the MAC address."""
+        return self._mac
+
+    @property
     def consumption(self) -> Optional[float]:
         """Return current firmware."""
         return self._consumption
