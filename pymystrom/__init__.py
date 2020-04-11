@@ -49,12 +49,8 @@ async def _request(
 
     content_type = response.headers.get("Content-Type", "")
     if (response.status // 100) in [4, 5]:
-        contents = await response.read()
         response.close()
 
-        if content_type == "application/json":
-            raise MyStromError(response.status, json.loads(contents.decode("utf8")))
-        raise MyStromError(response.status, {"message": contents.decode("utf8")})
     if "application/json" in content_type:
         response_json = await response.json()
         return response_json
