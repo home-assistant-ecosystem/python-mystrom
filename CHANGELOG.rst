@@ -10,7 +10,7 @@ Changelog
 ------------------
 
 - Add new features for bulb
--
+- Add new features for switch/plug
 
 1.0.0 (2020-01-05)
 ------------------

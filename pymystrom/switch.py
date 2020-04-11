@@ -6,7 +6,7 @@ from . import _request as request
 
 
 class MyStromSwitch:
-    """A class for a myStrom switch."""
+    """A class for a myStrom switch/plug."""
 
     def __init__(self, host: str, session: aiohttp.client.ClientSession = None) -> None:
         """Initialize the switch."""
@@ -16,6 +16,8 @@ class MyStromSwitch:
         self._consumption = 0
         self._state = None
         self._temperature = None
+        self._firmware = None
+        self._mac = None
         self.uri = URL.build(scheme="http", host=self._host)
 
     async def turn_on(self) -> None:
@@ -23,23 +25,23 @@ class MyStromSwitch:
         parameters = {"state": "1"}
         url = URL(self.uri).join(URL("relay"))
         await request(self, uri=url, params=parameters)
-        await self.get_status()
+        await self.get_state()
 
     async def turn_off(self) -> None:
         """Turn the relay off."""
         parameters = {"state": "0"}
         url = URL(self.uri).join(URL("relay"))
         await request(self, uri=url, params=parameters)
-        await self.get_status()
+        await self.get_state()
 
     async def toggle(self) -> None:
         """Toggle the relay."""
         url = URL(self.uri).join(URL("toggle"))
         await request(self, uri=url)
-        await self.get_status()
+        await self.get_state()
 
     async def get_state(self) -> None:
-        """Get the details from the switch."""
+        """Get the details from the switch/plug."""
         url = URL(self.uri).join(URL("report"))
         response = await request(self, uri=url)
         self._consumption = response["power"]
@@ -48,6 +50,11 @@ class MyStromSwitch:
             self._temperature = response["temperature"]
         except KeyError:
             self._temperature = 0
+        url = URL(self.uri).join(URL("info.json"))
+
+        response = await request(self, uri=url)
+        self._firmware = response["version"]
+        self._mac = response["mac"]
 
     @property
     def relay(self) -> bool:
@@ -58,6 +65,16 @@ class MyStromSwitch:
     def consumption(self) -> float:
         """Return the current power consumption in mWh."""
         return round(self._consumption, 1)
+
+    @property
+    def firmware(self) -> float:
+        """Return the current firmware."""
+        return self._firmware
+
+    @property
+    def mac(self) -> float:
+        """Return the MAC address."""
+        return self._mac
 
     @property
     def temperature(self) -> float:

@@ -16,6 +16,8 @@ async def main():
         print("Power consumption:", switch.consumption)
         print("Relay state:", switch.relay)
         print("Temperature:", switch.temperature)
+        print("Firmware:", switch.firmware)
+        print("MAC address:", switch.mac)
 
         print("Turn on the switch")
         if not switch.relay:
