@@ -11,7 +11,7 @@ async def main():
     async with MyStromSwitch(IP_ADDRESS) as switch:
 
         # Collect the data of the current state
-        await switch.get_status()
+        await switch.get_state()
 
         print("Power consumption:", switch.consumption)
         print("Relay state:", switch.relay)

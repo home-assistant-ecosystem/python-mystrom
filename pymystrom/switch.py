@@ -38,7 +38,7 @@ class MyStromSwitch:
         await request(self, uri=url)
         await self.get_status()
 
-    async def get_status(self) -> None:
+    async def get_state(self) -> None:
         """Get the details from the switch."""
         url = URL(self.uri).join(URL("report"))
         response = await request(self, uri=url)
