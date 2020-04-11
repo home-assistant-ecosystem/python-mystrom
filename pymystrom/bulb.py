@@ -64,7 +64,7 @@ class MyStromBulb:
     @property
     def color(self) -> Optional[str]:
         """Return current color settings."""
-        return self._consumption
+        return self.color
 
     @property
     def mode(self) -> Optional[str]:
