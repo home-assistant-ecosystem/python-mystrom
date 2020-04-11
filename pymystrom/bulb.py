@@ -4,6 +4,7 @@ import logging
 
 import aiohttp
 from yarl import URL
+from typing import Any, Dict, Iterable, List, Optional, Union
 
 from . import _request as request
 
@@ -24,73 +25,50 @@ class MyStromBulb:
         self._mac = mac
         self._session = session
         self.brightness = 0
-        self.color = None
-        self.consumption = 0
+        self._color = None
+        self._consumption = 0
         self.data = None
-        self.firmware = None
-        self.mode = None
-        self.state = None
-        self.transition_time = 0
+        self._firmware = None
+        self._mode = None
+        self._state = None
+        self._transition_time = 0
         self.uri = URL.build(scheme="http", host=self._host).join(URI_BULB) / self._mac
 
     async def get_bulb_state(self) -> object:
         """Get the state of the bulb."""
         response = await request(self, uri=self.uri)
-        print(response)
-        return bool(response["on"])
+        self._consumption = response[self._mac]["power"]
+        self._firmware = response[self._mac]["fw_version"]
+        self._color = response[self._mac]["color"]
+        self._mode = response[self._mac]["mode"]
+        self._transition_time = response[self._mac]["ramp"]
+        self._state = bool(response[self._mac]["on"])
 
-    # async def get_power(self):
-    #     """Get current power."""
-    #     await self.get_status()
-    #     try:
-    #         self.consumption = self.data['power']
-    #     except TypeError:
-    #         self.consumption = 0
-    #
-    #     return self.consumption
-    #
-    # async def get_firmware(self):
-    #     """Get the current firmware version."""
-    #     await self.get_status()
-    #     try:
-    #         self.firmware = self.data['fw_version']
-    #     except TypeError:
-    #         self.firmware = 'Unknown'
-    #
-    #     return self.firmware
-    #
-    # async def get_brightness(self):
-    #     """Get current brightness."""
-    #     await self.get_status()
-    #     try:
-    #         self.brightness = self.data['color'].split(';')[-1]
-    #     except TypeError:
-    #         self.brightness = 0
-    #
-    #     return self.brightness
-    #
-    # async def get_transition_time(self):
-    #     """Get the transition time in ms."""
-    #     await self.get_status()
-    #     try:
-    #         self.transition_time = self.data['ramp']
-    #     except TypeError:
-    #         self.transition_time = 0
-    #
-    #     return self.transition_time
-    #
-    # async def get_color(self):
-    #     """Get current color."""
-    #     await self.get_status()
-    #     try:
-    #         self.color = self.data['color']
-    #         self.mode = self.data['mode']
-    #     except TypeError:
-    #         self.color = 0
-    #         self.mode = ''
-    #
-    #     return {'color': self.color, 'mode': self.mode}
-    #
+    @property
+    def firmware(self) -> Optional[str]:
+        """Return current firmware."""
+        return self._firmware
+
+    @property
+    def consumption(self) -> Optional[float]:
+        """Return current firmware."""
+        return self._consumption
+
+    @property
+    def color(self) -> Optional[str]:
+        """Return current color settings."""
+        return self._consumption
+
+    @property
+    def mode(self) -> Optional[str]:
+        """Return current mode."""
+        return self._mode
+
+    @property
+    def transition_time(self) -> Optional[int]:
+        """Return current transition time (ramp)."""
+        return self.transition_time
+
     async def set_on(self):
         """Turn the bulb on with the previous settings."""
         response = await request(
