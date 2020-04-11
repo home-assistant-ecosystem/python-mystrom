@@ -11,7 +11,7 @@ async def main():
     """Sample code to work with a myStrom bulb."""
     async with MyStromBulb(IP_ADDRESS, MAC_ADDRESS) as bulb:
         print("Get the details from the bulb...")
-        await bulb.get_bulb_state()
+        await bulb.get_state()
 
         print("Power consumption:", bulb.consumption)
         print("Firmware:", bulb.firmware)

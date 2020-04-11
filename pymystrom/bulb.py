@@ -35,7 +35,7 @@ class MyStromBulb:
         self._transition_time = 0
         self.uri = URL.build(scheme="http", host=self._host).join(URI_BULB) / self._mac
 
-    async def get_bulb_state(self) -> object:
+    async def get_state(self) -> object:
         """Get the state of the bulb."""
         response = await request(self, uri=self.uri)
         self._consumption = response[self._mac]["power"]
