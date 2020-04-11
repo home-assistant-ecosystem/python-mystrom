@@ -6,6 +6,12 @@ Changelog
 
 - Update CLI to work with the bulb and async
 
+1.1.0 (2020-04-1)
+------------------
+
+- Add new features for bulb
+-
+
 1.0.0 (2020-01-05)
 ------------------
 
