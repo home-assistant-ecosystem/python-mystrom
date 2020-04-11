@@ -3,15 +3,19 @@ import asyncio
 
 from pymystrom.bulb import MyStromBulb
 
-IP_ADDRESS = "192.168.0.50"
-MAC_ADDRESS = "5CCF7FA0C93B"
+IP_ADDRESS = "192.168.0.51"
+MAC_ADDRESS = "5CCF7FA0AFB0"
 
 
 async def main():
     """Sample code to work with a myStrom bulb."""
     async with MyStromBulb(IP_ADDRESS, MAC_ADDRESS) as bulb:
-        print("Get the details from the bulb")
-        print(await bulb.get_bulb_state())
+        print("Get the details from the bulb...")
+        await bulb.get_bulb_state()
+
+        print("Power consumption:", bulb.consumption)
+        print("Firmware:", bulb.firmware)
+
         print("Bulb will be switched on with their previous setting")
         await bulb.set_on()
         # print("Waiting for a couple of seconds...")
