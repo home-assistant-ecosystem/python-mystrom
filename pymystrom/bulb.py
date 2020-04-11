@@ -30,6 +30,7 @@ class MyStromBulb:
         self.data = None
         self._firmware = None
         self._mode = None
+        self._bulb_type = None
         self._state = None
         self._transition_time = 0
         self.uri = URL.build(scheme="http", host=self._host).join(URI_BULB) / self._mac
@@ -43,6 +44,7 @@ class MyStromBulb:
         self._mode = response[self._mac]["mode"]
         self._transition_time = response[self._mac]["ramp"]
         self._state = bool(response[self._mac]["on"])
+        self._bulb_type = response[self._mac]["type"]
 
     @property
     def firmware(self) -> Optional[str]:
@@ -67,7 +69,12 @@ class MyStromBulb:
     @property
     def transition_time(self) -> Optional[int]:
         """Return current transition time (ramp)."""
-        return self.transition_time
+        return self._transition_time
+
+    @property
+    def bulb_type(self) -> Optional[str]:
+        """Return the type of the bulb."""
+        return self._bulb_type
 
     async def set_on(self):
         """Turn the bulb on with the previous settings."""
