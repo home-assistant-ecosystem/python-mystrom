@@ -1,6 +1,7 @@
 """Support for communicating with myStrom plugs/switches."""
 import aiohttp
 from yarl import URL
+from typing import Any, Dict, Iterable, List, Optional, Union
 
 from . import _request as request
 
@@ -49,9 +50,9 @@ class MyStromSwitch:
         try:
             self._temperature = response["temperature"]
         except KeyError:
-            self._temperature = 0
-        url = URL(self.uri).join(URL("info.json"))
+            self._temperature = None
 
+        url = URL(self.uri).join(URL("info.json"))
         response = await request(self, uri=url)
         self._firmware = response["version"]
         self._mac = response["mac"]
@@ -79,7 +80,10 @@ class MyStromSwitch:
     @property
     def temperature(self) -> float:
         """Return the current temperature in celsius."""
-        return round(self._temperature, 1)
+        if self._temperature is not None:
+            return round(self._temperature, 1)
+
+        return self._temperature
 
     async def get_temperature_full(self) -> str:
         """Get current temperature in celsius."""
