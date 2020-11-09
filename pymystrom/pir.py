@@ -149,7 +149,7 @@ class MyStromPir:
         if self._session and self._close_session:
             await self._session.close()
 
-    async def __aenter__(self) -> "MyStromBulb":
+    async def __aenter__(self) -> "MyStromPir":
         """Async enter."""
         return self
 
