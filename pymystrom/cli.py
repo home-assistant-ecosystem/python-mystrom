@@ -1,11 +1,25 @@
 """Command-line tool for working with myStrom devices."""
 import click
 import requests
+import asyncio
+
+from functools import wraps
 
 from pymystrom.bulb import MyStromBulb
 
 URI = "api/v1/device"
 TIMEOUT = 5
+
+
+def coro(f):
+    """Allow to use async in click."""
+
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        """Async wrapper."""
+        return asyncio.run(f(*args, **kwargs))
+
+    return wrapper
 
 
 @click.group()
@@ -167,9 +181,7 @@ def read_config(ip, mac):
     """Read the current configuration of a myStrom WiFi Button."""
     click.echo("Read the configuration of button %s..." % ip)
     try:
-        request = requests.get(
-            "http://{}/{}/{}/".format(ip, URI, mac), timeout=TIMEOUT
-        )
+        request = requests.get("http://{}/{}/{}/".format(ip, URI, mac), timeout=TIMEOUT)
         click.echo(request.json())
     except requests.exceptions.ConnectionError:
         click.echo("Communication issue with the device. No action performed")
@@ -181,18 +193,19 @@ def bulb():
 
 
 @bulb.command("on")
+@coro
 @click.option("--ip", prompt="IP address of the bulb", help="IP address of the bulb.")
 @click.option(
     "--mac", prompt="MAC address of the bulb", help="MAC address of the bulb."
 )
-def on(ip, mac):
+async def on(ip, mac):
     """Switch the bulb on."""
-    #bulb = MyStromBulb(ip, mac)
-    #bulb.set_color_hex("000000FF")
-    click.echo("Sorry, not supported at the moment")
+    async with MyStromBulb(ip, mac) as bulb:
+        await bulb.set_color_hex("000000FF")
 
 
 @bulb.command("color")
+@coro
 @click.option("--ip", prompt="IP address of the bulb", help="IP address of the bulb.")
 @click.option(
     "--mac", prompt="MAC address of the bulb", help="MAC address of the bulb."
@@ -208,23 +221,22 @@ def on(ip, mac):
 @click.option(
     "--value", prompt="Set the value of the bulb", help="Set the value of the bulb."
 )
-def color(ip, mac, hue, saturation, value):
+async def color(ip, mac, hue, saturation, value):
     """Switch the bulb on with the given color."""
-    #bulb = MyStromBulb(ip, mac)
-    #bulb.set_color_hsv(hue, saturation, value)
-    click.echo("Sorry, not supported at the moment")
+    async with MyStromBulb(ip, mac) as bulb:
+        await bulb.set_color_hsv(hue, saturation, value)
 
 
 @bulb.command("off")
+@coro
 @click.option("--ip", prompt="IP address of the bulb", help="IP address of the bulb.")
 @click.option(
     "--mac", prompt="MAC address of the bulb", help="MAC address of the bulb."
 )
-def off(ip, mac):
+async def off(ip, mac):
     """Switch the bulb off."""
-    #bulb = MyStromBulb(ip, mac)
-    #bulb.set_off()
-    click.echo("Sorry, not supported at the moment")
+    async with MyStromBulb(ip, mac) as bulb:
+        await bulb.set_off()
 
 
 if __name__ == "__main__":
