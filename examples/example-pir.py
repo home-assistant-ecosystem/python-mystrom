@@ -14,6 +14,10 @@ async def main():
         await pir.get_settings()
         print("Settings:", pir.settings)
 
+        # Get the PIR settings
+        await pir.get_pir()
+        print("PIR settings:", pir.pir)
+
         # Collect the sensors
         await pir.get_sensors_state()
         print("Sensors:", pir.sensors)

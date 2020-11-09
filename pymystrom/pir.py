@@ -26,6 +26,8 @@ class MyStromPir:
         self._temperature_raw = None
         self._motion = None
         self._settings = None
+        self._pir = None
+
         self._actions = None
         self.uri = URL.build(scheme="http", host=self._host).join(URI_PIR)
 
@@ -40,6 +42,12 @@ class MyStromPir:
         url = URL(self.uri).join(URL("action"))
         response = await request(self, uri=url)
         self._actions = response
+
+    async def get_pir(self) -> None:
+        """Get the current PIR settings."""
+        url = URL(self.uri).join(URL("settings/pir"))
+        response = await request(self, uri=url)
+        self._pir = response
 
     async def get_sensors_state(self) -> None:
         """Get the state of the sensors from the PIR."""
@@ -85,6 +93,11 @@ class MyStromPir:
     def actions(self) -> Optional[dict]:
         """Return current action settings."""
         return self._actions
+
+    @property
+    def pir(self) -> Optional[dict]:
+        """Return current PIR settings."""
+        return self._pir
 
     @property
     def sensors(self) -> Optional[dict]:
