@@ -31,6 +31,12 @@ The package is available in the `Python Package Index <https://pypi.python.org/>
 
     $ pip3 install python-mystrom
 
+On a Fedora-based system or on a CentOS/RHEL machine which has EPEL enabled.
+
+.. code:: bash
+
+    $ sudo dnf -y install python-mystrom
+
 Plug/switch
 -----------
 
