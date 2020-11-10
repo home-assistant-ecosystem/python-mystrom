@@ -35,7 +35,7 @@ On a Fedora-based system or on a CentOS/RHEL machine which has EPEL enabled.
 
 .. code:: bash
 
-    $ sudo dnf -y install python-mystrom
+    $ sudo dnf -y install python3-mystrom
 
 Plug/switch
 -----------
