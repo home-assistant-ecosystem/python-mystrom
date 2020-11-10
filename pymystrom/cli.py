@@ -239,7 +239,35 @@ async def off(ip, mac):
         await bulb.set_off()
 
 
+@bulb.command("flash")
+@coro
+@click.option("--ip", prompt="IP address of the bulb", help="IP address of the bulb.")
+@click.option(
+    "--mac", prompt="MAC address of the bulb", help="MAC address of the bulb."
+)
+@click.option(
+    "--time", prompt="Time to flash", help="Time to flash the bulb in seconds.", default=10,
+)
+async def flash(ip, mac, time):
+    """Flash the bulb off."""
+    async with MyStromBulb(ip, mac) as bulb:
+        await bulb.set_flashing(time, [100, 50, 30], [200, 0, 71])
 
+
+@bulb.command("rainbow")
+@coro
+@click.option("--ip", prompt="IP address of the bulb", help="IP address of the bulb.")
+@click.option(
+    "--mac", prompt="MAC address of the bulb", help="MAC address of the bulb."
+)
+@click.option(
+    "--time", prompt="Time for the complete rainbow", help="Time to perform the rainbow in seconds.", default=30,
+)
+async def rainbow(ip, mac, time):
+    """Let the buld change the color and show a rainbow."""
+    async with MyStromBulb(ip, mac) as bulb:
+        await bulb.set_rainbow(time)
+        await bulb.set_transition_time(1000)
 
 
 if __name__ == "__main__":
