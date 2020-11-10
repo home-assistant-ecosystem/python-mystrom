@@ -201,7 +201,7 @@ def bulb():
 async def on(ip, mac):
     """Switch the bulb on."""
     async with MyStromBulb(ip, mac) as bulb:
-        await bulb.set_color_hex("000000FF")
+        await bulb.set_color_hex("00FFFFFF")
 
 
 @bulb.command("color")
@@ -237,6 +237,9 @@ async def off(ip, mac):
     """Switch the bulb off."""
     async with MyStromBulb(ip, mac) as bulb:
         await bulb.set_off()
+
+
+
 
 
 if __name__ == "__main__":
