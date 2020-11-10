@@ -4,7 +4,9 @@ Changelog
 (tbd)
 -----
 
--
+- Update the CLI to work with the bulbs
+- Add support for Motion/PIR sensors
+- Add support for device discovery
 
 1.1.3 (2020-06-08)
 ------------------
