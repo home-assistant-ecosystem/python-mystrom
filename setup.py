@@ -16,7 +16,7 @@ if sys.argv[-1] == "publish":
 
 setup(
     name="python-mystrom",
-    version="2.0.0",
+    version="2.1.0.dev1",
     description="Asynchronous Python API client for interacting with myStrom devices",
     long_description=long_description,
     url="https://github.com/home-assistant-ecosystem/python-mystrom",
