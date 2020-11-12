@@ -19,7 +19,7 @@ setup(
     version="1.1.3",
     description="Asynchronous Python API client for interacting with myStrom devices",
     long_description=long_description,
-    url="https://github.com/fabaff/python-mystrom",
+    url="https://github.com/home-assistant-ecosystem/python-mystrom",
     author="Fabian Affolter",
     author_email="fabian@affolter-engineering.ch",
     license="MIT",
