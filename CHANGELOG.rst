@@ -1,8 +1,8 @@
 Changelog
 =========
 
-(tbd)
------
+2.0.0 (2020-11-12)
+------------------
 
 - Update the CLI to work with the bulbs
 - Add support for Motion/PIR sensors
