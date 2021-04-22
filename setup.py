@@ -23,7 +23,7 @@ setup(
     author="Fabian Affolter",
     author_email="fabian@affolter-engineering.ch",
     license="MIT",
-    install_requires=["requests", "click", "aiohttp", ],
+    install_requires=["requests", "click", "aiohttp", "setuptools"],
     packages=find_packages(),
     zip_safe=True,
     include_package_data=True,
