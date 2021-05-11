@@ -22,11 +22,13 @@ async def _request(
     data: Optional[Any] = None,
     json_data: Optional[dict] = None,
     params: Optional[Mapping[str, str]] = None,
+    token: str = ''
 ) -> Any:
     """Handle a request to the myStrom device."""
     headers = {
         "User-Agent": USER_AGENT,
         "Accept": "application/json, text/plain, */*",
+        "Token": token
     }
 
     if self._session is None:

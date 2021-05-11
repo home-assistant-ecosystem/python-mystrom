@@ -9,7 +9,7 @@ from . import _request as request
 class MyStromSwitch:
     """A class for a myStrom switch/plug."""
 
-    def __init__(self, host: str, session: aiohttp.client.ClientSession = None) -> None:
+    def __init__(self, host: str, token='', session: aiohttp.client.ClientSession = None) -> None:
         """Initialize the switch."""
         self._close_session = False
         self._host = host
@@ -20,31 +20,32 @@ class MyStromSwitch:
         self._firmware = None
         self._mac = None
         self.uri = URL.build(scheme="http", host=self._host)
+        self.token = token
 
     async def turn_on(self) -> None:
         """Turn the relay on."""
         parameters = {"state": "1"}
         url = URL(self.uri).join(URL("relay"))
-        await request(self, uri=url, params=parameters)
+        await request(self, uri=url, params=parameters, token=self.token)
         await self.get_state()
 
     async def turn_off(self) -> None:
         """Turn the relay off."""
         parameters = {"state": "0"}
         url = URL(self.uri).join(URL("relay"))
-        await request(self, uri=url, params=parameters)
+        await request(self, uri=url, params=parameters, token=self.token)
         await self.get_state()
 
     async def toggle(self) -> None:
         """Toggle the relay."""
         url = URL(self.uri).join(URL("toggle"))
-        await request(self, uri=url)
+        await request(self, uri=url, token=self.token)
         await self.get_state()
 
     async def get_state(self) -> None:
         """Get the details from the switch/plug."""
         url = URL(self.uri).join(URL("report"))
-        response = await request(self, uri=url)
+        response = await request(self, uri=url, token=self.token)
         self._consumption = response["power"]
         self._state = response["relay"]
         try:
@@ -53,7 +54,7 @@ class MyStromSwitch:
             self._temperature = None
 
         url = URL(self.uri).join(URL("info.json"))
-        response = await request(self, uri=url)
+        response = await request(self, uri=url, token=self.token)
         self._firmware = response["version"]
         self._mac = response["mac"]
 
@@ -88,7 +89,7 @@ class MyStromSwitch:
     async def get_temperature_full(self) -> str:
         """Get current temperature in celsius."""
         url = URL(self.uri).join(URL("temp"))
-        response = await request(self, uri=url)
+        response = await request(self, uri=url, token=self.token)
         return response
 
     async def close(self) -> None:
