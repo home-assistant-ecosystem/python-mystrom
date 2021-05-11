@@ -14,7 +14,7 @@ from . import URI
 class MyStromBulb(object):
     """A class for a myStrom bulb."""
 
-    def __init__(self, host, mac):
+    def __init__(self, host, mac, token=''):
         """Initialize the bulb."""
         self.resource = 'http://{}'.format(host)
         self._mac = mac
@@ -27,12 +27,14 @@ class MyStromBulb(object):
         self.firmware = None
         self.mode = None
         self.transition_time = 0
+        self.token = token
 
     def get_status(self):
         """Get the details from the bulb."""
         try:
             request = requests.get(
-                '{}/{}/'.format(self.resource, URI), timeout=self.timeout)
+                '{}/{}/'.format(self.resource, URI), headers={'Token': self.token},
+                timeout=self.timeout)
             raw_data = request.json()
             # Doesn't always work !!!!!
             #self._mac = next(iter(self.raw_data))
@@ -108,7 +110,8 @@ class MyStromBulb(object):
         try:
             request = requests.post(
                 '{}/{}/{}/'.format(self.resource, URI, self._mac),
-                data={'action': 'on'}, timeout=self.timeout)
+                data={'action': 'on'}, headers={'Token': self.token},
+                timeout=self.timeout)
             if request.status_code == 200:
                 pass
         except requests.exceptions.ConnectionError:
@@ -130,7 +133,8 @@ class MyStromBulb(object):
         try:
             request = requests.post(
                 '{}/{}/{}/'.format(self.resource, URI, self._mac),
-                json=data, timeout=self.timeout)
+                json=data, headers={'Token': self.token},
+                timeout=self.timeout)
             if request.status_code == 200:
                 pass
         except requests.exceptions.ConnectionError:
@@ -142,7 +146,8 @@ class MyStromBulb(object):
             data = "action=on&color={};{};{}".format(hue, saturation, value)
             request = requests.post(
                 '{}/{}/{}'.format(self.resource, URI, self._mac),
-                data=data, timeout=self.timeout)
+                data=data, headers={'Token': self.token},
+                timeout=self.timeout)
             if request.status_code == 200:
                 self.data['on'] = True
         except requests.exceptions.ConnectionError:
@@ -166,7 +171,8 @@ class MyStromBulb(object):
                 data = "action=on&color=3;{}".format(i)
                 request = requests.post(
                     '{}/{}/{}'.format(self.resource, URI, self._mac),
-                    data=data, timeout=self.timeout)
+                    data=data, headers={'Token': self.token},
+                    timeout=self.timeout)
                 if request.status_code == 200:
                     self.data['on'] = True
             except requests.exceptions.ConnectionError:
@@ -187,7 +193,8 @@ class MyStromBulb(object):
         try:
             request = requests.post(
                 '{}/{}/{}/'.format(self.resource, URI, self._mac),
-                data={'ramp': value}, timeout=self.timeout)
+                data={'ramp': value}, headers={'Token': self.token},
+                timeout=self.timeout)
             if request.status_code == 200:
                 pass
         except requests.exceptions.ConnectionError:
@@ -198,7 +205,8 @@ class MyStromBulb(object):
         try:
             request = requests.post(
                 '{}/{}/{}/'.format(self.resource, URI, self._mac),
-                data={'action': 'off'}, timeout=self.timeout)
+                data={'action': 'off'}, headers={'Token': self.token},
+                timeout=self.timeout)
             if request.status_code == 200:
                 pass
         except requests.exceptions.ConnectionError:
