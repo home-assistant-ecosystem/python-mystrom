@@ -9,7 +9,7 @@ from . import _request as request
 class MyStromSwitch:
     """A class for a myStrom switch/plug."""
 
-    def __init__(self, host: str, token='', session: aiohttp.client.ClientSession = None) -> None:
+    def __init__(self, host: str, token: Optional[str] = None, session: aiohttp.client.ClientSession = None) -> None:
         """Initialize the switch."""
         self._close_session = False
         self._host = host
