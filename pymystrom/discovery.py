@@ -60,7 +60,7 @@ class DeviceRegistry(object):
         self.devices_by_mac[device.mac] = device
 
     def devices(self):
-        """Get all present devices"""
+        """Get all present devices."""
         return list(self.devices_by_mac.values())
 
 
