@@ -1,10 +1,15 @@
 Changelog
 =========
 
-2.1.0 (tbd)
+2.2.0 (tbd)
 -----------
 
 - 
+
+2.1.0 (2021-08-26)
+-----------
+
+- New 'get_device_info' method to get common device info
 
 2.0.0 (2020-11-12)
 ------------------

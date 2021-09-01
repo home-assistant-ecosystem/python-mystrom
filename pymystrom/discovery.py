@@ -1,12 +1,22 @@
 """Support for discovering myStrom devices."""
 import asyncio
 import logging
+import types
 from typing import Optional, List
+
+from yarl import URL
+from . import _request as request
 
 _LOGGER = logging.getLogger(__name__)
 
 DEVICE_MAPPING = {
+    "101": "myStrom Switch CH v1",
     "102": "myStrom Bulb",
+    "103": "myStrom Button+",
+    "104": "myStrom Button",
+    "105": "myStrom LED strip",
+    "106": "myStrom Switch CH v2",
+    "107": "myStrom Switch EU",
 }
 
 class DiscoveredDevice(object):
@@ -87,6 +97,20 @@ class DiscoveryProtocol(asyncio.DatagramProtocol):
         _LOGGER.debug("Shutting down UDP listener")
         super().connection_lost(exc)
 
+class DeviceInfo:
+    """Representation of the common device info."""
+
+    version: str
+    mac: str
+    type: int
+    type_str: str
+    ssid: str
+    ip: str
+    mask: str
+    gateway: str
+    dns: str
+    static: bool
+    connected: bool
 
 async def discover_devices(timeout: int = 7) -> List[DiscoveredDevice]:
     """Discover local myStrom devices.
@@ -111,3 +135,28 @@ async def discover_devices(timeout: int = 7) -> List[DiscoveredDevice]:
         )
     return devices
 
+
+async def get_device_info(host: str) -> DeviceInfo:
+    """Get myStrom device info."""
+
+    req_obj = types.SimpleNamespace()
+    req_obj._session = None
+
+    url = URL.build(scheme="http", host=host, path="/api/v1/info")
+    response = await request(req_obj, uri=url)
+    await req_obj._session.close()
+    
+    info = DeviceInfo()
+    info.version = response["version"]
+    info.mac = response["mac"]
+    info.type = response["type"]
+    info.type_str = DEVICE_MAPPING.get(str(info.type), "Unknown")
+    info.ssid = response["ssid"]
+    info.ip = response["ip"]
+    info.mask = response["mask"]
+    info.gateway = response["gw"]
+    info.dns = response["dns"]
+    info.static = response["static"]
+    info.connected = response["connected"]
+
+    return info
