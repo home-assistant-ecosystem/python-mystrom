@@ -111,6 +111,7 @@ set the bulb to a state from `Colors` with the app or use the command below.
 
 Set State
 `````````
+
 You can set the state with a POST request and a payload.
 
 - **on**: ``curl -d "action=on" http://IP_ADDRESS_BULB/api/v1/device/MAC_ADDRESS_BULB``
@@ -119,6 +120,7 @@ You can set the state with a POST request and a payload.
 
 Set Color RGB
 `````````````
+
 One of the supported modes for setting the color is **RBG**.
 
 - **white**: ``$ curl -d "color=FF000000" http://IP_ADDRESS_BULB/api/v1/device/MAC_ADDRESS_BULB``
@@ -128,6 +130,7 @@ One of the supported modes for setting the color is **RBG**.
 
 Set Color HSV (Hue, Saturation, Value)
 ``````````````````````````````````````
+
 It's also possible to use **HSV**.
 
 .. code:: bash
@@ -138,6 +141,7 @@ While "color=" is composed with hue, saturation, and value.
 
 Set Mono (white)
 ````````````````
+
 If you only want to set the "white" color of the bulb, use **mono**.
 
 .. code:: bash
@@ -149,6 +153,7 @@ brightness (from 0 to 100).
 
 Dimming (ramp)
 ``````````````
+
 Add **ramp** and an interval to set up the transition time while changing
 colors.
 
@@ -160,6 +165,7 @@ The unit of measurement for ramp is milliseconds (ms).
 
 Button
 ------
+
 The buttons can be set with the myStrom app or directly via HTTP requests.
 
 To set the configuration the payload must contains the relevant details for
@@ -182,6 +188,7 @@ to receive configuration information or publish its details.
 
 ``mystrom`` helper tool
 -----------------------
+
 The command-line tool ``mystrom`` can help to set up the buttons and get the
 details from bulbs and plugs.
 
@@ -203,7 +210,6 @@ details from bulbs and plugs.
      bulb    Get and set details of a myStrom bulb.
      button  Get and set details of a myStrom button.
      config  Get and set the configuration of a myStrom...
-
 
 The examples shows how to get the details of a given bulb.
 
@@ -230,32 +236,6 @@ The examples shows how to get the details of a given bulb.
 
 Example usage of the module
 ---------------------------
-The sample below shows how to use this Python module.
-
-.. code:: python
-
-    import pymystrom
-
-    plug = pymystrom.MyStromPlug('IP_ADDRESS_PLUG')
-
-    # Preserve state
-    STATE_ON = plug.get_relay_state()
-
-    # Switch relay on if the plug is currently off
-    if not STATE_ON:
-        print("Relay will be switched on")
-        plug.set_relay_on()
-        # Wait a few seconds to get a reading of the power consumption
-        print("Waiting for a couple of seconds...")
-        time.sleep(10)
-
-    # Get the new state of the switch
-    print("Relay state:", plug.get_relay_state())
-    print("Power consumption:", plug.get_consumption())
-
-    # Switch relay off if it was off.
-    if not STATE_ON:
-        plug.set_relay_off()
 
 Examples for the bulb can be found in the directory ``examples``.
 
