@@ -54,6 +54,11 @@ async def _request(
     if (response.status // 100) in [4, 5]:
         response.close()
 
+    if (response.status == 404):
+        raise MyStromConnectionError(
+            "Error occurred while communicating with myStrom device."
+            )
+
     if "application/json" in content_type:
         response_json = await response.json()
         return response_json
