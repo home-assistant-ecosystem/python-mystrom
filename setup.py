@@ -10,10 +10,6 @@ here = os.path.abspath(os.path.dirname(__file__))
 with open(os.path.join(here, "README.rst"), encoding="utf-8") as readme:
     long_description = readme.read()
 
-if sys.argv[-1] == "publish":
-    os.system("python3 setup.py sdist upload")
-    sys.exit()
-
 setup(
     name="python-mystrom",
     version="2.1.0.dev1",
