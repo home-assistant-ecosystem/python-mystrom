@@ -12,7 +12,7 @@ with open(os.path.join(here, "README.rst"), encoding="utf-8") as readme:
 
 setup(
     name="python-mystrom",
-    version="2.1.0.dev1",
+    version="2.2.0.dev1",
     description="Asynchronous Python API client for interacting with myStrom devices",
     long_description=long_description,
     url="https://github.com/home-assistant-ecosystem/python-mystrom",
