@@ -3,9 +3,9 @@ import time
 
 from pymystrom import bulb
 
-bulb = bulb.MyStromBulb('192.168.0.51', '5CCF7FA0AFB0')
+bulb = bulb.MyStromBulb("192.168.0.51", "5CCF7FA0AFB0")
 
-bulb.set_color_hex('000000FF')
+bulb.set_color_hex("000000FF")
 
 # Get the details of the bulb
 print("Current color details:", bulb.get_color())

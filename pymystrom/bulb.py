@@ -17,7 +17,10 @@ class MyStromBulb:
     """A class for a myStrom bulb."""
 
     def __init__(
-        self, host: str, mac: str, session: aiohttp.client.ClientSession = None,
+        self,
+        host: str,
+        mac: str,
+        session: aiohttp.client.ClientSession = None,
     ):
         """Initialize the bulb."""
         self._close_session = False

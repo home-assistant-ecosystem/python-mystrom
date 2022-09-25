@@ -26,7 +26,7 @@ setup(
         "setuptools",
     ],
     packages=find_packages(),
-    python_requires='>=3.9',
+    python_requires=">=3.9",
     zip_safe=True,
     include_package_data=True,
     entry_points="""

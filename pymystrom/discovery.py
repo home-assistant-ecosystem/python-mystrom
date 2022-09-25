@@ -9,6 +9,7 @@ DEVICE_MAPPING = {
     "102": "myStrom Bulb",
 }
 
+
 class DiscoveredDevice(object):
     """Representation of discovered device."""
 
@@ -29,7 +30,7 @@ class DiscoveredDevice(object):
         device = DiscoveredDevice(host=raw_addr[0], mac=announce_msg[0:6].hex(":"))
         device.type = announce_msg[6]
 
-        if device.type == '102':
+        if device.type == "102":
             device.hardware = DEVICE_MAPPING[str(announce_msg[6])]
         else:
             device.hardware = "non_mystrom"
@@ -68,7 +69,7 @@ class DiscoveryProtocol(asyncio.DatagramProtocol):
     """Representation of the discovery protocol."""
 
     def __init__(self, registry: DeviceRegistry):
-        """"Initialize the discovery protocol."""
+        """ "Initialize the discovery protocol."""
         super().__init__()
         self.registry = registry
 
@@ -90,7 +91,7 @@ class DiscoveryProtocol(asyncio.DatagramProtocol):
 
 async def discover_devices(timeout: int = 7) -> List[DiscoveredDevice]:
     """Discover local myStrom devices.
-    
+
     Some myStrom devices report their presence every ~5 seconds in an UDP
     broadcast to port 7979.
     """
@@ -107,7 +108,9 @@ async def discover_devices(timeout: int = 7) -> List[DiscoveredDevice]:
     devices = registry.devices()
     for device in devices:
         _LOGGER.debug(
-            "Discovered myStrom device %s (%s) (MAC addresse: %s)", device.host, device.type, device.mac
+            "Discovered myStrom device %s (%s) (MAC addresse: %s)",
+            device.host,
+            device.type,
+            device.mac,
         )
     return devices
-

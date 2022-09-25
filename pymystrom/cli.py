@@ -246,7 +246,10 @@ async def off(ip, mac):
     "--mac", prompt="MAC address of the bulb", help="MAC address of the bulb."
 )
 @click.option(
-    "--time", prompt="Time to flash", help="Time to flash the bulb in seconds.", default=10,
+    "--time",
+    prompt="Time to flash",
+    help="Time to flash the bulb in seconds.",
+    default=10,
 )
 async def flash(ip, mac, time):
     """Flash the bulb off."""
@@ -261,7 +264,10 @@ async def flash(ip, mac, time):
     "--mac", prompt="MAC address of the bulb", help="MAC address of the bulb."
 )
 @click.option(
-    "--time", prompt="Time for the complete rainbow", help="Time to perform the rainbow in seconds.", default=30,
+    "--time",
+    prompt="Time for the complete rainbow",
+    help="Time to perform the rainbow in seconds.",
+    default=30,
 )
 async def rainbow(ip, mac, time):
     """Let the buld change the color and show a rainbow."""

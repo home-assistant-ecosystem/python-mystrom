@@ -36,7 +36,12 @@ async def _request(
     try:
         with async_timeout.timeout(TIMEOUT):
             response = await self._session.request(
-                method, uri, data=data, json=json_data, params=params, headers=headers,
+                method,
+                uri,
+                data=data,
+                json=json_data,
+                params=params,
+                headers=headers,
             )
     except asyncio.TimeoutError as exception:
         raise MyStromConnectionError(
