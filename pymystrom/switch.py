@@ -71,7 +71,7 @@ class MyStromSwitch:
 
     @property
     def consumedWs(self) -> float:
-        """The average of energy consumed per second since last report call"""
+        """The average of energy consumed per second since last report call."""
         return round(self._consumedWs, 1)
 
     @property
