@@ -23,11 +23,15 @@ class DiscoveredDevice(object):
     @staticmethod
     def create_from_announce_msg(raw_addr, announce_msg):
         """Create announce message."""
-        _LOGGER.debug("Received announce message '%s' from %s ", announce_msg, raw_addr)
+        _LOGGER.debug(
+            "Received announce message '%s' from %s ", announce_msg, raw_addr
+        )
         if len(announce_msg) != 8:
             raise RuntimeError("Unexpected announcement, '%s'" % announce_msg)
 
-        device = DiscoveredDevice(host=raw_addr[0], mac=announce_msg[0:6].hex(":"))
+        device = DiscoveredDevice(
+            host=raw_addr[0], mac=announce_msg[0:6].hex(":")
+        )
         device.type = announce_msg[6]
 
         if device.type == "102":
