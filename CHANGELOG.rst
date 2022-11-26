@@ -1,10 +1,10 @@
 Changelog
 =========
 
-2.1.0 (tbd)
------------
+2.1.0 (2022-11-26)
+------------------
 
-- 
+- Add dd consumed energy to switch (thanks @OneCyrus)
 
 2.0.0 (2020-11-12)
 ------------------
