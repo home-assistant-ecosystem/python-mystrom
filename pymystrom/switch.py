@@ -48,15 +48,21 @@ class MyStromSwitch:
         """Get the details from the switch/plug."""
         url = URL(self.uri).join(URL("report"))
         response = await request(self, uri=url)
-        self._consumption = response["power"]
-        self._consumedWs = response["Ws"]
+        try:
+            self._consumption = response["power"]
+        except KeyError:
+            self._consumption = 0
+        try:
+            self._consumedWs = response["Ws"]
+        except KeyError:
+            self._consumedWs = 0
         self._state = response["relay"]
         try:
             self._temperature = response["temperature"]
         except KeyError:
             self._temperature = None
 
-        url = URL(self.uri).join(URL("info.json"))
+        url = URL(self.uri).join(URL("api/v1/info"))
         response = await request(self, uri=url)
         self._firmware = response["version"]
         self._mac = response["mac"]
