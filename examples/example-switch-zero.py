@@ -1,4 +1,4 @@
-"""Example code for communicating with a myStrom plug/switch."""
+"""Example code for communicating with a myStrom switch zero."""
 import asyncio
 
 from pymystrom.switch_zero import MyStromSwitchZero
@@ -22,7 +22,7 @@ async def main():
             await switch.turn_on()
 
         print("Toggle the switch")
-            await switch.toggle()
+        await switch.toggle()
 
         # Switch relay off if it was off
         if switch.relay:

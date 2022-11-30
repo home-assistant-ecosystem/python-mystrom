@@ -1,7 +1,6 @@
-"""Support for communicating with myStrom plugs/switches."""
+"""Support for communicating with myStrom switch zero."""
 import aiohttp
 from yarl import URL
-from typing import Any, Dict, Iterable, List, Optional, Union
 
 from . import _request as request
 
@@ -72,7 +71,7 @@ class MyStromSwitchZero:
         if self._session and self._close_session:
             await self._session.close()
 
-    async def __aenter__(self) -> "MyStromSwitch":
+    async def __aenter__(self) -> "MyStromSwitchZero":
         """Async enter."""
         return self
 
