@@ -18,15 +18,27 @@ async def main():
         print("MAC address:", switch.mac)
 
         print("Turn on the switch")
-        if not switch.relay:
-            await switch.turn_on()
+        await switch.turn_on()
+
+        await switch.get_state()
+        print("Relay state should be on:", switch.relay)
 
         print("Toggle the switch")
         await switch.toggle()
 
-        # Switch relay off if it was off
-        if switch.relay:
-            await switch.turn_off()
+        await switch.get_state()
+        print("Relay state should be off:", switch.relay)
+
+        print("Toggle the switch")
+        await switch.toggle()
+
+        await switch.get_state()
+        print("Relay state should be on:", switch.relay)
+
+        await switch.turn_off()
+        
+        await switch.get_state()
+        print("Relay state should be off:", switch.relay)
 
 
 if __name__ == "__main__":
