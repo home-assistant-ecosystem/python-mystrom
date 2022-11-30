@@ -45,8 +45,8 @@ be present in the ``unstable`` channel.
     $ nix-env -iA nixos.python39Packages.python-mystrom
 
 
-Plug/switch
------------
+Plug/switch and Switch Zero
+---------------------------
 
 At the moment the following endpoints are covered according `https://api.mystrom.ch <https://api.mystrom.ch>`_:
 
