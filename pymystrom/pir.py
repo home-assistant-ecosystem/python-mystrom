@@ -11,7 +11,12 @@ URI_PIR = URL("api/v1/")
 class MyStromPir:
     """A class for a myStrom PIR."""
 
-    def __init__(self, host: str, token='', session: aiohttp.client.ClientSession = None) -> None:
+    def __init__(
+        self,
+        host: str,
+        token: Optional[str] = None,
+        session: aiohttp.client.ClientSession = None
+    ) -> None:
         """Initialize the switch."""
         self._close_session = False
         self._host = host
@@ -143,7 +148,10 @@ class MyStromPir:
     @property
     def light_raw(self) -> Optional[str]:
         """Return the raw data from the ADC."""
-        return {"visible": self._light_raw["adc0"], "infrared": self._light_raw["adc1"]}
+        return {
+            "visible": self._light_raw["adc0"],
+            "infrared": self._light_raw["adc1"],
+        }
 
     async def close(self) -> None:
         """Close an open client session."""

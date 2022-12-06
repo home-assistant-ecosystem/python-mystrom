@@ -14,6 +14,7 @@ async def main():
         await switch.get_state()
 
         print("Power consumption:", switch.consumption)
+        print("Energy consumed:", switch.consumedWs)
         print("Relay state:", switch.relay)
         print("Temperature:", switch.temperature)
         print("Firmware:", switch.firmware)

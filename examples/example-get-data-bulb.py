@@ -1,7 +1,7 @@
 """Example code for getting the data from a myStrom bulb."""
 from pymystrom import bulb
 
-bulb = bulb.MyStromBulb('192.168.0.51', '5CCF7FA0AFB0')
+bulb = bulb.MyStromBulb("192.168.0.51", "5CCF7FA0AFB0")
 
 # Get the details of the bulb
 print("Bulb state:", bulb.get_bulb_state())

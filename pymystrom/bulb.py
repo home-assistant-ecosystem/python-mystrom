@@ -17,7 +17,11 @@ class MyStromBulb:
     """A class for a myStrom bulb."""
 
     def __init__(
-        self, host: str, mac: str, token='', session: aiohttp.client.ClientSession = None,
+        self,
+        host: str,
+        mac: str,
+        token: Optional[str] = None,
+        session: aiohttp.client.ClientSession = None,
     ):
         """Initialize the bulb."""
         self._close_session = False
@@ -33,7 +37,9 @@ class MyStromBulb:
         self._bulb_type = None
         self._state = None
         self._transition_time = 0
-        self.uri = URL.build(scheme="http", host=self._host).join(URI_BULB) / self._mac
+        self.uri = (
+            URL.build(scheme="http", host=self._host).join(URI_BULB) / self._mac
+        )
         self.token = token
 
     async def get_state(self) -> object:

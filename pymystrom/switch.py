@@ -9,12 +9,18 @@ from . import _request as request
 class MyStromSwitch:
     """A class for a myStrom switch/plug."""
 
-    def __init__(self, host: str, token: Optional[str] = None, session: aiohttp.client.ClientSession = None) -> None:
+    def __init__(
+        self,
+        host: str,
+        token: Optional[str] = None,
+        session: aiohttp.client.ClientSession = None
+    ) -> None:
         """Initialize the switch."""
         self._close_session = False
         self._host = host
         self._session = session
         self._consumption = 0
+        self._consumedWs = 0
         self._state = None
         self._temperature = None
         self._firmware = None
@@ -47,6 +53,7 @@ class MyStromSwitch:
         url = URL(self.uri).join(URL("report"))
         response = await request(self, uri=url, token=self.token)
         self._consumption = response["power"]
+        self._consumedWs = response["Ws"]
         self._state = response["relay"]
         try:
             self._temperature = response["temperature"]
@@ -67,6 +74,11 @@ class MyStromSwitch:
     def consumption(self) -> float:
         """Return the current power consumption in mWh."""
         return round(self._consumption, 1)
+
+    @property
+    def consumedWs(self) -> float:
+        """The average of energy consumed per second since last report call."""
+        return round(self._consumedWs, 1)
 
     @property
     def firmware(self) -> float:

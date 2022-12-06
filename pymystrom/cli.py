@@ -42,7 +42,9 @@ def config():
     "--ip", prompt="IP address of the device", help="IP address of the device."
 )
 @click.option(
-    "--mac", prompt="MAC address of the device", help="MAC address of the device."
+    "--mac",
+    prompt="MAC address of the device",
+    help="MAC address of the device.",
 )
 @click.option(
     "--token", prompt="Token of the device", help="Token of the device."
@@ -51,7 +53,9 @@ def read_config(ip, mac, token):
     """Read the current configuration of a myStrom device."""
     click.echo("Read configuration from %s" % ip)
     try:
-        request = requests.get("http://{}/{}/{}/".format(ip, URI, mac), timeout=TIMEOUT, headers={'Token': token})
+        request = requests.get(
+            "http://{}/{}/{}/".format(ip, URI, mac), timeout=TIMEOUT, headers={'Token': token}
+        )
         click.echo(request.json())
     except requests.exceptions.ConnectionError:
         click.echo("Communication issue with the device")
@@ -67,21 +71,32 @@ def button():
     "--ip", prompt="IP address of the button", help="IP address of the button."
 )
 @click.option(
-    "--mac", prompt="MAC address of the button", help="MAC address of the button."
+    "--mac",
+    prompt="MAC address of the button",
+    help="MAC address of the button.",
+)
+
+@click.option(
+    "--single",
+    prompt="URL for a single tap",
+    default="",
+    help="URL for a single tap."
 )
 @click.option(
     "--token", prompt="Token of the device", help="Token of the device."
 )
 @click.option(
-    "--single", prompt="URL for a single tap", default="", help="URL for a single tap."
-)
-@click.option(
-    "--double", prompt="URL for a double tap", default="", help="URL for a double tap."
+    "--double",
+    prompt="URL for a double tap",
+    default="",
+    help="URL for a double tap.",
 )
 @click.option(
     "--long", prompt="URL for a long tab", default="", help="URL for a long tab."
 )
-@click.option("--touch", prompt="URL for a touch", default="", help="URL for a touch.")
+@click.option(
+    "--touch", prompt="URL for a touch", default="", help="URL for a touch."
+)
 def write_config(ip, mac, token, single, double, long, touch):
     """Write the current configuration of a myStrom button."""
     click.echo("Write configuration to device %s" % ip)
@@ -107,7 +122,9 @@ def write_config(ip, mac, token, single, double, long, touch):
     "--ip", prompt="IP address of the button", help="IP address of the button."
 )
 @click.option(
-    "--mac", prompt="MAC address of the button", help="MAC address of the button."
+    "--mac",
+    prompt="MAC address of the button",
+    help="MAC address of the button.",
 )
 @click.option(
     "--token", prompt="Token of the device", help="Token of the device."
@@ -124,7 +141,10 @@ def write_config(ip, mac, token, single, double, long, touch):
     help="Port where Home Assistant instance is listening.",
 )
 @click.option(
-    "--id", prompt="ID of the button", default="", help="ID of the myStrom button."
+    "--id",
+    prompt="ID of the button",
+    default="",
+    help="ID of the myStrom button.",
 )
 def write_ha_config(ip, mac, token, hass, port, id):
     """Write the configuration for Home Assistant to a myStrom button."""
@@ -154,10 +174,14 @@ def write_ha_config(ip, mac, token, hass, port, id):
 
 @button.command("reset")
 @click.option(
-    "--ip", prompt="IP address of the WiFi Button", help="P address of the WiFi Button."
+    "--ip",
+    prompt="IP address of the WiFi Button",
+    help="P address of the WiFi Button.",
 )
 @click.option(
-    "--mac", prompt="MAC address of the button", help="MAC address of the Wifi Button."
+    "--mac",
+    prompt="MAC address of the button",
+    help="MAC address of the Wifi Button.",
 )
 @click.option(
     "--token", prompt="Token of the device", help="Token of the device."
@@ -184,10 +208,14 @@ def reset_config(ip, mac, token):
 
 @button.command("read")
 @click.option(
-    "--ip", prompt="IP address of the WiFi Button", help="P address of the WiFi Button."
+    "--ip",
+    prompt="IP address of the WiFi Button",
+    help="P address of the WiFi Button.",
 )
 @click.option(
-    "--mac", prompt="MAC address of the button", help="MAC address of the Wifi Button."
+    "--mac",
+    prompt="MAC address of the button",
+    help="MAC address of the Wifi Button.",
 )
 @click.option(
     "--token", prompt="Token of the device", help="Token of the device."
@@ -196,7 +224,9 @@ def read_config(ip, mac, token):
     """Read the current configuration of a myStrom WiFi Button."""
     click.echo("Read the configuration of button %s..." % ip)
     try:
-        request = requests.get("http://{}/{}/{}/".format(ip, URI, mac), timeout=TIMEOUT, headers={'Token': token})
+        request = requests.get(
+            "http://{}/{}/{}/".format(ip, URI, mac), timeout=TIMEOUT, headers={'Token': token}
+        )
         click.echo(request.json())
     except requests.exceptions.ConnectionError:
         click.echo("Communication issue with the device. No action performed")
@@ -209,7 +239,9 @@ def bulb():
 
 @bulb.command("on")
 @coro
-@click.option("--ip", prompt="IP address of the bulb", help="IP address of the bulb.")
+@click.option(
+    "--ip", prompt="IP address of the bulb", help="IP address of the bulb."
+)
 @click.option(
     "--mac", prompt="MAC address of the bulb", help="MAC address of the bulb."
 )
@@ -224,7 +256,9 @@ async def on(ip, mac, token):
 
 @bulb.command("color")
 @coro
-@click.option("--ip", prompt="IP address of the bulb", help="IP address of the bulb.")
+@click.option(
+    "--ip", prompt="IP address of the bulb", help="IP address of the bulb."
+)
 @click.option(
     "--mac", prompt="MAC address of the bulb", help="MAC address of the bulb."
 )
@@ -240,7 +274,9 @@ async def on(ip, mac, token):
     help="Set the saturation of the bulb.",
 )
 @click.option(
-    "--value", prompt="Set the value of the bulb", help="Set the value of the bulb."
+    "--value",
+    prompt="Set the value of the bulb",
+    help="Set the value of the bulb.",
 )
 async def color(ip, mac, token, hue, saturation, value):
     """Switch the bulb on with the given color."""
@@ -250,7 +286,9 @@ async def color(ip, mac, token, hue, saturation, value):
 
 @bulb.command("off")
 @coro
-@click.option("--ip", prompt="IP address of the bulb", help="IP address of the bulb.")
+@click.option(
+    "--ip", prompt="IP address of the bulb", help="IP address of the bulb."
+)
 @click.option(
     "--mac", prompt="MAC address of the bulb", help="MAC address of the bulb."
 )
@@ -265,7 +303,9 @@ async def off(ip, mac, token):
 
 @bulb.command("flash")
 @coro
-@click.option("--ip", prompt="IP address of the bulb", help="IP address of the bulb.")
+@click.option(
+    "--ip", prompt="IP address of the bulb", help="IP address of the bulb."
+)
 @click.option(
     "--mac", prompt="MAC address of the bulb", help="MAC address of the bulb."
 )
@@ -273,7 +313,10 @@ async def off(ip, mac, token):
     "--token", prompt="Token of the device", help="Token of the device."
 )
 @click.option(
-    "--time", prompt="Time to flash", help="Time to flash the bulb in seconds.", default=10,
+    "--time",
+    prompt="Time to flash",
+    help="Time to flash the bulb in seconds.",
+    default=10,
 )
 async def flash(ip, mac, token, time):
     """Flash the bulb off."""
@@ -283,7 +326,9 @@ async def flash(ip, mac, token, time):
 
 @bulb.command("rainbow")
 @coro
-@click.option("--ip", prompt="IP address of the bulb", help="IP address of the bulb.")
+@click.option(
+    "--ip", prompt="IP address of the bulb", help="IP address of the bulb."
+)
 @click.option(
     "--mac", prompt="MAC address of the bulb", help="MAC address of the bulb."
 )
@@ -291,7 +336,10 @@ async def flash(ip, mac, token, time):
     "--token", prompt="Token of the device", help="Token of the device."
 )
 @click.option(
-    "--time", prompt="Time for the complete rainbow", help="Time to perform the rainbow in seconds.", default=30,
+    "--time",
+    prompt="Time for the complete rainbow",
+    help="Time to perform the rainbow in seconds.",
+    default=30,
 )
 async def rainbow(ip, mac, token, time):
     """Let the buld change the color and show a rainbow."""
