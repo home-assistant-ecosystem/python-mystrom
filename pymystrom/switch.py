@@ -62,6 +62,7 @@ class MyStromSwitch:
         except KeyError:
             self._temperature = None
 
+        """ try the new API """
         url = URL(self.uri).join(URL("api/v1/info"))
         response = await request(self, uri=url)
         if not isinstance( response, dict ):
