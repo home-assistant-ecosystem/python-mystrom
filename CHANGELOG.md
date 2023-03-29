@@ -2,7 +2,7 @@
 
 ## next release
 
-- Add additional devices (inlc. Switch Zero)
+- Add additional devices (incl. Switch Zero)
 - Support for Switch Zero (thanks @hguetlin)
 
 ## 2.1.0 (2022-11-26)
