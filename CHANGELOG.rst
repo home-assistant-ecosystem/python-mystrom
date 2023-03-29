@@ -1,6 +1,12 @@
 Changelog
 =========
 
+next release
+------------
+
+- Support for Switch Zero (thanks @hguetlin)
+
+
 2.1.0 (2022-11-26)
 ------------------
 
