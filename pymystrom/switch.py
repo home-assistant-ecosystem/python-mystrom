@@ -9,9 +9,7 @@ from . import _request as request
 class MyStromSwitch:
     """A class for a myStrom switch/plug."""
 
-    def __init__(
-        self, host: str, session: aiohttp.client.ClientSession = None
-    ) -> None:
+    def __init__(self, host: str, session: aiohttp.client.ClientSession = None) -> None:
         """Initialize the switch."""
         self._close_session = False
         self._host = host
@@ -62,11 +60,11 @@ class MyStromSwitch:
         except KeyError:
             self._temperature = None
 
-        # try the new API
+        # Try the new API (Devices with newer firmware)
         url = URL(self.uri).join(URL("api/v1/info"))
         response = await request(self, uri=url)
-        if not isinstance( response, dict ):
-            # Fall back to the old API version
+        if not isinstance(response, dict):
+            # Fall back to the old API version if the device runs with old firmware
             url = URL(self.uri).join(URL("info.json"))
             response = await request(self, uri=url)
 
