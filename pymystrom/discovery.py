@@ -6,7 +6,15 @@ from typing import Optional, List
 _LOGGER = logging.getLogger(__name__)
 
 DEVICE_MAPPING = {
+    "101": "myStrom Switch v1",
     "102": "myStrom Bulb",
+    "103": "myStrom Button+",
+    "104": "myStrom Button",
+    "105": "myStrom LED strip",
+    "106": "myStzrom Switch v2",
+    "107": "myStrom Switch EU",
+    "110": "myStrom Motion sensor",
+    "120": "myStrom Switch Zero",
 }
 
 
