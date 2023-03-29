@@ -36,9 +36,7 @@ class MyStromBulb:
         self._bulb_type = None
         self._state = None
         self._transition_time = 0
-        self.uri = (
-            URL.build(scheme="http", host=self._host).join(URI_BULB) / self._mac
-        )
+        self.uri = URL.build(scheme="http", host=self._host).join(URI_BULB) / self._mac
 
     async def get_state(self) -> object:
         """Get the state of the bulb."""

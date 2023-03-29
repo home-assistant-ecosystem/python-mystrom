@@ -9,7 +9,6 @@ IP_ADDRESS = "192.168.0.40"
 async def main():
     """Sample code to work with a myStrom switch."""
     async with MyStromSwitch(IP_ADDRESS) as switch:
-
         # Collect the data of the current state
         await switch.get_state()
 

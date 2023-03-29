@@ -50,9 +50,7 @@ def read_config(ip, mac):
     """Read the current configuration of a myStrom device."""
     click.echo("Read configuration from %s" % ip)
     try:
-        request = requests.get(
-            "http://{}/{}/{}/".format(ip, URI, mac), timeout=TIMEOUT
-        )
+        request = requests.get("http://{}/{}/{}/".format(ip, URI, mac), timeout=TIMEOUT)
         click.echo(request.json())
     except requests.exceptions.ConnectionError:
         click.echo("Communication issue with the device")
@@ -87,9 +85,7 @@ def button():
 @click.option(
     "--long", prompt="URL for a long tab", default="", help="URL for a long tab."
 )
-@click.option(
-    "--touch", prompt="URL for a touch", default="", help="URL for a touch."
-)
+@click.option("--touch", prompt="URL for a touch", default="", help="URL for a touch.")
 def write_config(ip, mac, single, double, long, touch):
     """Write the current configuration of a myStrom button."""
     click.echo("Write configuration to device %s" % ip)
@@ -208,9 +204,7 @@ def read_config(ip, mac):
     """Read the current configuration of a myStrom WiFi Button."""
     click.echo("Read the configuration of button %s..." % ip)
     try:
-        request = requests.get(
-            "http://{}/{}/{}/".format(ip, URI, mac), timeout=TIMEOUT
-        )
+        request = requests.get("http://{}/{}/{}/".format(ip, URI, mac), timeout=TIMEOUT)
         click.echo(request.json())
     except requests.exceptions.ConnectionError:
         click.echo("Communication issue with the device. No action performed")
@@ -223,9 +217,7 @@ def bulb():
 
 @bulb.command("on")
 @coro
-@click.option(
-    "--ip", prompt="IP address of the bulb", help="IP address of the bulb."
-)
+@click.option("--ip", prompt="IP address of the bulb", help="IP address of the bulb.")
 @click.option(
     "--mac", prompt="MAC address of the bulb", help="MAC address of the bulb."
 )
@@ -237,9 +229,7 @@ async def on(ip, mac):
 
 @bulb.command("color")
 @coro
-@click.option(
-    "--ip", prompt="IP address of the bulb", help="IP address of the bulb."
-)
+@click.option("--ip", prompt="IP address of the bulb", help="IP address of the bulb.")
 @click.option(
     "--mac", prompt="MAC address of the bulb", help="MAC address of the bulb."
 )
@@ -264,9 +254,7 @@ async def color(ip, mac, hue, saturation, value):
 
 @bulb.command("off")
 @coro
-@click.option(
-    "--ip", prompt="IP address of the bulb", help="IP address of the bulb."
-)
+@click.option("--ip", prompt="IP address of the bulb", help="IP address of the bulb.")
 @click.option(
     "--mac", prompt="MAC address of the bulb", help="MAC address of the bulb."
 )
@@ -278,9 +266,7 @@ async def off(ip, mac):
 
 @bulb.command("flash")
 @coro
-@click.option(
-    "--ip", prompt="IP address of the bulb", help="IP address of the bulb."
-)
+@click.option("--ip", prompt="IP address of the bulb", help="IP address of the bulb.")
 @click.option(
     "--mac", prompt="MAC address of the bulb", help="MAC address of the bulb."
 )
@@ -298,9 +284,7 @@ async def flash(ip, mac, time):
 
 @bulb.command("rainbow")
 @coro
-@click.option(
-    "--ip", prompt="IP address of the bulb", help="IP address of the bulb."
-)
+@click.option("--ip", prompt="IP address of the bulb", help="IP address of the bulb.")
 @click.option(
     "--mac", prompt="MAC address of the bulb", help="MAC address of the bulb."
 )

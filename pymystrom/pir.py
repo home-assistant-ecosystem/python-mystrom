@@ -11,9 +11,7 @@ URI_PIR = URL("api/v1/")
 class MyStromPir:
     """A class for a myStrom PIR."""
 
-    def __init__(
-        self, host: str, session: aiohttp.client.ClientSession = None
-    ) -> None:
+    def __init__(self, host: str, session: aiohttp.client.ClientSession = None) -> None:
         """Initialize the switch."""
         self._close_session = False
         self._host = host

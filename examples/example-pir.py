@@ -9,7 +9,6 @@ IP_ADDRESS = "192.168.1.225"
 async def main():
     """Sample code to work with a myStrom PIR."""
     async with MyStromPir(IP_ADDRESS) as pir:
-
         # Get the PIR settings
         await pir.get_settings()
         print("Settings:", pir.settings)
