@@ -9,9 +9,7 @@ from . import _request as request
 class MyStromSwitch:
     """A class for a myStrom switch/plug."""
 
-    def __init__(
-        self, host: str, session: aiohttp.client.ClientSession = None
-    ) -> None:
+    def __init__(self, host: str, session: aiohttp.client.ClientSession = None) -> None:
         """Initialize the switch."""
         self._close_session = False
         self._host = host
@@ -48,16 +46,28 @@ class MyStromSwitch:
         """Get the details from the switch/plug."""
         url = URL(self.uri).join(URL("report"))
         response = await request(self, uri=url)
-        self._consumption = response["power"]
-        self._consumedWs = response["Ws"]
+        try:
+            self._consumption = response["power"]
+        except KeyError:
+            self._consumption = None
+        try:
+            self._consumedWs = response["Ws"]
+        except KeyError:
+            self._consumedWs = None
         self._state = response["relay"]
         try:
             self._temperature = response["temperature"]
         except KeyError:
             self._temperature = None
 
-        url = URL(self.uri).join(URL("info.json"))
+        # Try the new API (Devices with newer firmware)
+        url = URL(self.uri).join(URL("api/v1/info"))
         response = await request(self, uri=url)
+        if not isinstance(response, dict):
+            # Fall back to the old API version if the device runs with old firmware
+            url = URL(self.uri).join(URL("info.json"))
+            response = await request(self, uri=url)
+
         self._firmware = response["version"]
         self._mac = response["mac"]
 
@@ -69,12 +79,18 @@ class MyStromSwitch:
     @property
     def consumption(self) -> float:
         """Return the current power consumption in mWh."""
-        return round(self._consumption, 1)
+        if self._consumption is not None:
+            return round(self._consumption, 1)
+
+        return self._consumption
 
     @property
     def consumedWs(self) -> float:
         """The average of energy consumed per second since last report call."""
-        return round(self._consumedWs, 1)
+        if self._consumedWs is not None:
+            return round(self._consumedWs, 1)
+
+        return self._consumedWs
 
     @property
     def firmware(self) -> float:
