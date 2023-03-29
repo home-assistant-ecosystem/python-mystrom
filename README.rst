@@ -42,7 +42,7 @@ be present in the ``unstable`` channel.
 
 .. code:: bash
 
-    $ nix-env -iA nixos.python39Packages.python-mystrom
+    $ nix-env -iA nixos.python3Packages.python-mystrom
 
 
 Plug/switch
