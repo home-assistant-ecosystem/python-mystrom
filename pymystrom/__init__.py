@@ -64,21 +64,6 @@ async def _request(
 
     return response.text
 
-
-class MyStromDeviceType(IntEnum):
-     SWITCH_CH_V1 = 101
-     BULB = 102
-     BUTTON_PLUS = 103
-     BUTTON = 104
-     LED_STRIP = 105
-     SWITCH_CH_V2 = 106
-     SWITCH_EU = 107
-     MOTION_SENSOR = 110
-     MODULO = 113
-     BUTTON_PLUS_2ND = 118
-     SWITCH_ZERO = 120
-
-
 class MyStromDevice:
     """A class for a myStrom device."""
     def __init__(
