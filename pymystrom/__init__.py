@@ -1,13 +1,11 @@
 """Base details for the myStrom Python bindings."""
 import asyncio
-from enum import IntEnum
-import json
 import aiohttp
 import async_timeout
 from yarl import URL
 from typing import Any, Mapping, Optional
 import socket
-from .exceptions import MyStromConnectionError, MyStromError
+from .exceptions import MyStromConnectionError
 
 import pkg_resources
 
