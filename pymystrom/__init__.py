@@ -62,8 +62,10 @@ async def _request(
 
     return response.text
 
+
 class MyStromDevice:
     """A class for a myStrom device."""
+
     def __init__(
         self,
         host,
@@ -97,6 +99,7 @@ class MyStromDevice:
     async def __aexit__(self, *exc_info) -> None:
         """Async exit."""
         await self.close()
+
 
 async def get_device_info(host: str) -> dict:
     """Get the device info of a myStrom device."""
