@@ -2,8 +2,13 @@
 
 ## next release
 
+- None changes
+
+## 2.2.0 (2023-05-21)
+
 - Add additional devices (incl. Switch Zero)
 - Support for Switch Zero (thanks @hguetlin)
+- Implement get_device_info (thanks @pail23)
 
 ## 2.1.0 (2022-11-26)
 
