@@ -1,11 +1,11 @@
 """Base details for the myStrom Python bindings."""
 import asyncio
-import json
 import aiohttp
 import async_timeout
+from yarl import URL
 from typing import Any, Mapping, Optional
 import socket
-from .exceptions import MyStromConnectionError, MyStromError
+from .exceptions import MyStromConnectionError
 
 import pkg_resources
 
@@ -61,3 +61,44 @@ async def _request(
         return response_json
 
     return response.text
+
+class MyStromDevice:
+    """A class for a myStrom device."""
+    def __init__(
+        self,
+        host,
+        session: aiohttp.client.ClientSession = None,
+    ):
+        """Initialize the device."""
+        self._close_session = False
+        self._host = host
+        self._session = session
+        self.uri = URL.build(scheme="http", host=self._host)
+
+    async def get_device_info(self) -> dict:
+        """Get the device info of a myStrom device."""
+        url = URL(self.uri).join(URL("api/v1/info"))
+        response = await _request(self, uri=url)
+        if not isinstance(response, dict):
+            # Fall back to the old API version if the device runs with old firmware
+            url = URL(self.uri).join(URL("info.json"))
+            response = await _request(self, uri=url)
+        return response
+
+    async def close(self) -> None:
+        """Close an open client session."""
+        if self._session and self._close_session:
+            await self._session.close()
+
+    async def __aenter__(self) -> "MyStromDevice":
+        """Async enter."""
+        return self
+
+    async def __aexit__(self, *exc_info) -> None:
+        """Async exit."""
+        await self.close()
+
+async def get_device_info(host: str) -> dict:
+    """Get the device info of a myStrom device."""
+    async with MyStromDevice(host) as device:
+        return await device.get_device_info()
