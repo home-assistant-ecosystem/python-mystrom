@@ -55,7 +55,7 @@ class MyStromBulb:
         return self._firmware
 
     @property
-    def mac(self) -> float:
+    def mac(self) -> str:
         """Return the MAC address."""
         return self._mac
 
