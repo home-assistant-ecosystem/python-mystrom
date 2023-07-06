@@ -4,7 +4,7 @@ import logging
 
 import aiohttp
 from yarl import URL
-from typing import Any, Dict, Iterable, List, Optional, Union
+from typing import Optional
 
 from . import _request as request
 
@@ -21,7 +21,7 @@ class MyStromBulb:
         host: str,
         mac: str,
         session: aiohttp.client.ClientSession = None,
-    ):
+    ) -> None:
         """Initialize the bulb."""
         self._close_session = False
         self._host = host
@@ -38,7 +38,7 @@ class MyStromBulb:
         self._transition_time = 0
         self.uri = URL.build(scheme="http", host=self._host).join(URI_BULB) / self._mac
 
-    async def get_state(self) -> object:
+    async def get_state(self) -> None:
         """Get the state of the bulb."""
         response = await request(self, uri=self.uri)
         self._consumption = response[self._mac]["power"]
