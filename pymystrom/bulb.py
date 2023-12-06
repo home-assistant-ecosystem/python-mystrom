@@ -6,15 +6,14 @@ import aiohttp
 from yarl import URL
 from typing import Any, Dict, Iterable, List, Optional, Union
 
-from .device import _request as request
-from .device import MyStromDevice
+from . import _request as request
 
 _LOGGER = logging.getLogger(__name__)
 
-API_PREFIX = URL("api/v1/device")
+URI_BULB = URL("api/v1/device")
 
 
-class MyStromBulb(MyStromDevice):
+class MyStromBulb:
     """A class for a myStrom bulb."""
 
     def __init__(
@@ -24,8 +23,10 @@ class MyStromBulb(MyStromDevice):
         session: aiohttp.client.ClientSession = None,
     ):
         """Initialize the bulb."""
-        super().__init__(host, session)
+        self._close_session = False
+        self._host = host
         self._mac = mac
+        self._session = session
         self.brightness = 0
         self._color = None
         self._consumption = 0
@@ -35,7 +36,7 @@ class MyStromBulb(MyStromDevice):
         self._bulb_type = None
         self._state = None
         self._transition_time = 0
-        # self.uri = URL.build(scheme="http", host=self._host).join(URI_BULB) / self._mac
+        self.uri = URL.build(scheme="http", host=self._host).join(URI_BULB) / self._mac
 
     async def get_state(self) -> object:
         """Get the state of the bulb."""
@@ -90,9 +91,8 @@ class MyStromBulb(MyStromDevice):
 
     async def set_on(self):
         """Turn the bulb on with the previous settings."""
-        url = URL(self.uri).join(URL(f"{API_PREFIX}/{self.mac}"))
         response = await request(
-            self, url, method="POST", data={"action": "on"}
+            self, uri=self.uri, method="POST", data={"action": "on"}
         )
         return response
 
@@ -104,12 +104,11 @@ class MyStromBulb(MyStromDevice):
         green: 0000FF00
         blue:  000000FF
         """
-        url = URL(self.uri).join(URL(f"{API_PREFIX}/{self.mac}"))
         data = {
             "action": "on",
             "color": value,
         }
-        response = await request(self, url, method="POST", data=data)
+        response = await request(self, uri=self.uri, method="POST", data=data)
         return response
 
     async def set_color_hsv(self, hue, saturation, value):
@@ -121,9 +120,8 @@ class MyStromBulb(MyStromDevice):
         #     'action': 'on',
         #     'color': f"{hue};{saturation};{value}",
         # }
-        url = URL(self.uri).join(URL(f"{API_PREFIX}/{self.mac}"))
         data = "action=on&color={};{};{}".format(hue, saturation, value)
-        response = await request(self, url, method="POST", data=data)
+        response = await request(self, uri=self.uri, method="POST", data=data)
         return response
 
     async def set_white(self):
@@ -141,12 +139,11 @@ class MyStromBulb(MyStromDevice):
 
         The brightness is from 0 till 100.
         """
-        url = URL(self.uri).join(URL(f"{API_PREFIX}/{self.mac}"))
         max_brightness = 100
         await self.set_transition_time((duration / max_brightness))
         for i in range(0, duration):
             data = "action=on&color=3;{}".format(i)
-            await request(self, url, method="POST", data=data)
+            await request(self, uri=self.uri, method="POST", data=data)
             await asyncio.sleep(duration / max_brightness)
 
     async def set_flashing(self, duration, hsv1, hsv2):
@@ -160,19 +157,27 @@ class MyStromBulb(MyStromDevice):
 
     async def set_transition_time(self, value):
         """Set the transition time in ms."""
-        url = URL(self.uri).join(URL(f"{API_PREFIX}/{self.mac}"))
         response = await request(
-            self, url, method="POST", data={"ramp": int(round(value))}
+            self, uri=self.uri, method="POST", data={"ramp": int(round(value))}
         )
         return response
 
     async def set_off(self):
         """Turn the bulb off."""
-        url = URL(self.uri).join(URL(f"{API_PREFIX}/{self.mac}"))
         response = await request(
-            self, url, method="POST", data={"action": "off"}
+            self, uri=self.uri, method="POST", data={"action": "off"}
         )
         return response
 
+    async def close(self) -> None:
+        """Close an open client session."""
+        if self._session and self._close_session:
+            await self._session.close()
+
     async def __aenter__(self) -> "MyStromBulb":
-        super().__aenter__()
+        """Async enter."""
+        return self
+
+    async def __aexit__(self, *exc_info) -> None:
+        """Async exit."""
+        await self.close()
