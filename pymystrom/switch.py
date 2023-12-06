@@ -3,24 +3,21 @@ import aiohttp
 from yarl import URL
 from typing import Any, Dict, Iterable, List, Optional, Union
 
-from . import _request as request
+from .device import _request as request
+from .device import MyStromDevice
 
-
-class MyStromSwitch:
+class MyStromSwitch(MyStromDevice):
     """A class for a myStrom switch/plug."""
 
     def __init__(self, host: str, session: aiohttp.client.ClientSession = None) -> None:
         """Initialize the switch."""
-        self._close_session = False
-        self._host = host
-        self._session = session
+        super().__init__(host, session)
         self._consumption = 0
         self._consumedWs = 0
         self._state = None
         self._temperature = None
         self._firmware = None
         self._mac = None
-        self.uri = URL.build(scheme="http", host=self._host)
 
     async def turn_on(self) -> None:
         """Turn the relay on."""
@@ -71,6 +68,12 @@ class MyStromSwitch:
         self._firmware = response["version"]
         self._mac = response["mac"]
 
+    async def get_temperature_full(self) -> str:
+        """Get current temperature in celsius."""
+        url = URL(self.uri).join(URL("temp"))
+        response = await request(self, uri=url)
+        return response
+        
     @property
     def relay(self) -> bool:
         """Return the relay state."""
@@ -110,21 +113,5 @@ class MyStromSwitch:
 
         return self._temperature
 
-    async def get_temperature_full(self) -> str:
-        """Get current temperature in celsius."""
-        url = URL(self.uri).join(URL("temp"))
-        response = await request(self, uri=url)
-        return response
-
-    async def close(self) -> None:
-        """Close an open client session."""
-        if self._session and self._close_session:
-            await self._session.close()
-
-    async def __aenter__(self) -> "MyStromSwitch":
-        """Async enter."""
-        return self
-
-    async def __aexit__(self, *exc_info) -> None:
-        """Async exit."""
-        await self.close()
+    async def __aenter__(self) -> "MyStromPir":
+        super().__aenter__()
