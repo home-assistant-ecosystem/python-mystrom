@@ -24,6 +24,7 @@ setup(
         "click",
         "aiohttp",
         "setuptools",
+        "async_timeout"
     ],
     packages=find_packages(),
     python_requires=">=3.9",
