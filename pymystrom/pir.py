@@ -3,19 +3,17 @@ import aiohttp
 from yarl import URL
 from typing import Any, Dict, Iterable, List, Optional, Union
 
-from . import _request as request
+from .device import _request as request
+from .device import MyStromDevice
 
-URI_PIR = URL("api/v1/")
+API_PREFIX = "api/v1"
 
-
-class MyStromPir:
+class MyStromPir(MyStromDevice):
     """A class for a myStrom PIR."""
 
     def __init__(self, host: str, session: aiohttp.client.ClientSession = None) -> None:
-        """Initialize the switch."""
-        self._close_session = False
-        self._host = host
-        self._session = session
+        """Initialize the PIR."""
+        super().__init__(host, session)
         self._intensity = None
         self._day = None
         self._light_raw = None
@@ -29,29 +27,28 @@ class MyStromPir:
         self._pir = None
 
         self._actions = None
-        self.uri = URL.build(scheme="http", host=self._host).join(URI_PIR)
 
     async def get_settings(self) -> None:
         """Get the current settings from the PIR."""
-        url = URL(self.uri).join(URL("settings"))
+        url = URL(self.uri).join(URL(f"{API_PREFIX}/settings"))
         response = await request(self, uri=url)
         self._settings = response
 
     async def get_actions(self) -> None:
         """Get the current action settings from the PIR."""
-        url = URL(self.uri).join(URL("action"))
+        url = URL(self.uri).join(URL(f"{API_PREFIX}/action"))
         response = await request(self, uri=url)
         self._actions = response
 
     async def get_pir(self) -> None:
         """Get the current PIR settings."""
-        url = URL(self.uri).join(URL("settings/pir"))
+        url = URL(self.uri).join(URL(f"{API_PREFIX}/settings/pir"))
         response = await request(self, uri=url)
         self._pir = response
 
     async def get_sensors_state(self) -> None:
         """Get the state of the sensors from the PIR."""
-        url = URL(self.uri).join(URL("sensors"))
+        url = URL(self.uri).join(URL(f"{API_PREFIX}/sensors"))
         response = await request(self, uri=url)
         # The return data has the be re-written as the temperature is not rounded
         self._sensors = {
@@ -72,13 +69,13 @@ class MyStromPir:
 
     async def get_motion(self) -> None:
         """Get the state of the motion sensor from the PIR."""
-        url = URL(self.uri).join(URL("motion"))
+        url = URL(self.uri).join(URL(f"{API_PREFIX}/motion"))
         response = await request(self, uri=url)
         self._motion = response["motion"]
 
     async def get_light(self) -> None:
         """Get the state of the light sensor from the PIR."""
-        url = URL(self.uri).join(URL("light"))
+        url = URL(self.uri).join(URL(f"{API_PREFIX}/light"))
         response = await request(self, uri=url)
         self._intensity = response["intensity"]
         self._day = response["day"]
@@ -147,15 +144,5 @@ class MyStromPir:
             "infrared": self._light_raw["adc1"],
         }
 
-    async def close(self) -> None:
-        """Close an open client session."""
-        if self._session and self._close_session:
-            await self._session.close()
-
     async def __aenter__(self) -> "MyStromPir":
-        """Async enter."""
-        return self
-
-    async def __aexit__(self, *exc_info) -> None:
-        """Async exit."""
-        await self.close()
+        super().__aenter__()
