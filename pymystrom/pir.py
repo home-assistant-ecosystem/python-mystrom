@@ -1,12 +1,13 @@
 """Support for communicating with myStrom PIRs."""
 import aiohttp
 from yarl import URL
-from typing import Any, Dict, Iterable, List, Optional, Union
+from typing import Optional
 
 from .device import _request as request
 from .device import MyStromDevice
 
 API_PREFIX = "api/v1"
+
 
 class MyStromPir(MyStromDevice):
     """A class for a myStrom PIR."""

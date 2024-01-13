@@ -4,7 +4,7 @@ import logging
 
 import aiohttp
 from yarl import URL
-from typing import Any, Dict, Iterable, List, Optional, Union
+from typing import Optional
 
 from .device import _request as request
 from .device import MyStromDevice

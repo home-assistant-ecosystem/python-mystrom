@@ -1,10 +1,10 @@
 """Support for communicating with myStrom plugs/switches."""
 import aiohttp
 from yarl import URL
-from typing import Any, Dict, Iterable, List, Optional, Union
 
 from .device import _request as request
 from .device import MyStromDevice
+
 
 class MyStromSwitch(MyStromDevice):
     """A class for a myStrom switch/plug."""
@@ -113,5 +113,5 @@ class MyStromSwitch(MyStromDevice):
 
         return self._temperature
 
-    async def __aenter__(self) -> "MyStromPir":
+    async def __aenter__(self) -> "MyStromSwitch":
         super().__aenter__()

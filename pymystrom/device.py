@@ -61,6 +61,7 @@ async def _request(
 
     return response.text
 
+
 class MyStromDevice:
     """A class for a myStrom device."""
 
