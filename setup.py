@@ -1,7 +1,6 @@
 """Set up the Python API for myStrom devices."""
 import os
 
-import sys
 
 from setuptools import setup, find_packages
 
@@ -19,13 +18,7 @@ setup(
     author="Fabian Affolter",
     author_email="fabian@affolter-engineering.ch",
     license="MIT",
-    install_requires=[
-        "requests",
-        "click",
-        "aiohttp",
-        "setuptools",
-        "async_timeout"
-    ],
+    install_requires=["requests", "click", "aiohttp", "setuptools", "async_timeout"],
     packages=find_packages(),
     python_requires=">=3.9",
     zip_safe=True,
