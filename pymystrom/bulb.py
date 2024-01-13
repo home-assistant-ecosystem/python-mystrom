@@ -91,9 +91,7 @@ class MyStromBulb(MyStromDevice):
     async def set_on(self):
         """Turn the bulb on with the previous settings."""
         url = URL(self.uri).join(URL(f"{API_PREFIX}/{self.mac}"))
-        response = await request(
-            self, url, method="POST", data={"action": "on"}
-        )
+        response = await request(self, url, method="POST", data={"action": "on"})
         return response
 
     async def set_color_hex(self, value):
@@ -169,9 +167,7 @@ class MyStromBulb(MyStromDevice):
     async def set_off(self):
         """Turn the bulb off."""
         url = URL(self.uri).join(URL(f"{API_PREFIX}/{self.mac}"))
-        response = await request(
-            self, url, method="POST", data={"action": "off"}
-        )
+        response = await request(self, url, method="POST", data={"action": "off"})
         return response
 
     async def __aenter__(self) -> "MyStromBulb":

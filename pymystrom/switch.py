@@ -73,7 +73,7 @@ class MyStromSwitch(MyStromDevice):
         url = URL(self.uri).join(URL("temp"))
         response = await request(self, uri=url)
         return response
-        
+
     @property
     def relay(self) -> bool:
         """Return the relay state."""
