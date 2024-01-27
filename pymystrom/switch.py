@@ -114,4 +114,4 @@ class MyStromSwitch(MyStromDevice):
         return self._temperature
 
     async def __aenter__(self) -> "MyStromSwitch":
-        super().__aenter__()
+        return self

@@ -173,4 +173,4 @@ class MyStromBulb(MyStromDevice):
         return response
 
     async def __aenter__(self) -> "MyStromBulb":
-        super().__aenter__()
+        return self

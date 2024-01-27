@@ -146,4 +146,4 @@ class MyStromPir(MyStromDevice):
         }
 
     async def __aenter__(self) -> "MyStromPir":
-        super().__aenter__()
+        return self
