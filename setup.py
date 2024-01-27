@@ -1,7 +1,6 @@
 """Set up the Python API for myStrom devices."""
 import os
 
-import sys
 
 from setuptools import setup, find_packages
 
