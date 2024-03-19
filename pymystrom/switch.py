@@ -1,7 +1,7 @@
 """Support for communicating with myStrom plugs/switches."""
 import aiohttp
 from yarl import URL
-from typing import Any, Dict, Iterable, List, Optional, Union
+from typing import Optional
 
 from . import _request as request
 
@@ -77,7 +77,7 @@ class MyStromSwitch:
         return bool(self._state)
 
     @property
-    def consumption(self) -> float:
+    def consumption(self) -> Optional[float]:
         """Return the current power consumption in mWh."""
         if self._consumption is not None:
             return round(self._consumption, 1)
@@ -85,7 +85,7 @@ class MyStromSwitch:
         return self._consumption
 
     @property
-    def consumedWs(self) -> float:
+    def consumedWs(self) -> Optional[float]:
         """The average of energy consumed per second since last report call."""
         if self._consumedWs is not None:
             return round(self._consumedWs, 1)
@@ -93,18 +93,18 @@ class MyStromSwitch:
         return self._consumedWs
 
     @property
-    def firmware(self) -> float:
+    def firmware(self) -> Optional[str]:
         """Return the current firmware."""
         return self._firmware
 
     @property
-    def mac(self) -> float:
+    def mac(self) -> Optional[str]:
         """Return the MAC address."""
         return self._mac
 
     @property
-    def temperature(self) -> float:
-        """Return the current temperature in celsius."""
+    def temperature(self) -> Optional[float]:
+        """Return the current temperature in Celsius."""
         if self._temperature is not None:
             return round(self._temperature, 1)
 
