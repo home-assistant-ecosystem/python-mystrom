@@ -2,7 +2,7 @@
 
 ## next release
 
-- None changes
+- Expose `device_type` property on switches
 
 ## 2.2.0 (2023-05-21)
 
