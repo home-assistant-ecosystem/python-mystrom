@@ -2,7 +2,7 @@
 
 ## next release
 
-- None changes
+- Add boot_id, energy_since_boot and time_since_boot to switch (thanks @slyoldfox)
 
 ## 2.2.0 (2023-05-21)
 
