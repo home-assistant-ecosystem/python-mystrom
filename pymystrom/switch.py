@@ -118,12 +118,12 @@ class MyStromSwitch:
             return round(self._consumedWs, 1)
 
         return self._consumedWs
-    
+
     @property
     def boot_id(self) -> Optional[str]:
         """A unique identifier to distinguish whether the energy counter has been reset."""
-        return self._boot_id    
-    
+        return self._boot_id
+
     @property
     def energy_since_boot(self) -> Optional[float]:
         """The total energy in watt seconds (Ws) that has been measured since the last power-up or restart of the device."""
@@ -131,11 +131,11 @@ class MyStromSwitch:
             return round(self._energy_since_boot, 2)
 
         return self._energy_since_boot
-    
+
     @property
     def time_since_boot(self) -> Optional[int]:
         """The time in seconds that has elapsed since the last start or restart of the device."""
-        return self._time_since_boot          
+        return self._time_since_boot
 
     @property
     def firmware(self) -> Optional[str]:

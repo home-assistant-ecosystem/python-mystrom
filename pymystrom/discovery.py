@@ -7,6 +7,7 @@ from .device_types import DEVICE_MAPPING_NUMERIC
 
 _LOGGER = logging.getLogger(__name__)
 
+
 class DiscoveredDevice(object):
     """Representation of discovered device."""
 
