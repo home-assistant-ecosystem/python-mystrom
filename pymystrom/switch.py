@@ -17,6 +17,9 @@ class MyStromSwitch:
         self._session = session
         self._consumption = 0
         self._consumedWs = 0
+        self._boot_id = None
+        self._energy_since_boot = None
+        self._time_since_boot = None
         self._state = None
         self._temperature = None
         self._firmware = None
@@ -56,6 +59,18 @@ class MyStromSwitch:
             self._consumedWs = response["Ws"]
         except KeyError:
             self._consumedWs = None
+        try:
+            self._boot_id = response["boot_id"]
+        except KeyError:
+            self._boot_id = None
+        try:
+            self._energy_since_boot = response["energy_since_boot"]
+        except KeyError:
+            self._energy_since_boot = None
+        try:
+            self._time_since_boot = response["time_since_boot"]
+        except KeyError:
+            self._time_since_boot = None
         self._state = response["relay"]
         try:
             self._temperature = response["temperature"]
@@ -103,6 +118,24 @@ class MyStromSwitch:
             return round(self._consumedWs, 1)
 
         return self._consumedWs
+    
+    @property
+    def boot_id(self) -> Optional[str]:
+        """A unique identifier to distinguish whether the energy counter has been reset."""
+        return self._boot_id    
+    
+    @property
+    def energy_since_boot(self) -> Optional[float]:
+        """The total energy in watt seconds (Ws) that has been measured since the last power-up or restart of the device."""
+        if self._energy_since_boot is not None:
+            return round(self._energy_since_boot, 2)
+
+        return self._energy_since_boot
+    
+    @property
+    def time_since_boot(self) -> Optional[int]:
+        """The time in seconds that has elapsed since the last start or restart of the device."""
+        return self._time_since_boot          
 
     @property
     def firmware(self) -> Optional[str]:
