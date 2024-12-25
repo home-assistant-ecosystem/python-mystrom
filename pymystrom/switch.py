@@ -1,9 +1,10 @@
 """Support for communicating with myStrom plugs/switches."""
 import aiohttp
 from yarl import URL
-from typing import Optional
+from typing import Optional, Union
 
 from . import _request as request
+from .device_types import DEVICE_MAPPING_NUMERIC, DEVICE_MAPPING_LITERAL
 
 
 class MyStromSwitch:
@@ -20,6 +21,7 @@ class MyStromSwitch:
         self._temperature = None
         self._firmware = None
         self._mac = None
+        self._device_type: Optional[Union[str, int]] = None
         self.uri = URL.build(scheme="http", host=self._host)
 
     async def turn_on(self) -> None:
@@ -70,6 +72,16 @@ class MyStromSwitch:
 
         self._firmware = response["version"]
         self._mac = response["mac"]
+        self._device_type = response["type"]
+
+    @property
+    def device_type(self) -> Optional[str]:
+        """Return the device type as string (e.g. "Switch CH v1" or "Button+")."""
+        if isinstance(self._device_type, int):
+            return DEVICE_MAPPING_NUMERIC.get(self._device_type)
+        elif isinstance(self._device_type, str):
+            return DEVICE_MAPPING_LITERAL.get(self._device_type)
+        return None
 
     @property
     def relay(self) -> bool:

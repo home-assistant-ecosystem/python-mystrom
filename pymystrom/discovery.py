@@ -3,20 +3,9 @@ import asyncio
 import logging
 from typing import Optional, List
 
+from .device_types import DEVICE_MAPPING_NUMERIC
+
 _LOGGER = logging.getLogger(__name__)
-
-DEVICE_MAPPING = {
-    "101": "myStrom Switch v1",
-    "102": "myStrom Bulb",
-    "103": "myStrom Button+",
-    "104": "myStrom Button",
-    "105": "myStrom LED strip",
-    "106": "myStzrom Switch v2",
-    "107": "myStrom Switch EU",
-    "110": "myStrom Motion sensor",
-    "120": "myStrom Switch Zero",
-}
-
 
 class DiscoveredDevice(object):
     """Representation of discovered device."""
@@ -39,7 +28,7 @@ class DiscoveredDevice(object):
         device.type = announce_msg[6]
 
         if device.type == "102":
-            device.hardware = DEVICE_MAPPING[str(announce_msg[6])]
+            device.hardware = DEVICE_MAPPING_NUMERIC[int(announce_msg[6])]
         else:
             device.hardware = "non_mystrom"
         status = announce_msg[7]
