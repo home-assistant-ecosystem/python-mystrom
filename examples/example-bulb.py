@@ -5,9 +5,8 @@ import logging
 from pymystrom.bulb import MyStromBulb
 from pymystrom.discovery import discover_devices
 
-IP_ADDRESS = "192.168.0.51"
-MAC_ADDRESS = "5CCF7FA0AFB0"
-
+IP_ADDRESS = "192.168.1.25"
+MAC_ADDRESS = "5CCF7FA0C27C"
 
 async def main():
     """Sample code to work with a myStrom bulb."""
