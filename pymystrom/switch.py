@@ -1,10 +1,11 @@
 """Support for communicating with myStrom plugs/switches."""
-import aiohttp
-from yarl import URL
 from typing import Optional, Union
 
+import aiohttp
+from yarl import URL
+
 from . import _request as request
-from .device_types import DEVICE_MAPPING_NUMERIC, DEVICE_MAPPING_LITERAL
+from .device_types import DEVICE_MAPPING_LITERAL, DEVICE_MAPPING_NUMERIC
 
 
 class MyStromSwitch:
