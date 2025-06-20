@@ -1,4 +1,5 @@
 """Support for discovering myStrom devices."""
+
 import asyncio
 import logging
 from typing import List, Optional

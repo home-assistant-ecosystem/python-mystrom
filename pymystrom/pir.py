@@ -1,4 +1,5 @@
 """Support for communicating with myStrom PIRs."""
+
 from typing import Any, Dict, Iterable, List, Optional, Union
 
 import aiohttp

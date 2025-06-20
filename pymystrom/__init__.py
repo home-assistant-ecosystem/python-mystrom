@@ -1,4 +1,5 @@
 """Base details for the myStrom Python bindings."""
+
 import asyncio
 import socket
 from typing import Any, Mapping, Optional

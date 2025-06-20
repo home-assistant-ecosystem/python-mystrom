@@ -1,4 +1,5 @@
 """Support for communicating with myStrom plugs/switches."""
+
 from typing import Optional, Union
 
 import aiohttp

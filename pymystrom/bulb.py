@@ -1,4 +1,5 @@
 """Support for communicating with myStrom bulbs."""
+
 import asyncio
 import logging
 from typing import Optional
