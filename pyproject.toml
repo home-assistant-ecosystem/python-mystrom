@@ -13,7 +13,7 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.9"
+python = ">=3.11"
 aiohttp = "*"
 click = "*"
 requests = "*"
@@ -24,4 +24,3 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 pymystrom = "pymystrom.cli:main"
-
