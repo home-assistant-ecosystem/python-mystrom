@@ -1,10 +1,11 @@
 """Support for communicating with myStrom bulbs."""
+
 import asyncio
 import logging
+from typing import Optional
 
 import aiohttp
 from yarl import URL
-from typing import Optional
 
 from . import _request as request
 

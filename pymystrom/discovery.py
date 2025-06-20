@@ -1,7 +1,8 @@
 """Support for discovering myStrom devices."""
+
 import asyncio
 import logging
-from typing import Optional, List
+from typing import List, Optional
 
 from .device_types import DEVICE_MAPPING_NUMERIC
 

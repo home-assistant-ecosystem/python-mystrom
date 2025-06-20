@@ -1,4 +1,5 @@
 """Example code for getting the data from a myStrom bulb."""
+
 from pymystrom import bulb
 
 bulb = bulb.MyStromBulb("192.168.0.51", "5CCF7FA0AFB0")

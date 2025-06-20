@@ -1,4 +1,5 @@
 """Example code for communicating with a myStrom PIR unit."""
+
 import asyncio
 
 from pymystrom.pir import MyStromPir

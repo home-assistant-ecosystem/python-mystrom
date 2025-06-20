@@ -1,4 +1,5 @@
 """Command-line tool for working with myStrom devices."""
+
 import click
 import requests
 import asyncio

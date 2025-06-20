@@ -1,7 +1,9 @@
 """Support for communicating with myStrom PIRs."""
+
+from typing import Any, Dict, Iterable, List, Optional, Union
+
 import aiohttp
 from yarl import URL
-from typing import Any, Dict, Iterable, List, Optional, Union
 
 from . import _request as request
 

@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "python-mystrom"
+version = "2.4.0"
+description = "Asynchronous Python API client for interacting with myStrom devices"
+authors = ["Fabian Affolter <fabian@affolter-engineering.ch>"]
+license = "MIT"
+readme = "README.rst"
+homepage = "https://github.com/home-assistant-ecosystem/python-mystrom"
+repository = "https://github.com/home-assistant-ecosystem/python-mystrom"
+keywords = ["myStrom", "API", "client", "asynchronous"]
+packages = [
+    { include = "pymystrom" }
+]
+
+[tool.poetry.dependencies]
+python = ">=3.11"
+aiohttp = "*"
+click = "*"
+requests = "*"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+pymystrom = "pymystrom.cli:main"
