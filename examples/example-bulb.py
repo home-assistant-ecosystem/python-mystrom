@@ -1,4 +1,5 @@
 """Example code for communicating with a myStrom bulb."""
+
 import asyncio
 import logging
 
@@ -7,6 +8,7 @@ from pymystrom.discovery import discover_devices
 
 IP_ADDRESS = "192.168.1.25"
 MAC_ADDRESS = "5CCF7FA0C27C"
+
 
 async def main():
     """Sample code to work with a myStrom bulb."""

@@ -1,4 +1,5 @@
 """Example code for communicating with a myStrom plug/switch."""
+
 import asyncio
 
 from pymystrom.switch import MyStromSwitch

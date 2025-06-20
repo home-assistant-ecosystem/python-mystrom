@@ -1,4 +1,5 @@
 """Example code for communicating with a myStrom bulb and HSV values."""
+
 import time
 
 from pymystrom import bulb
