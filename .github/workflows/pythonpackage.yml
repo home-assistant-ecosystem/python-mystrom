@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ "3.10", "3.11", "3.12" ]
+        python-version: [ "3.11", "3.12", "3.13" ]
 
     steps:
     - uses: actions/checkout@v4
@@ -35,4 +35,4 @@ jobs:
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Black Code Formatter
-      uses: jpetrucciani/black-check@23.3.0
+      uses: jpetrucciani/black-check@25.1.0
