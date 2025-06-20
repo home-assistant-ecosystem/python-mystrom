@@ -1,18 +1,15 @@
 """Base details for the myStrom Python bindings."""
 import asyncio
-import aiohttp
-import async_timeout
-from yarl import URL
-from typing import Any, Mapping, Optional
 import socket
+from typing import Any, Mapping, Optional
+
+import aiohttp
+from yarl import URL
+
 from .exceptions import MyStromConnectionError
 
-import pkg_resources
-
-__version__ = pkg_resources.get_distribution("setuptools").version
-
 TIMEOUT = 10
-USER_AGENT = f"PythonMyStrom/{__version__}"
+USER_AGENT = "PythonMyStrom/1.0"
 
 
 async def _request(
@@ -34,15 +31,17 @@ async def _request(
         self._close_session = True
 
     try:
-        with async_timeout.timeout(TIMEOUT):
-            response = await self._session.request(
+        response = await asyncio.wait_for(
+            self._session.request(
                 method,
                 uri,
                 data=data,
                 json=json_data,
                 params=params,
                 headers=headers,
-            )
+            ),
+            timeout=TIMEOUT,
+        )
     except asyncio.TimeoutError as exception:
         raise MyStromConnectionError(
             "Timeout occurred while connecting to myStrom device."
