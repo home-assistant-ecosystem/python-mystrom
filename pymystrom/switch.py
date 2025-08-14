@@ -87,9 +87,10 @@ class MyStromSwitch:
             url = URL(self.uri).join(URL("info.json"))
             response = await request(self, uri=url)
 
-        self._firmware = response["version"]
-        self._mac = response["mac"]
-        self._device_type = response["type"]
+        # Tolerate missing keys on legacy firmware (e.g., v1 devices)
+        self._firmware = response.get("version")
+        self._mac = response.get("mac")
+        self._device_type = response.get("type")
 
     @property
     def device_type(self) -> Optional[str]:

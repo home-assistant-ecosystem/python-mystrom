@@ -4,6 +4,8 @@
 
 - Add boot_id, energy_since_boot and time_since_boot to switch (thanks @slyoldfox)
 - Expose `device_type` property on switches
+- Fix: Tolerate missing 'type' in device info for legacy myStrom v1 switches, preventing KeyError during get_state (related to home-assistant/core#150264)
+
 
 ## 2.2.0 (2023-05-21)
 
