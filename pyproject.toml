@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "python-mystrom"
-version = "2.4.0"
+version = "2.5.0"
 description = "Asynchronous Python API client for interacting with myStrom devices"
 authors = ["Fabian Affolter <fabian@affolter-engineering.ch>"]
 license = "MIT"
