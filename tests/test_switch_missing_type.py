@@ -4,7 +4,9 @@ from pymystrom.switch import MyStromSwitch
 import pymystrom.switch as switch_module
 
 
-async def _fake_request(self, uri, method="GET", data=None, json_data=None, params=None):
+async def _fake_request(
+    self, uri, method="GET", data=None, json_data=None, params=None
+):
     uri_str = str(uri)
     if uri_str.endswith("/report"):
         return {"relay": True, "power": 1.23, "Ws": 0.5}
@@ -34,4 +36,3 @@ def test_get_state_missing_type():
     finally:
         # Restore original request function
         switch_module.request = original_request
-
