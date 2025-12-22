@@ -20,12 +20,15 @@ async def _request(
     data: Optional[Any] = None,
     json_data: Optional[dict] = None,
     params: Optional[Mapping[str, str]] = None,
+    token: Optional[str] = None,
 ) -> Any:
     """Handle a request to the myStrom device."""
     headers = {
         "User-Agent": USER_AGENT,
         "Accept": "application/json, text/plain, */*",
     }
+    if token:
+        headers["Token"] = token
 
     if self._session is None:
         self._session = aiohttp.ClientSession()
@@ -53,7 +56,10 @@ async def _request(
         ) from exception
 
     content_type = response.headers.get("Content-Type", "")
-    if (response.status // 100) in [4, 5]:
+    if response.status == 404:
+         raise MyStromConnectionError("Error occurred while authenticating with myStrom device.")
+    
+    elif (response.status // 100) in [4, 5]:
         response.close()
 
     if "application/json" in content_type:
