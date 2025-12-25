@@ -1,8 +1,8 @@
 # Changelog
 
-## next release
+## 2.6.0 (2025-xx-xx)
 
-- ...
+- Add optional token functionality (thanks @geostag)
 
 ## 2.5.0 (2025-08-19)
 
