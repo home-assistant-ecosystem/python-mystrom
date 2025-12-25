@@ -111,7 +111,9 @@ class MyStromBulb:
             "action": "on",
             "color": value,
         }
-        response = await request(self, uri=self.uri, method="POST", data=data, token=self.token)
+        response = await request(
+            self, uri=self.uri, method="POST", data=data, token=self.token
+        )
         return response
 
     async def set_color_hsv(self, hue, saturation, value):
@@ -124,7 +126,9 @@ class MyStromBulb:
         #     'color': f"{hue};{saturation};{value}",
         # }
         data = "action=on&color={};{};{}".format(hue, saturation, value)
-        response = await request(self, uri=self.uri, method="POST", data=data, token=self.token)
+        response = await request(
+            self, uri=self.uri, method="POST", data=data, token=self.token
+        )
         return response
 
     async def set_white(self):
@@ -146,7 +150,9 @@ class MyStromBulb:
         await self.set_transition_time((duration / max_brightness))
         for i in range(0, duration):
             data = "action=on&color=3;{}".format(i)
-            await request(self, uri=self.uri, method="POST", data=data, token=self.token)
+            await request(
+                self, uri=self.uri, method="POST", data=data, token=self.token
+            )
             await asyncio.sleep(duration / max_brightness)
 
     async def set_flashing(self, duration, hsv1, hsv2):
@@ -161,7 +167,11 @@ class MyStromBulb:
     async def set_transition_time(self, value):
         """Set the transition time in ms."""
         response = await request(
-            self, uri=self.uri, method="POST", data={"ramp": int(round(value))}, token=self.token
+            self,
+            uri=self.uri,
+            method="POST",
+            data={"ramp": int(round(value))},
+            token=self.token,
         )
         return response
 

@@ -57,8 +57,10 @@ async def _request(
 
     content_type = response.headers.get("Content-Type", "")
     if response.status == 404:
-         raise MyStromConnectionError("Error occurred while authenticating with myStrom device.")
-    
+        raise MyStromConnectionError(
+            "Error occurred while authenticating with myStrom device."
+        )
+
     elif (response.status // 100) in [4, 5]:
         response.close()
 

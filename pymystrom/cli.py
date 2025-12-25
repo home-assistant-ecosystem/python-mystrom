@@ -47,16 +47,15 @@ def config():
     prompt="MAC address of the device",
     help="MAC address of the device.",
 )
-@click.option(
-    "--token", prompt="Token of the device", help="Token of the device."
-)
-
+@click.option("--token", prompt="Token of the device", help="Token of the device.")
 def read_config(ip, mac, token):
     """Read the current configuration of a myStrom device."""
     click.echo("Read configuration from %s" % ip)
     try:
         headers = {"Token": token} if token else {}
-        request = requests.get("http://{}/{}/{}/".format(ip, URI, mac), timeout=TIMEOUT, headers=headers)
+        request = requests.get(
+            "http://{}/{}/{}/".format(ip, URI, mac), timeout=TIMEOUT, headers=headers
+        )
         click.echo(request.json())
     except requests.exceptions.ConnectionError:
         click.echo("Communication issue with the device")
@@ -76,9 +75,7 @@ def button():
     prompt="MAC address of the button",
     help="MAC address of the button.",
 )
-@click.option(
-    "--token", prompt="Token of the device", help="Token of the device."
-)
+@click.option("--token", prompt="Token of the device", help="Token of the device.")
 @click.option(
     "--single",
     prompt="URL for a single tap",
@@ -107,7 +104,10 @@ def write_config(ip, mac, token, single, double, long, touch):
     try:
         headers = {"Token": token} if token else {}
         request = requests.post(
-            "http://{}/{}/{}/".format(ip, URI, mac), data=data, timeout=TIMEOUT, headers=headers
+            "http://{}/{}/{}/".format(ip, URI, mac),
+            data=data,
+            timeout=TIMEOUT,
+            headers=headers,
         )
 
         if request.status_code == 200:
@@ -125,9 +125,7 @@ def write_config(ip, mac, token, single, double, long, touch):
     prompt="MAC address of the button",
     help="MAC address of the button.",
 )
-@click.option(
-    "--token", prompt="Token of the device", help="Token of the device."
-)
+@click.option("--token", prompt="Token of the device", help="Token of the device.")
 @click.option(
     "--hass",
     prompt="IP address of the Home Assistant instance",
@@ -159,7 +157,10 @@ def write_ha_config(ip, mac, token, hass, port, id):
     try:
         headers = {"Token": token} if token else {}
         request = requests.post(
-            "http://{}/{}/{}/".format(ip, URI, mac), data=data, timeout=TIMEOUT, headers=headers
+            "http://{}/{}/{}/".format(ip, URI, mac),
+            data=data,
+            timeout=TIMEOUT,
+            headers=headers,
         )
 
         if request.status_code == 200:
@@ -183,9 +184,7 @@ def write_ha_config(ip, mac, token, hass, port, id):
     prompt="MAC address of the button",
     help="MAC address of the Wifi Button.",
 )
-@click.option(
-    "--token", prompt="Token of the device", help="Token of the device."
-)
+@click.option("--token", prompt="Token of the device", help="Token of the device.")
 def reset_config(ip, mac, token):
     """Reset the current configuration of a myStrom WiFi Button."""
     click.echo("Reset configuration of button %s..." % ip)
@@ -198,7 +197,10 @@ def reset_config(ip, mac, token):
     try:
         headers = {"Token": token} if token else {}
         request = requests.post(
-            "http://{}/{}/{}/".format(ip, URI, mac), data=data, timeout=TIMEOUT, headers=headers
+            "http://{}/{}/{}/".format(ip, URI, mac),
+            data=data,
+            timeout=TIMEOUT,
+            headers=headers,
         )
 
         if request.status_code == 200:
@@ -218,15 +220,15 @@ def reset_config(ip, mac, token):
     prompt="MAC address of the button",
     help="MAC address of the Wifi Button.",
 )
-@click.option(
-    "--token", prompt="Token of the device", help="Token of the device."
-)
+@click.option("--token", prompt="Token of the device", help="Token of the device.")
 def read_config(ip, mac, token):
     """Read the current configuration of a myStrom WiFi Button."""
     click.echo("Read the configuration of button %s..." % ip)
     try:
         headers = {"Token": token} if token else {}
-        request = requests.get("http://{}/{}/{}/".format(ip, URI, mac), timeout=TIMEOUT, headers=headers)
+        request = requests.get(
+            "http://{}/{}/{}/".format(ip, URI, mac), timeout=TIMEOUT, headers=headers
+        )
         click.echo(request.json())
     except requests.exceptions.ConnectionError:
         click.echo("Communication issue with the device. No action performed")
@@ -243,9 +245,7 @@ def bulb():
 @click.option(
     "--mac", prompt="MAC address of the bulb", help="MAC address of the bulb."
 )
-@click.option(
-    "--token", prompt="Token of the device", help="Token of the device."
-)
+@click.option("--token", prompt="Token of the device", help="Token of the device.")
 async def on(ip, mac, token):
     """Switch the bulb on."""
     async with MyStromBulb(ip=ip, mac=mac, token=token) as bulb:
@@ -258,9 +258,7 @@ async def on(ip, mac, token):
 @click.option(
     "--mac", prompt="MAC address of the bulb", help="MAC address of the bulb."
 )
-@click.option(
-    "--token", prompt="Token of the device", help="Token of the device."
-)
+@click.option("--token", prompt="Token of the device", help="Token of the device.")
 @click.option(
     "--hue", prompt="Set the hue of the bulb", help="Set the hue of the bulb."
 )
@@ -286,9 +284,7 @@ async def color(ip, mac, token, hue, saturation, value):
 @click.option(
     "--mac", prompt="MAC address of the bulb", help="MAC address of the bulb."
 )
-@click.option(
-    "--token", prompt="Token of the device", help="Token of the device."
-)
+@click.option("--token", prompt="Token of the device", help="Token of the device.")
 async def off(ip, mac, token):
     """Switch the bulb off."""
     async with MyStromBulb(ip=ip, mac=mac, token=token) as bulb:
@@ -301,9 +297,7 @@ async def off(ip, mac, token):
 @click.option(
     "--mac", prompt="MAC address of the bulb", help="MAC address of the bulb."
 )
-@click.option(
-    "--token", prompt="Token of the device", help="Token of the device."
-)
+@click.option("--token", prompt="Token of the device", help="Token of the device.")
 @click.option(
     "--time",
     prompt="Time to flash",
@@ -322,9 +316,7 @@ async def flash(ip, mac, token, time):
 @click.option(
     "--mac", prompt="MAC address of the bulb", help="MAC address of the bulb."
 )
-@click.option(
-    "--token", prompt="Token of the device", help="Token of the device."
-)
+@click.option("--token", prompt="Token of the device", help="Token of the device.")
 @click.option(
     "--time",
     prompt="Time for the complete rainbow",

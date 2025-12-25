@@ -12,7 +12,12 @@ from .device_types import DEVICE_MAPPING_LITERAL, DEVICE_MAPPING_NUMERIC
 class MyStromSwitch:
     """A class for a myStrom switch/plug."""
 
-    def __init__(self, host: str, session: aiohttp.client.ClientSession = None, token: Optional[str] = None) -> None:
+    def __init__(
+        self,
+        host: str,
+        session: aiohttp.client.ClientSession = None,
+        token: Optional[str] = None,
+    ) -> None:
         """Initialize the switch."""
         self._close_session = False
         self._host = host
