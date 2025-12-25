@@ -12,10 +12,16 @@ from .device_types import DEVICE_MAPPING_LITERAL, DEVICE_MAPPING_NUMERIC
 class MyStromSwitch:
     """A class for a myStrom switch/plug."""
 
-    def __init__(self, host: str, session: aiohttp.client.ClientSession = None) -> None:
+    def __init__(
+        self,
+        host: str,
+        session: aiohttp.client.ClientSession = None,
+        token: Optional[str] = None,
+    ) -> None:
         """Initialize the switch."""
         self._close_session = False
         self._host = host
+        self._token = token
         self._session = session
         self._consumption = 0
         self._consumedWs = 0
@@ -33,26 +39,26 @@ class MyStromSwitch:
         """Turn the relay on."""
         parameters = {"state": "1"}
         url = URL(self.uri).join(URL("relay"))
-        await request(self, uri=url, params=parameters)
+        await request(self, uri=url, params=parameters, token=self._token)
         await self.get_state()
 
     async def turn_off(self) -> None:
         """Turn the relay off."""
         parameters = {"state": "0"}
         url = URL(self.uri).join(URL("relay"))
-        await request(self, uri=url, params=parameters)
+        await request(self, uri=url, params=parameters, token=self._token)
         await self.get_state()
 
     async def toggle(self) -> None:
         """Toggle the relay."""
         url = URL(self.uri).join(URL("toggle"))
-        await request(self, uri=url)
+        await request(self, uri=url, token=self._token)
         await self.get_state()
 
     async def get_state(self) -> None:
         """Get the details from the switch/plug."""
         url = URL(self.uri).join(URL("report"))
-        response = await request(self, uri=url)
+        response = await request(self, uri=url, token=self._token)
         try:
             self._consumption = response["power"]
         except KeyError:
@@ -81,11 +87,11 @@ class MyStromSwitch:
 
         # Try the new API (Devices with newer firmware)
         url = URL(self.uri).join(URL("api/v1/info"))
-        response = await request(self, uri=url)
+        response = await request(self, uri=url, token=self._token)
         if not isinstance(response, dict):
             # Fall back to the old API version if the device runs with old firmware
             url = URL(self.uri).join(URL("info.json"))
-            response = await request(self, uri=url)
+            response = await request(self, uri=url, token=self._token)
 
         # Tolerate missing keys on legacy firmware (e.g., v1 devices)
         self._firmware = response.get("version")
@@ -161,7 +167,7 @@ class MyStromSwitch:
     async def get_temperature_full(self) -> str:
         """Get current temperature in celsius."""
         url = URL(self.uri).join(URL("temp"))
-        response = await request(self, uri=url)
+        response = await request(self, uri=url, token=self._token)
         return response
 
     async def close(self) -> None:

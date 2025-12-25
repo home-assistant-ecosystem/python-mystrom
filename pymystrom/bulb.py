@@ -21,6 +21,7 @@ class MyStromBulb:
         self,
         host: str,
         mac: str,
+        token: Optional[str] = None,
         session: aiohttp.client.ClientSession = None,
     ) -> None:
         """Initialize the bulb."""
@@ -38,10 +39,11 @@ class MyStromBulb:
         self._state = None
         self._transition_time = 0
         self.uri = URL.build(scheme="http", host=self._host).join(URI_BULB) / self._mac
+        self.token = token
 
     async def get_state(self) -> None:
         """Get the state of the bulb."""
-        response = await request(self, uri=self.uri)
+        response = await request(self, uri=self.uri, token=self.token)
         self._consumption = response[self._mac]["power"]
         self._firmware = response[self._mac]["fw_version"]
         self._color = response[self._mac]["color"]
@@ -93,7 +95,7 @@ class MyStromBulb:
     async def set_on(self):
         """Turn the bulb on with the previous settings."""
         response = await request(
-            self, uri=self.uri, method="POST", data={"action": "on"}
+            self, uri=self.uri, method="POST", data={"action": "on"}, token=self.token
         )
         return response
 
@@ -109,7 +111,9 @@ class MyStromBulb:
             "action": "on",
             "color": value,
         }
-        response = await request(self, uri=self.uri, method="POST", data=data)
+        response = await request(
+            self, uri=self.uri, method="POST", data=data, token=self.token
+        )
         return response
 
     async def set_color_hsv(self, hue, saturation, value):
@@ -122,7 +126,9 @@ class MyStromBulb:
         #     'color': f"{hue};{saturation};{value}",
         # }
         data = "action=on&color={};{};{}".format(hue, saturation, value)
-        response = await request(self, uri=self.uri, method="POST", data=data)
+        response = await request(
+            self, uri=self.uri, method="POST", data=data, token=self.token
+        )
         return response
 
     async def set_white(self):
@@ -144,7 +150,9 @@ class MyStromBulb:
         await self.set_transition_time((duration / max_brightness))
         for i in range(0, duration):
             data = "action=on&color=3;{}".format(i)
-            await request(self, uri=self.uri, method="POST", data=data)
+            await request(
+                self, uri=self.uri, method="POST", data=data, token=self.token
+            )
             await asyncio.sleep(duration / max_brightness)
 
     async def set_flashing(self, duration, hsv1, hsv2):
@@ -159,14 +167,18 @@ class MyStromBulb:
     async def set_transition_time(self, value):
         """Set the transition time in ms."""
         response = await request(
-            self, uri=self.uri, method="POST", data={"ramp": int(round(value))}
+            self,
+            uri=self.uri,
+            method="POST",
+            data={"ramp": int(round(value))},
+            token=self.token,
         )
         return response
 
     async def set_off(self):
         """Turn the bulb off."""
         response = await request(
-            self, uri=self.uri, method="POST", data={"action": "off"}
+            self, uri=self.uri, method="POST", data={"action": "off"}, token=self.token
         )
         return response
 
