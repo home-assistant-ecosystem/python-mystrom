@@ -37,7 +37,7 @@ On a Fedora-based system or on a CentOS/RHEL machine which has EPEL enabled.
 
     $ sudo dnf -y install python3-mystrom
 
-For Nix or NixOS users is a package available. Keep in mind that the lastest releases might only
+For Nix or NixOS users is a package available. Keep in mind that the latest releases might only
 be present in the ``unstable`` channel.
 
 .. code:: bash
