@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.7.0 (2026-04-07)
+
+- Migrate to ruff
+- Update workflow
+- Convert tests to pytest
+- Update dependencies
+
 ## 2.6.0 (2025-12-25)
 
 - Add optional token functionality (thanks @geostag)
