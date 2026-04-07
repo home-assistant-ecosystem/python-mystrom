@@ -221,7 +221,7 @@ def reset_config(ip, mac, token):
     help="MAC address of the Wifi Button.",
 )
 @click.option("--token", prompt="Token of the device", help="Token of the device.")
-def read_config(ip, mac, token):
+def read_config_button(ip, mac, token):
     """Read the current configuration of a myStrom WiFi Button."""
     click.echo("Read the configuration of button %s..." % ip)
     try:
